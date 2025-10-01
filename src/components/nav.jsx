@@ -4,7 +4,7 @@ import { GoSearch } from "react-icons/go";
 import { FiLogIn, FiLogOut } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa";
 import './nav.css'
-import logo from "../assets/restaurant1.png";
+import logo from "../assets/restaurant.jpeg";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
