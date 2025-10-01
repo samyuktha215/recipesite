@@ -1,0 +1,36 @@
+name: Deploy Recipe Site
+
+on:
+  push:
+    branches:
+      - main #  deploy when code is pushed to main branch
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repo
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18 # use Node 18 (LTS)
+
+      # Install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # Build project
+      - name: Build Project
+        run: npm run build
+
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
