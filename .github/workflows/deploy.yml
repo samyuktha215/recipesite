@@ -1,7 +1,7 @@
 name: Deploy Recipe Site
 
 on:
-  workflow_dispatch: # allow manual trigger
+  workflow_dispatch:
   push:
     branches:
       - main # deploy when code is pushed to main
