@@ -1,6 +1,10 @@
-import React from 'react'
-import './home.css'
-import {Link} from 'react-router-dom'
+import React from 'react';
+import './home.css';
+import { drinks } from "../assets/drinks/drinks";
+import { RecipeCard } from './recipes/RecipeCard';
+import {Link} from 'react-router-dom';
+
+
 
 const Home = () => {
   return (
@@ -12,6 +16,11 @@ const Home = () => {
                     <p>Explore new flavours every day</p>
                     <Link to="/recipes" className='link'>See more recipes</Link>
                 </div>
+            </div>
+            <div className="grid-container">
+              {drinks.map((drink) => (
+                <RecipeCard key={drink.id} drink={drink}/>
+              ))}
             </div>
             </div>
 
