@@ -1,6 +1,7 @@
 import React from "react";
 import "./RecipeCard.css";
 
+/* Detta är vad som ska stå på en recipeCard */
 export function RecipeCard( { drink }) {
     return (
         <div className="recipe-card">
