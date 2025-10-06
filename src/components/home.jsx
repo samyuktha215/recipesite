@@ -1,7 +1,10 @@
+ 
+
 import React, { useEffect, useState } from 'react';
 import './home.css';
 import { RecipeCard } from './recipes/RecipeCard';
 import {Link} from 'react-router-dom';
+
 
 
 
@@ -28,6 +31,7 @@ const Home = () => {
                     <Link to="/recipes" className='link'>See more recipes</Link>
                 </div>
             </div>
+
           <div className="grid-container">
             {drinks.map((recipe) => {
               const adaptedDrink = {
@@ -46,7 +50,8 @@ const Home = () => {
 
             </div>
 
-  )
+
+  );
 }
 
 export default Home
