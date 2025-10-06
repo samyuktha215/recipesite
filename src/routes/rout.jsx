@@ -13,7 +13,6 @@ const Rout = () => {
     <Routes>
         <Route path='/' element={<Home/>}/> 
 
-        
         <Route path="/category/:categoryName" element={<CategoryCard />}/>
 
         <Route path='/contact' element={<Contact/>}/>     
