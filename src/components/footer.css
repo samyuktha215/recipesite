@@ -1,98 +1,109 @@
+/* Reset and basics */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: sans-serif;
+	font-family: 'Poppins', sans-serif;
 }
+
+/* Footer container */
 .footer {
+	background-color: hsl(0, 0%, 8%);
+	color: #f5f5f5;
+	padding: 60px 0 30px;
 	width: 100%;
-	padding: 30px 40px;
-	background: #f6f6f6;
 }
+
 .footer .container {
-	display: flex;
-	max-width: 100%;
+	width: 90%;
+	max-width: 1200px;
+	margin: 0 auto;
 }
-.footer .container .left_box {
-	width: 30%;
-	padding: 20px 20px;
-	border-right: 2px solid #b8b7b7;
-}
-.footer .container .left_box .box {
-	display: flex;
-	padding: 10px 20px;
-	margin-top: 15px;
-}
-.footer .container .left_box .box .icon_box {
-	font-size: 26px;
-	color: #cd1e76;
-}
-.footer .container .left_box .box .detail {
-	margin-left: 10px;
-}
-.footer .container .left_box .box .detail h3 {
-	text-transform: uppercase;
-	font-size: 16px;
-	color: #cd1e76;
-	font-weight: 600;
-	letter-spacing: 1px;
-}
-.footer .container .left_box .box .detail p {
-	font-size: 14px;
-	color: #232323;
-}
-.footer .container .right_box {
-	width: 60%;
-	padding: 10px 20px;
-}
-.footer .container .right_box .header {
-	max-width: 100%;
-	align-items: center;
-}
-.footer .container .right_box .header img {
-	margin-left: 40%;
-	cursor: pointer;
-	object-fit: cover;
-	height: 80px;
-	width: 80px;
-}
-.footer .container .right_box .header p {
-	font-size: 14px;
-	color: #8a8a8a;
-	font-weight: 600;
-	text-align: center;
-	margin-top: 15px;
-}
-.footer .container .right_box .bottom {
+
+/* Footer content layout */
+.footer .bottom {
 	display: flex;
 	justify-content: space-between;
-	margin-top: 30px;
-	padding: 20px 20px;
-	width: 100%;
+	flex-wrap: wrap;
+	gap: 2rem;
 }
-.footer .container .right_box .bottom .box {
-	padding: 10px 20px;
+
+.footer .box {
+	flex: 1;
+	min-width: 250px;
 }
-.footer .container .right_box .bottom .box h3 {
-	font-size: 14px;
-	color: #232323;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-}
-.footer .container .right_box .bottom .box ul {
-	margin-top: 10px;
-}
-.footer .container .right_box .bottom .box ul li {
-	list-style: none;
-	margin-top: 5px;
-	color: #8a8a8a;
-	transition: capitalize;
-	letter-spacing: 1px;
-	font-size: 12px;
+
+.footer .box h3 {
+	font-size: 1.2rem;
 	font-weight: 600;
-	cursor: pointer;
-	transition: 0.5s;
+	margin-bottom: 1rem;
+	color: #fed700; /* accent color */
+	text-transform: uppercase;
+	letter-spacing: 1px;
 }
-.footer .container .right_box .bottom .box ul li:hover {
-	color: #cd1e76;
+
+.footer .box ul {
+	list-style: none;
+}
+
+.footer .box ul li {
+	margin-bottom: 0.6rem;
+	font-size: 0.95rem;
+	color: #ccc;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+
+.footer .box ul li:hover {
+	color: #fed700;
+}
+
+/* Optional: Add hover color for links if you wrap them in <a> */
+.footer .box ul li a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* Center alignment for small screens */
+@media (max-width: 768px) {
+	.footer .bottom {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.footer .box {
+		min-width: unset;
+	}
+}
+
+/* Footer bottom text (optional if you add later) */
+.footer .copy {
+	text-align: center;
+	margin-top: 2rem;
+	font-size: 0.85rem;
+	color: #999;
+	border-top: 1px solid #444;
+	padding-top: 1rem;
+}
+
+/* --- Social Media Icons --- */
+.social-icons {
+	display: flex;
+	gap: 1rem;
+	list-style: none;
+	margin-top: 0.5rem;
+}
+
+.social-icons li a {
+	color: #ccc;
+	font-size: 1.3rem;
+	transition:
+		color 0.3s ease,
+		transform 0.2s ease;
+}
+
+.social-icons li a:hover {
+	color: #fed700;
+	transform: scale(1.2);
 }
