@@ -1,5 +1,6 @@
 import React from 'react'
 import './home.css'
+import Categories from './Categories.jsx'
 import {Link} from 'react-router-dom'
 
 const Home = () => {
@@ -13,9 +14,10 @@ const Home = () => {
                     <Link to="/recipes" className='link'>See more recipes</Link>
                 </div>
             </div>
-            </div>
+    </div>
+            
 
-  )
+  );
 }
 
 export default Home
