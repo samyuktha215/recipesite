@@ -17,18 +17,17 @@ function CategoryCard() {
   }, [categoryName]);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-6">
+    <div className="recipe-category-container">
+      <h1 className="recipe-category-title">
         Recipes in "{categoryName}"
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="recipe-card">
         {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-white shadow rounded-2xl p-4 hover:shadow-lg transition"
-          >
-            <h2 className="text-lg font-semibold">{recipe.title}</h2>
-            <p className="text-sm text-gray-600">{recipe.description}</p>
+            className="recipe">
+            <h2 className="recipe-title">{recipe.title}</h2>
+            <p className="recipe-description">{recipe.description}</p>
           </div>
         ))}
       </div>
