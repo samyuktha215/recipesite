@@ -1,42 +1,63 @@
- 
-
-import React, { useEffect, useState } from 'react';
-import './home.css';
-import { RecipeCard } from './recipes/RecipeCard';
-import bannerImage from '../assets/background.jpg';
+import React, { useEffect, useState } from "react";
+import "./home.css";
+import { RecipeCard } from "./recipes/RecipeCard";
+import Sidebar from "../pages/sidebar.jsx";
+import bannerImage from "../assets/background.jpg";
 
 const Home = () => {
   const [drinks, setDrinks] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
+  // Fetch recipes
   useEffect(() => {
     fetch("https://grupp1-mqzle.reky.se/recipes")
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      setDrinks(data);
-    })
-    .catch((err) => console.error("Fel vid hämtning:", err));
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("API data:", data);
+        setDrinks(data);
+      })
+      .catch((err) => console.error("Fel vid hämtning:", err));
   }, []);
 
+  // Filter drinks based on search + selected category
+  const filteredDrinks = drinks.filter((drink) => {
+    const matchesSearch = !searchTerm
+      ? true
+      : drink.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+    const matchesCategory = !selectedCategory
+      ? true
+      : drink.categories?.some(
+          (cat) => cat.toLowerCase() === selectedCategory.toLowerCase()
+        );
+
+    return matchesSearch && matchesCategory;
+  });
+
   return (
-    <div className='home'>
-            <div className="top_banner">
-    <div className="content">
-      <h3>Fresh & Delicious</h3>
-      <h2>Homemade Recipes</h2>
-      <p>
-        Explore a variety of dishes made with love. Your kitchen adventure starts here!
-      </p>
-      <a href="/recipes" className="link">Explore Now</a>
-    </div>
+    <div className="home">
+      {/* Banner */}
+      <div className="top_banner">
+        <div className="content">
+          <h3>Fresh & Delicious</h3>
+          <h2>Homemade Recipes</h2>
+        </div>
+        <div className="banner-image">
+          <img src={bannerImage} alt="banner" />
+        </div>
+      </div>
 
-    <div className="banner-image">
-  <img src={bannerImage} alt="banner" />
-</div>
+      {/* Sidebar + Recipes */}
+      <div className="main-layout">
+        <Sidebar
+          onSearch={setSearchTerm}
+          onSelectCategory={setSelectedCategory}
+        />
 
-  </div>
-          <div className="grid-container">
-            {drinks.map((recipe) => {
+        <div className="grid-container">
+          {filteredDrinks.length > 0 ? (
+            filteredDrinks.map((recipe) => {
               const adaptedDrink = {
                 image: recipe.imageUrl,
                 name: recipe.title,
@@ -46,15 +67,15 @@ const Home = () => {
                 isFavorite: false,
                 commentsCount: 0,
               };
-
               return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
-            })}
-          </div>
-
-            </div>
-
-
+            })
+          ) : (
+            <p className="no-results">Inga recept hittades.</p>
+          )}
+        </div>
+      </div>
+    </div>
   );
-}
+};
 
-export default Home
+export default Home;

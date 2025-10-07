@@ -2,11 +2,9 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Categories.css';
-import Sidebar from '../pages/sidebar.jsx';
-function Categories() {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(null);
 
+function Categories() {
+  
     const [categories, setCategories] = useState([]);
 
 useEffect(() => {
@@ -26,14 +24,7 @@ useEffect(() => {
     return (
         <div className="categories">
            
-          <Sidebar
-        onSearch={(value) => setSearchTerm(value)}
-        onSelectCategory={(category) => setSelectedCategory(category)}
-      />
-      <div>
-        <p>Search Term: {searchTerm}</p>
-        <p>Selected Category: {selectedCategory}</p>
-      </div>
+        
             {categories.map((category, index) => (
                 <Link key={index} to={`/category/${encodeURIComponent(category)}`} className="category-item">
                     <span className="bullet">•</span>

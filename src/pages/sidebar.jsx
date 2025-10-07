@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 const Sidebar = ({ onSearch, onSelectCategory }) => {
   const [search, setSearch] = useState("");
-  const categories = ["Klassika", "Fruktiga", "Mousserande", "Alkoholfri", "Söta"];
+  const categories = [ "Klassiska Drinkar", "Varma Drinkar", "Alkoholfria Drinkar", "Veganska Drinkar"];
 
   const handleSearchChange = (e) => {
     setSearch(e.target.value);

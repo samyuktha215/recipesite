@@ -58,41 +58,18 @@
 	color: #fed700;
 }
 
-/* Optional: Add hover color for links if you wrap them in <a> */
+/* Optional link styles */
 .footer .box ul li a {
 	text-decoration: none;
 	color: inherit;
 }
 
-/* Center alignment for small screens */
-@media (max-width: 768px) {
-	.footer .bottom {
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-	}
-
-	.footer .box {
-		min-width: unset;
-	}
-}
-
-/* Footer bottom text (optional if you add later) */
-.footer .copy {
-	text-align: center;
-	margin-top: 2rem;
-	font-size: 0.85rem;
-	color: #999;
-	border-top: 1px solid #444;
-	padding-top: 1rem;
-}
-
-/* --- Social Media Icons --- */
+/* Social Media Icons */
 .social-icons {
 	display: flex;
 	gap: 1rem;
 	list-style: none;
-	margin-top: 0.5rem;
+	margin-top: 0.8rem;
 }
 
 .social-icons li a {
@@ -106,4 +83,80 @@
 .social-icons li a:hover {
 	color: #fed700;
 	transform: scale(1.2);
+}
+
+/* Footer bottom text */
+.footer .copy {
+	text-align: center;
+	margin-top: 2rem;
+	font-size: 0.85rem;
+	color: #999;
+	border-top: 1px solid #444;
+	padding-top: 1rem;
+}
+
+/* ---------------- RESPONSIVE DESIGN ---------------- */
+
+/* Tablets (<= 992px) */
+@media (max-width: 992px) {
+	.footer {
+		padding: 50px 0 25px;
+	}
+
+	.footer .bottom {
+		gap: 1.5rem;
+		justify-content: center;
+	}
+
+	.footer .box {
+		flex: 1 1 45%;
+		min-width: 200px;
+	}
+
+	.footer .box h3 {
+		font-size: 1.1rem;
+	}
+}
+
+/* Mobile devices (<= 768px) */
+@media (max-width: 768px) {
+	.footer .bottom {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.footer .box {
+		min-width: unset;
+		width: 100%;
+	}
+
+	.footer .box h3 {
+		margin-bottom: 0.8rem;
+	}
+
+	.social-icons {
+		justify-content: center;
+		margin-top: 1rem;
+	}
+}
+
+/* Extra small screens (<= 480px) */
+@media (max-width: 480px) {
+	.footer {
+		padding: 40px 0 20px;
+	}
+
+	.footer .box h3 {
+		font-size: 1rem;
+	}
+
+	.footer .box ul li {
+		font-size: 0.9rem;
+	}
+
+	.footer .copy {
+		font-size: 0.75rem;
+		padding-top: 0.8rem;
+	}
 }

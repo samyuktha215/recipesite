@@ -1,3 +1,4 @@
+/* Reset */
 * {
 	margin: 0;
 	padding: 0;
@@ -5,98 +6,162 @@
 	font-family: 'Poppins', sans-serif;
 }
 
+/* Home container */
 .home {
 	width: 100%;
+	padding: 20px;
+	background-color: #fff;
 }
 
-/* Layout: content and image side-by-side */
-.home .top_banner {
+/* Banner */
+.top_banner {
 	display: flex;
-	align-items: center;
 	justify-content: space-between;
-	gap: 2rem;
-	padding: 50px 60px;
-	background-color: #fff5f8;
+	align-items: center;
+	background: #f6f6f6;
+	padding: 40px 20px;
+	border-radius: 8px;
+	margin-bottom: 40px;
+	flex-wrap: wrap;
 }
 
-/* Left side — text content */
-.home .top_banner .content {
-	flex: 1;
-	max-width: 50%;
-}
-
-.home .top_banner .content h3 {
+.top_banner .content h3 {
 	color: #cd1e76;
-	text-transform: capitalize;
-	letter-spacing: 1px;
-	font-weight: 300;
+	font-size: 22px;
+	margin-bottom: 10px;
 }
 
-.home .top_banner .content h2 {
+.top_banner .content h2 {
+	font-size: 36px;
 	color: #232323;
-	font-size: 42px;
-	text-transform: uppercase;
-	letter-spacing: 1px;
-	margin-top: 10px;
 }
 
-.home .top_banner .content p {
-	color: #232323;
-	font-size: 16px;
-	margin-top: 10px;
-	line-height: 1.5;
-	margin-bottom: 30px;
+.banner-image img {
+	width: 400px;
+	border-radius: 8px;
+	object-fit: cover;
 }
 
-.home .top_banner .content .link {
-	padding: 10px 30px;
-	color: #232323;
-	background: #fed700;
+/* Main Layout: Sidebar + Recipe Grid */
+.main-layout {
+	display: flex;
+	align-items: flex-start;
+	gap: 2rem;
+}
+
+/* Sidebar */
+aside {
+	flex: 1;
+	max-width: 280px;
+	background: #f6f6f6;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px;
+	height: fit-content;
+}
+
+aside h3 {
+	color: #cd1e76;
+	margin-bottom: 1rem;
+	font-size: 18px;
+	border-bottom: 2px solid #fed700;
+	padding-bottom: 5px;
+}
+
+aside input {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
 	border-radius: 5px;
-	text-decoration: none;
-	transition: 0.5s;
+	outline: none;
+	margin-bottom: 20px;
 }
 
-.home .top_banner .content .link:hover {
-	background: #cd1e76;
+aside ul {
+	list-style: none;
+}
+
+aside ul li {
+	color: #333;
+	margin-bottom: 10px;
+	font-size: 15px;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+
+aside ul li:hover {
 	color: #fed700;
 }
 
-/* Right side — image */
-.home .top_banner .banner-image {
-	flex: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+/* Recipe Grid using CSS Grid */
+.grid-container {
+	flex: 3;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 1.5rem;
 }
 
-.home .top_banner .banner-image img {
-	max-width: 100%;
-	height: auto;
-	border-radius: 10px;
+/* Recipe Card Styles */
+.recipe-card {
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px;
+	padding: 15px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	transition: transform 0.2s ease;
+}
+
+.recipe-card img {
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+	border-radius: 6px;
+	margin-bottom: 10px;
+}
+
+.recipe-card h4 {
+	color: #232323;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.recipe-card p {
+	color: #555;
+	font-size: 14px;
+	text-align: center;
+}
+
+.recipe-card:hover {
+	transform: scale(1.05);
+}
+
+.no-results {
+	font-size: 16px;
+	color: #555;
+	margin-top: 20px;
+	grid-column: 1 / -1; /* Center message across all columns */
 }
 
 /* Responsive */
-@media (max-width: 900px) {
-	.home .top_banner {
-		flex-direction: column-reverse;
-		text-align: center;
+@media (max-width: 992px) {
+	.main-layout {
+		flex-direction: column;
 	}
 
-	.home .top_banner .content,
-	.home .top_banner .banner-image {
+	aside {
 		max-width: 100%;
+		margin-bottom: 20px;
 	}
 
-	.home .top_banner .content h2 {
-		font-size: 32px;
+	.banner-image img {
+		width: 100%;
 	}
 }
 
-/* Här bestäms det hur recipeCards ska struktureras på Home-page */
-.grid-container {
-	display: grid;
-	grid-template-columns: repeat(2, minmax(300px, 1fr));
-	gap: 1.5rem;
-	margin: 4rem;
+@media (max-width: 600px) {
+	.grid-container {
+		grid-template-columns: 1fr; /* 1 card per row on mobile */
+	}
 }
