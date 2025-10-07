@@ -1,14 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
 import "./RecipeCard.css";
 
 /* Detta är vad som ska stå på en recipeCard */
 export function RecipeCard( { drink }) {
+
+    const slug = drink.name
+    .toLowerCase()
+    .replace(/ /g, "-")
+    .replace(/[åä]/g, "a")
+    .replace(/ö/g, "o");
+
     return (
         <div className="recipe-card">
             <div className="recipe-card-body">
                 <div className="recipe-card-header">
                     <img src={drink.image} alt={drink.name} className="recipe-card-image"/>
-                    <h1 className="recipe-card-title">{drink.name}</h1>
+                    <h1 className="recipe-card-title">
+            <Link to={`/recipes/${slug}`} className="recipe-link">{drink.name}</Link>
+          </h1>
                 </div>
                 <div className="recipe-card-rating">
                     {"★".repeat(drink.rating)}{"☆".repeat(5 - drink.rating)}
