@@ -47,6 +47,7 @@
 	display: flex;
 	align-items: flex-start;
 	gap: 2rem;
+	flex-direction: row-reverse; /* 👈 Moves sidebar to the right */
 }
 
 /* Sidebar */

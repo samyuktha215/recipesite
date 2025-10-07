@@ -21,16 +21,20 @@ const Home = () => {
   }, []);
 
   // Filter drinks based on search + selected category
-  const filteredDrinks = drinks.filter((drink) => {
-    const matchesSearch = !searchTerm
-      ? true
-      : drink.title.toLowerCase().includes(searchTerm.toLowerCase());
+   const filteredDrinks = drinks.filter((drink) => {
+    const title = drink.title?.toLowerCase() || "";
 
-    const matchesCategory = !selectedCategory
-      ? true
-      : drink.categories?.some(
-          (cat) => cat.toLowerCase() === selectedCategory.toLowerCase()
-        );
+    const matchesSearch = searchTerm
+      ? title.includes(searchTerm.toLowerCase())
+      : true;
+
+    const matchesCategory = selectedCategory
+      ? drink.categories?.some(
+          (cat) =>
+            cat.toLowerCase() === selectedCategory.toLowerCase() ||
+            cat.toLowerCase().includes(selectedCategory.toLowerCase())
+        )
+      : true;
 
     return matchesSearch && matchesCategory;
   });
