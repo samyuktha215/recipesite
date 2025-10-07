@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import './home.css';
+import { RecipeCard } from "./recipes/RecipeCard";
 
 function CategoryCard() {
   const { categoryName } = useParams();
@@ -22,16 +24,21 @@ function CategoryCard() {
       <h1 className="recipe-category-title">
         Recipes in "{categoryName}"
       </h1>
-      <div className="recipe-card">
-        {recipes.map((recipe) => (
-          <div
-            key={recipe.id}
-            className="recipe">
-            <h2 className="recipe-title">{recipe.title}</h2>
-            <p className="recipe-description">{recipe.description}</p>
-          </div>
-        ))}
-      </div>
+      <div className="grid-container">
+                  {recipes.map((recipe) => {
+                    const adaptedDrink = {
+                      image: recipe.imageUrl,
+                      name: recipe.title,
+                      rating: recipe.avgRating || 0,
+                      category: recipe.categories?.[0] || "Okänd",
+                      difficulty: recipe.difficulty || "Medel",
+                      isFavorite: false,
+                      commentsCount: 0,
+                    };
+      
+                    return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
+                  })}
+        </div>
     </div>
   );
 }
