@@ -1,76 +1,55 @@
-import React from 'react'
-import { GoSearch } from "react-icons/go";
-import { FiLogIn, FiLogOut } from "react-icons/fi";
-import { FaRegUser } from "react-icons/fa";
-import './nav.css'
-import logo from "../assets/restaurant.jpeg";
+import React, { useState } from 'react';
+import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
+import './nav.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
 const Nav = () => {
-  const { loginWithRedirect, logout, user, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   return (
     <>
       <div className='header'>
-        <div className="top-header">
-          <div className="user-profile">
-            {isAuthenticated ? (
-              <>
-                <div className="icon">
-                  <FaRegUser />
-                </div>
-                <div className="info">
-                  <h2>{user.nickname}</h2>
-                  <p>{user.email}</p>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="icon">
-                  <FaRegUser />
-                </div>
-                <div className="info">
-                  <p>Please login</p>
-                </div>
-              </>
-            )}
-          </div>
-          <div className="offer">
-            <p>check your favorite recipe!</p>
-          </div>
-        </div>
-
-        {/* Navigation bar now contains logo, links, search, and login/logout */}
         <div className="nav-bar">
+          {/* Logo */}
           <div className="logo">
-            <img src={logo} alt="logo" />
+            <Link to="/" className="logo-text" onClick={closeMenu}>RecipeHub</Link>
           </div>
 
-          <ul className="nav-links">
-            <li><Link to="/" className="link">Home</Link></li>
-            <li><Link to="/recipes" className="link">Recipes</Link></li>
-            <li><Link to="/categories" className="link">Category</Link></li>
-            <li><Link to="/about" className="link">About</Link></li>
-            <li><Link to="/contact" className="link">Contact</Link></li>
+          {/* Hamburger Icon */}
+          <div className="menu-icon" onClick={toggleMenu}>
+            {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </div>
+
+          {/* Navigation Links */}
+          <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
+            <li><Link to="/" className="link" onClick={closeMenu}>Home</Link></li>
+            <li><Link to="/recipes" className="link" onClick={closeMenu}>Recipes</Link></li>
+            <li><Link to="/categories" className="link" onClick={closeMenu}>Category</Link></li>
+            <li><Link to="/about" className="link" onClick={closeMenu}>About</Link></li>
+            <li><Link to="/contact" className="link" onClick={closeMenu}>Contact</Link></li>
           </ul>
 
-          <div className="search-box">
-            <input type="text" placeholder="Search for recipes..." />
-            <button><GoSearch /></button>
-          </div>
-
+          {/* Auth Buttons */}
           <div className="auth-btn">
             {isAuthenticated ? (
               <button
-                onClick={() =>
-                  logout({ logoutParams: { returnTo: window.location.origin } })
-                }
+                onClick={() => {
+                  logout({ logoutParams: { returnTo: window.location.origin } });
+                  closeMenu();
+                }}
               >
                 <FiLogOut style={{ marginRight: '5px' }} /> Logout
               </button>
             ) : (
-              <button onClick={() => loginWithRedirect()}>
+              <button onClick={() => {
+                loginWithRedirect();
+                closeMenu();
+              }}>
                 <FiLogIn style={{ marginRight: '5px' }} /> Login
               </button>
             )}
