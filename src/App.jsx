@@ -11,7 +11,6 @@ function App() {
    <h1>frontend is working</h1>
      <Nav/>
      <Rout/>
-     <Categories/> 
      <Footer/>
     </>
   )
