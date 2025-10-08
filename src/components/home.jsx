@@ -68,6 +68,7 @@ const Home = () => {
                 rating: recipe.avgRating || 0,
                 category: recipe.categories?.[0] || "Okänd",
                 difficulty: recipe.difficulty || "Medel",
+                timeInMins: recipe.timeInMins || 0,
                 isFavorite: false,
                 commentsCount: 0,
               };

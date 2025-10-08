@@ -69,3 +69,8 @@ transform: scale(1.05);
 color: #f38b00;
 }
 
+.recipe-card-time {
+  font-size: 0.9rem;
+  color: #555;
+}
+
