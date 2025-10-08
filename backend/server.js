@@ -1,4 +1,6 @@
-require('dotenv').config();
+
+import dotenv from 'dotenv';
+dotenv.config();
 const express = require('express');
 const cors = require('cors');
 const { expressjwt: jwt } = require('express-jwt');
@@ -7,7 +9,8 @@ const jwksRsa = require('jwks-rsa');
 const app = express();
 app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(express.json());
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // JWT middleware to protect routes
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
