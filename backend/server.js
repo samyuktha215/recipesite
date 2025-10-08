@@ -19,6 +19,8 @@ const checkJwt = jwt({
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ['RS256'],
 });
+app.use(cors({ origin: 'https://your-frontend.vercel.app', credentials: true }));
+
 
 // Public route
 app.get('/', (req, res) => res.send('Server is running!'));

@@ -7,8 +7,7 @@
 		"build": "vite build",
 		"lint": "eslint .",
 		"preview": "vite preview",
-		"deploy": "gh-pages -d dist",
-		"start": "node server.js"
+		"deploy": "gh-pages -d dist"
 	},
 	"dependencies": {
 		"@auth0/auth0-react": "^2.5.0",
