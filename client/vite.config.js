@@ -7,6 +7,6 @@ export default defineConfig({
   base:'./',
   server: {
     http: true,
-    port: 5173,
+    port: 8888,
   },
 })
