@@ -19,7 +19,7 @@ const Rout = () => {
         <Route path="/category/:categoryName" element={<CategoryCard />}/>
         <Route path="/about" element={<ProtectedRoute><About/></ProtectedRoute>}/>
 
-          
+        <Route path="/contact" element={<ProtectedRoute><Contact/></ProtectedRoute>}/>
 
         <Route path="/recipes" element={<RecipesPage />} />
 
