@@ -1,43 +1,37 @@
 import express from "express";
 import cors from "cors";
-import { OAuth2Client } from "google-auth-library";
+import { expressjwt as jwt } from "express-jwt";
+import jwksRsa from "jwks-rsa";
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const client = new OAuth2Client("dgzwTiXahFJjvtapPW9ASvSymz8qdMIT"); // same as frontend!
+// ✅ Auth0 token verification middleware
+const checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: "https://dev-7whr3yiydc13aogp.eu.auth0.com/.well-known/jwks.json",
+  }),
+  audience: "https://recipes-api", // 👈 Same as in frontend
+  issuer: "https://dev-7whr3yiydc13aogp.eu.auth0.com/",
+  algorithms: ["RS256"],
+});
 
-async function verifyOAuthToken(req, res, next) {
-  try {
-    const authHeader = req.headers["authorization"];
-    if (!authHeader) {
-      console.log(" No token header received");
-      return res.status(401).json({ message: "No token provided" });
-    }
-
-    const token = authHeader.split(" ")[1];
-    console.log(" Token received:", token.substring(0, 20) + "...");
-
-    const ticket = await client.verifyIdToken({
-      idToken: token,
-      audience: "dgzwTiXahFJjvtapPW9ASvSymz8qdMI", // must match your frontend client ID
-    });
-
-    const payload = ticket.getPayload();
-    req.user = payload;
-    next();
-  } catch (err) {
-    console.error(" Token verification failed:", err.message);
-    res.status(401).json({ message: "Unauthorized: Invalid token" });
-  }
-}
-
-app.get("/protected", verifyOAuthToken, (req, res) => {
+// ✅ Protected route
+app.get("/protected", checkJwt, (req, res) => {
   res.json({
-    message: "Protected route accessed!",
-    user: req.user,
+    message: "Access granted to protected route!",
+    user: req.auth,
   });
 });
 
-app.listen(3001, () => console.log(" Server running on http://localhost:3001"));
+// Optional: Public route
+app.get("/", (req, res) => {
+  res.send("Welcome to RecipeHub API");
+});
+
+app.listen(3000, () => console.log("✅ Backend running at http://localhost:3000"));

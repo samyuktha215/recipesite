@@ -1,14 +1,16 @@
 {
-	"name": "recipesite",
+	"name": "backend",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Backend for Auth0 and React demo",
 	"main": "server.js",
+	"type": "module",
 	"scripts": {
 		"start": "node server.js"
 	},
 	"dependencies": {
-		"express": "^4.18.2",
 		"cors": "^2.8.5",
-		"google-auth-library": "^9.0.0"
+		"express": "^5.1.0",
+		"express-jwt": "^8.5.1",
+		"jwks-rsa": "^3.2.0"
 	}
 }
