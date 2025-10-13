@@ -1,16 +1,49 @@
-.recipe-details {
-  max-width: 700px;
-  margin: 2rem auto;
-  text-align: center;
-}
-
-.recipe-details-title {
+.recipe-details-card-title {
   font-size: 2rem;
   font-weight: bold;
 }
-
+ 
 .loading {
   text-align: center;
   margin-top: 3rem;
   color: #555;
+}
+.recipe-details {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+ 
+ 
+.back-button {
+  left: 2rem;
+  margin-bottom: 20px;
+}
+ 
+.recipe-details-container {
+  display: flex;
+  gap: 2rem; /* avstånd mellan bild och text */
+  flex-wrap: wrap; /* gör layouten responsiv */
+  align-items: flex-start; /* texten börjar på samma höjd som bilden */
+}
+ 
+.recipe-details-card-image {
+  width: 350px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+  margin-right: 50px;
+}
+ 
+.recipe-details-info {
+  flex: 1; /* tar upp resterande utrymme */
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+ 
+ 
+.recipe-details-info h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
