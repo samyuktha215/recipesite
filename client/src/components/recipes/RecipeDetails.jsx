@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./RecipeDetailsPage.css";
 import Sidebar from "../../pages/sidebar";
  
 export default function RecipeDetailsPage() {
