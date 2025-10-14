@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './home.css';
 import { RecipeCard } from "./recipes/RecipeCard";
+import BackButton from "./BackButton";
 
 function CategoryCard() {
   const { categoryName } = useParams();
@@ -21,8 +22,9 @@ function CategoryCard() {
 
   return (
     <div className="recipe-category-container">
+      <BackButton/>
       <h1 className="recipe-category-title">
-        Recipes in "{categoryName}"
+        {categoryName}
       </h1>
       <div className="grid-container">
                   {recipes.map((recipe) => {

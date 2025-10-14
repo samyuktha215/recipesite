@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Categories.css';
+import BackButton from './BackButton';
 
 function Categories() {
   
@@ -23,8 +24,7 @@ useEffect(() => {
 
     return (
         <div className="categories">
-           
-        
+           <BackButton/>
             {categories.map((category, index) => (
                 <Link key={index} to={`/category/${encodeURIComponent(category)}`} className="category-item">
                     <span className="bullet">•</span>

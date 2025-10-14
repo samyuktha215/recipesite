@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./RecipeDetails.css";
+import BackButton from "../BackButton";
 
 export default function RecipeDetailsPage() {
   const { slug } = useParams();
@@ -32,9 +33,7 @@ useEffect(() => {
 
   return (
     <div className="recipe-details">
-      <button className="back-button" onClick={() => navigate("/")}>
-        ← Tillbaka till alla recept
-      </button>
+      <BackButton/>
 
       <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
 
