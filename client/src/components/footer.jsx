@@ -12,12 +12,20 @@ const Footer = () => {
         
           <div className='bottom'>
             <div className='box'>
-              <h3>About</h3>
+              <h3>About Us</h3>
               <ul>
                 <li>Our Story</li>
                 <li>Blog</li>
                 <li>FAQs</li>
                 <li>Careers</li>
+              </ul>
+            </div>
+            <div className='box'>
+              <h3>Contact Us</h3>
+              <ul>
+                <li>123 Recipe Street, Food City</li>
+                <li>+(012) 345-6789</li>
+                <li>support@recipesite.com</li>
               </ul>
             </div>
            <div className='box'>
@@ -29,14 +37,7 @@ const Footer = () => {
                 <li><a href="https://instagram.com" target="_blank" rel="noreferrer"><FaInstagram /></a></li>
               </ul>
             </div>
-            <div className='box'>
-              <h3>Contact Us</h3>
-              <ul>
-                <li>123 Recipe Street, Food City</li>
-                <li>+(012) 345-6789</li>
-                <li>support@recipesite.com</li>
-              </ul>
-            </div>
+            
           </div>
         </div>
 
