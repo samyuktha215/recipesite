@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./RecipeDetails.css";
 import BackButton from "../BackButton";
+import Sidebar from "../../pages/sidebar";
 
 export default function RecipeDetailsPage() {
   const { slug } = useParams();
@@ -34,17 +35,19 @@ useEffect(() => {
   return (
     <div className="recipe-details">
       <BackButton/>
+  
 
       <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
 
       <div className="recipe-details-container">
+        
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
           className="recipe-details-card-image"
         />
-
         <div className="recipe-details-info">
+          
           <h2>Ingredienser:</h2>
           <ul>
             {recipe.ingredients.map((ing, idx) => (
@@ -53,6 +56,8 @@ useEffect(() => {
               </li>
             ))}
           </ul>
+
+          
 
           <h2>Instruktioner:</h2>
           <ol>
@@ -63,6 +68,9 @@ useEffect(() => {
 
           <p>Tid: {recipe.timeInMins} min</p>
           <p>Svårighetsgrad: {recipe.difficulty}</p>
+        </div>
+        <div className="sidebar">
+            <Sidebar/>
         </div>
       </div>
     </div>
