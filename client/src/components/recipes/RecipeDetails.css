@@ -1,49 +1,99 @@
-.recipe-details-card-title {
-  font-size: 2rem;
-  font-weight: bold;
-}
- 
-.loading {
-  text-align: center;
-  margin-top: 3rem;
-  color: #555;
-}
+/* Container for the whole recipe page */
 .recipe-details {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 1rem;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  color: #333;
 }
- 
- 
+
+/* Back button styling */
 .back-button {
-  left: 2rem;
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Title of the recipe */
+.recipe-details-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+/* Recipe image styling */
+.recipe-details-card-image {
+  display: block;          /* remove inline spacing issues */
+  max-width: 100%;         /* ensure it doesn't exceed container width */
+  height: auto;            /* keep aspect ratio */
+  border-radius: 8px;      /* slightly rounded edges */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 0 auto 20px;     /* center the image and space below */
+  background-color: #f8f8f8; /* optional, for images with transparency */
+}
+
+/* Box for ingredients and instructions */
+.recipe-details-info {
+  background-color: #fafafa;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Headings inside info */
+.recipe-details-info h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+/* Ingredient & instruction lists */
+.recipe-details-info ul,
+.recipe-details-info ol {
+  padding-left: 20px;
   margin-bottom: 20px;
 }
- 
-.recipe-details-container {
-  display: flex;
-  gap: 2rem; /* avstånd mellan bild och text */
-  flex-wrap: wrap; /* gör layouten responsiv */
-  align-items: flex-start; /* texten börjar på samma höjd som bilden */
-}
- 
-.recipe-details-card-image {
-  width: 350px;
-  height: 350px;
-  object-fit: cover;
-  border-radius: 8px;
-  flex-shrink: 0;
-  margin-right: 50px;
-}
- 
-.recipe-details-info {
-  flex: 1; /* tar upp resterande utrymme */
-  margin-top: 1rem;
+
+.recipe-details-info li {
+  margin-bottom: 8px;
   line-height: 1.5;
 }
- 
- 
-.recipe-details-info h2 {
-  margin-top: 10px;
-  margin-bottom: 10px;
+
+/* Additional info text */
+.recipe-details-info p {
+  font-size: 16px;
+  margin: 4px 0;
+  font-weight: 500;
+  color: #555;
+  text-align: left;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+  .recipe-details {
+    padding: 15px;
+  }
+
+  .recipe-details-title {
+    font-size: 24px;
+  }
+
+  .recipe-details-info {
+    padding: 20px;
+  }
 }

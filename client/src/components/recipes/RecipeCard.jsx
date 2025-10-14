@@ -10,10 +10,6 @@ export function RecipeCard({ drink }) {
     .replace(/[åä]/g, "a")
     .replace(/ö/g, "o");
 
-  // Räkna ingredienser
-  const ingredientCount = Array.isArray(drink.ingredients) ? drink.ingredients.length : 0;
-
-
   // State för betyg och favorit
   const [rating, setRating] = useState(drink.rating || 0);
   const [isFavorite, setIsFavorite] = useState(drink.isFavorite || false);
@@ -43,6 +39,7 @@ export function RecipeCard({ drink }) {
             <Link to={`/recipes/${slug}`} className="recipe-link">{drink.name}</Link>
           </h1>
         </div>
+        
 
         <div className="recipe-card-rating">
           {[...Array(5)].map((_, index) => (
@@ -59,7 +56,7 @@ export function RecipeCard({ drink }) {
         <p className="recipe-card-category">Kategori: {drink.category}</p>
         <p className="recipe-card-difficulty">Svårighetsgrad: {drink.difficulty}</p>
         <p className="recipe-card-time">Tid: {drink.timeInMins} min</p>
-        <p className="recipe-card-ingredients">Antal ingredienser: {ingredientCount}</p>
+        <p className="recipe-card-ingredients">Antal ingredienser: {drink.ingredientCount}</p>
 
         <button
           className="recipe-card-favorite"

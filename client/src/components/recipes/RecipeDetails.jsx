@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from "../../pages/sidebar";
+
+import "./RecipeDetails.css";
  
 export default function RecipeDetailsPage() {
   const { slug } = useParams();
@@ -33,7 +35,7 @@ export default function RecipeDetailsPage() {
   </button>
   
   
-  <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
+  <h1 className="recipe-details-title">{recipe.title}</h1>
  
   <div className="recipe-details-container">
     
@@ -44,6 +46,8 @@ export default function RecipeDetailsPage() {
     />
  
     <div className="recipe-details-info">
+
+      <p>{recipe.description}</p>
       
  
       <h2>Ingredienser:</h2>

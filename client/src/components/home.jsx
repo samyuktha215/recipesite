@@ -71,6 +71,7 @@ const Home = () => {
                 timeInMins: recipe.timeInMins || 0,
                 isFavorite: false,
                 commentsCount: 0,
+                ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0, // Rakna ingredienser
               };
               return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
             })
