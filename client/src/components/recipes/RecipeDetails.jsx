@@ -3,23 +3,29 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./RecipeDetails.css";
 
 export default function RecipeDetailsPage() {
-  const { id } = useParams();
+  const { slug } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
 
-  // Optional: fetch by ID if state is not available
-  useEffect(() => {
-    if (!recipe) {
-      fetch(`https://grupp1-mqzle.reky.se/recipes/${id}`)
-        .then((res) => {
-          if (!res.ok) throw new Error("Recipe not found");
-          return res.json();
-        })
-        .then((data) => setRecipe(data))
-        .catch((err) => setRecipe("notfound"));
-    }
-  }, [id, recipe]);
+
+useEffect(() => {
+  fetch("https://grupp1-mqzle.reky.se/recipes")
+    .then((res) => res.json())
+    .then((allRecipes) => {
+      const match = allRecipes.find((r) => {
+        const recipeSlug = r.title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[åä]/g, "a")
+          .replace(/ö/g, "o");
+        return recipeSlug === slug;
+      });
+      setRecipe(match || "notfound");
+    })
+    .catch((err) => setRecipe("notfound"));
+}, [slug]);
+
 
   if (!recipe) return <p className="loading">Laddar recept...</p>;
   if (recipe === "notfound") return <p className="loading">Recept hittades inte 😢</p>;
