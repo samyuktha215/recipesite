@@ -1,41 +1,39 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-const Sidebar = ({ onSearch, onSelectCategory }) => {
-  const [search, setSearch] = useState("");
-  const categories = [ "Klassiska Drinkar", "Varma Drinkar", "Alkoholfria Drinkar", "Veganska Drinkar"];
 
-  const handleSearchChange = (e) => {
-    setSearch(e.target.value);
-    if (onSearch) onSearch(e.target.value);
+
+const Sidebar = ({ onSelectCategory }) => {
+  const categories = [
+    "Klassiska Drinkar",
+    "Varma Drinkar",
+    "Alkoholfria Drinkar",
+    "Veganska Drinkar",
+    "All"
+  ];
+   const handleCategoryClick = (cat) => {
+    if (cat === "All") {
+      onSelectCategory(""); // clear selection to show all
+    } else {
+      onSelectCategory(cat);
+    }
   };
 
   return (
     <aside>
-      <div>
-        <h3>Sökfält</h3>
-        <input
-          type="text"
-          value={search}
-          onChange={handleSearchChange}
-          placeholder="Sök drink..."
-        />
-      </div>
-
-      <div>
-        <h3>Kategorier</h3>
-        <ul>
-          {categories.map((cat) => (
-            <li key={cat} onClick={() => onSelectCategory && onSelectCategory(cat)}>
-              {cat}
-            </li>
-          ))}
-        </ul>
-      </div>
+      <h3>Categories</h3>
+      <ul>
+        {categories.map((cat) => (
+          <li key={cat} onClick={() => handleCategoryClick(cat)}>
+            {cat}
+          </li>
+        ))}
+      </ul>
     </aside>
   );
 };
+
 Sidebar.propTypes = {
-  onSearch: PropTypes.func,
   onSelectCategory: PropTypes.func,
 };
+
 export default Sidebar;
