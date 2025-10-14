@@ -16,7 +16,7 @@ const checkJwt = jwt({
     jwksRequestsPerMinute: 5,
     jwksUri: "https://dev-7whr3yiydc13aogp.eu.auth0.com/.well-known/jwks.json",
   }),
-  audience: "https://recipes-api", // 👈 Same as in frontend
+  audience: "https://recipes-api", //  Same as in frontend
   issuer: "https://dev-7whr3yiydc13aogp.eu.auth0.com/",
   algorithms: ["RS256"],
 });

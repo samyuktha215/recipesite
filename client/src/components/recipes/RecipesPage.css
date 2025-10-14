@@ -1,30 +1,65 @@
 .recipes-page {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 1rem;
+	max-width: 1200px; /* wider container for 3 cards */
+	margin: 2rem auto;
+	padding: 1rem;
 }
 
 .recipes-title {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  text-decoration: underline wavy #f38b00;
+	text-align: center;
+	margin-bottom: 2rem;
+	font-size: 2rem;
 }
 
+/* Grid container for cards */
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(
+		auto-fill,
+		minmax(300px, 1fr)
+	); /* 3 per row if space allows */
+	gap: 1.5rem;
+}
+
+/* Card styling */
 .recipe-card-list {
-  background: #fff;
-  padding: 1.5rem;
-  margin-bottom: 1.2rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	background: #fff;
+	padding: 1.5rem;
+	border-radius: 12px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	transition: transform 0.2s ease;
+	cursor: pointer;
+}
+
+.recipe-card-list:hover {
+	transform: scale(1.05);
 }
 
 .recipe-list-link {
-  text-decoration: none;
-  color: #333;
+	text-decoration: none;
+	color: #333;
+	text-align: center;
 }
 
 .recipe-list-link:hover {
-  color: #f38b00;
-  text-decoration: underline;
+	color: #f38b00;
+	text-decoration: underline;
+}
+
+/* Responsive for tablets and mobiles */
+@media (max-width: 992px) {
+	.grid-container {
+		grid-template-columns: repeat(
+			auto-fill,
+			minmax(250px, 1fr)
+		); /* 2 per row */
+	}
+}
+
+@media (max-width: 600px) {
+	.grid-container {
+		grid-template-columns: 1fr; /* 1 per row on mobile */
+	}
 }
