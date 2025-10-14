@@ -5,6 +5,10 @@ import "./RecipeCard.css";
 
 export function RecipeCard({ drink }) {
 
+  // Räkna ingredienser
+  const ingredientCount = Array.isArray(drink.ingredients) ? drink.ingredients.length : 0;
+
+
   const [rating, setRating] = useState(drink.rating || 0);
   const [isFavorite, setIsFavorite] = useState(drink.isFavorite || false);
 
@@ -51,7 +55,7 @@ export function RecipeCard({ drink }) {
         <p className="recipe-card-category">Kategori: {drink.category}</p>
         <p className="recipe-card-difficulty">Svårighetsgrad: {drink.difficulty}</p>
         <p className="recipe-card-time">Tid: {drink.timeInMins} min</p>
-        <p className="recipe-card-ingredients">Antal ingredienser: {drink.ingredientCount}</p>
+        <p className="recipe-card-ingredients">Antal ingredienser: {ingredientCount}</p>
 
         {/* Favorite toggle button */}
         <button
