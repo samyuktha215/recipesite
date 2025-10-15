@@ -1,33 +1,39 @@
+/* Title styling for the recipe details page */
 .recipe-details-title {
   font-size: 2rem;
   font-weight: bold;
   margin-left: 100px;
 }
- 
+
+/* Loading text styling */
 .loading {
   text-align: center;
   margin-top: 3rem;
   color: #555;
 }
+
+/* Container for the whole recipe details section */
 .recipe-details {
   max-width: 1500px;
   margin: 2rem auto;
   padding: 1rem;
 }
- 
- 
+
+/* Back button spacing */
 .back-button {
   left: 2rem;
   margin-bottom: 20px;
 }
- 
+
+/* Layout for image, info, and sidebar */
 .recipe-details-container {
   display: flex;
-  gap: 2rem; /* avstånd mellan bild och text */
-  flex-wrap: wrap; /* gör layouten responsiv */
-  align-items: flex-start; /* texten börjar på samma höjd som bilden */
+  gap: 2rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
- 
+
+/* Styling for the recipe image */
 .recipe-details-card-image {
   width: 350px;
   height: 350px;
@@ -37,24 +43,24 @@
   margin-right: 50px;
   margin-left: 100px;
 }
- 
+
+/* Text section layout next to the image */
 .recipe-details-info {
-  flex: 1; /* tar upp resterande utrymme */
+  flex: 1;
   margin-top: 1rem;
   line-height: 1.5;
 }
- 
- 
+
+/* Headings inside the recipe info block */
 .recipe-details-info h2 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
+/* Sidebar positioning and size */
 .sidebar {
-  margin-left: auto;     /* Trycker den till höger */
-  align-self: flex-start; /* Håll den högst upp */
+  margin-left: auto;     /* Push to the right side */
+  align-self: flex-start; /* Keep it aligned to the top */
   width: 280px;
   height: 219px;
 }
-
-
