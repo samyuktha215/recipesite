@@ -1,4 +1,18 @@
-/* Container for the whole recipe page */
+/* Title styling for the recipe details page */
+.recipe-details-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-left: 100px;
+}
+
+/* Loading text styling */
+.loading {
+  text-align: center;
+  margin-top: 3rem;
+  color: #555;
+}
+
+/* Container for the whole recipe details section */
 .recipe-details {
   max-width: 700px;
   margin: 40px auto;
@@ -67,6 +81,16 @@
 .recipe-details-info h2 {
   font-size: 20px;
   margin-bottom: 10px;
+}
+
+/* Sidebar positioning and size */
+.sidebar {
+  margin-left: auto;     /* Push to the right side */
+  align-self: flex-start; /* Keep it aligned to the top */
+  width: 280px;
+  height: 219px;
+}
+
   color: #444;
 }
 
