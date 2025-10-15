@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RecipeCard } from "./recipes/RecipeCard";
-import bannerImage from "../assets/background.png";
+import bannerImage from "../assets/Background.png";
 import Sidebar from "../pages/sidebar.jsx";
 import "./home.css";
 
