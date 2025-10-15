@@ -33,26 +33,34 @@
   text-align: center;
 }
 
-/* Recipe image styling */
-.recipe-details-card-image {
-  display: block;          /* remove inline spacing issues */
-  max-width: 100%;         /* ensure it doesn't exceed container width */
-  height: auto;            /* keep aspect ratio */
-  border-radius: 8px;      /* slightly rounded edges */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  margin: 0 auto 20px;     /* center the image and space below */
-  background-color: #f8f8f8; /* optional, for images with transparency */
+/* Container for image + info */
+.recipe-details-container {
+  display: flex;
+  gap: 20px; /* space between image and text */
+  align-items: flex-start;
 }
 
-/* Box for ingredients and instructions */
+/* Recipe image styling */
+.recipe-details-card-image {
+  max-width: 300px; /* controls image width */
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #f8f8f8;
+  object-fit: cover;
+}
+
+/* Info section styling */
 .recipe-details-info {
-  background-color: #fafafa;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  flex: 1; /* take remaining space */
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  background-color: #fafafa;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* Headings inside info */
@@ -83,7 +91,19 @@
   text-align: left;
 }
 
-/* Responsive design for smaller screens */
+/* Responsive design for tablets/smaller screens */
+@media (max-width: 768px) {
+  .recipe-details-container {
+    flex-direction: column; /* stack image + text on smaller screens */
+  }
+
+  .recipe-details-card-image {
+    max-width: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+/* Responsive for mobile */
 @media (max-width: 480px) {
   .recipe-details {
     padding: 15px;
@@ -94,6 +114,6 @@
   }
 
   .recipe-details-info {
-    padding: 20px;
+    padding: 15px;
   }
 }
