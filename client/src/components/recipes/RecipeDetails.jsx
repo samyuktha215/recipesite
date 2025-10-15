@@ -1,53 +1,67 @@
+// React and router hooks for params, navigation, and location
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+
+// Component styles and shared components
 import "./RecipeDetails.css";
 import BackButton from "../BackButton";
 import Sidebar from "../../pages/sidebar";
 
 export default function RecipeDetailsPage() {
+  // Get the slug from the route URL
   const { slug } = useParams();
+
+  // Access navigation and any passed state from previous page
   const location = useLocation();
   const navigate = useNavigate();
+
+  // Store the selected recipe (from navigation or to be fetched)
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
 
+  // Fetch all recipes and find the one matching the slug
+  useEffect(() => {
+    fetch("https://grupp1-mqzle.reky.se/recipes")
+      .then((res) => res.json())
+      .then((allRecipes) => {
+        const match = allRecipes.find((r) => {
+          const recipeSlug = r.title
+            .toLowerCase()
+            .replace(/ /g, "-")
+            .replace(/[åä]/g, "a")
+            .replace(/ö/g, "o");
+          return recipeSlug === slug;
+        });
+        setRecipe(match || "notfound");
+      })
+      .catch((err) => setRecipe("notfound"));
+  }, [slug]);
 
-useEffect(() => {
-  fetch("https://grupp1-mqzle.reky.se/recipes")
-    .then((res) => res.json())
-    .then((allRecipes) => {
-      const match = allRecipes.find((r) => {
-        const recipeSlug = r.title
-          .toLowerCase()
-          .replace(/ /g, "-")
-          .replace(/[åä]/g, "a")
-          .replace(/ö/g, "o");
-        return recipeSlug === slug;
-      });
-      setRecipe(match || "notfound");
-    })
-    .catch((err) => setRecipe("notfound"));
-}, [slug]);
-
-
+  // Handle loading and error states
   if (!recipe) return <p className="loading">Laddar recept...</p>;
-  if (recipe === "notfound") return <p className="loading">Recept hittades inte 😢</p>;
+  if (recipe === "notfound")
+    return <p className="loading">Recept hittades inte 😢</p>;
 
+  // Render the recipe details page
   return (
     <div className="recipe-details">
-      <BackButton/>
-  
+      {/* Global back button component */}
+      <BackButton />
 
+      {/* Page title */}
       <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
 
+      {/* Main layout container */}
       <div className="recipe-details-container">
         
+        {/* Recipe image */}
         <img
           src={recipe.imageUrl}
           alt={recipe.title}
           className="recipe-details-card-image"
         />
+
+        {/* Recipe text content */}
         <div className="recipe-details-info">
-          
           <h2>Ingredienser:</h2>
           <ul>
             {recipe.ingredients.map((ing, idx) => (
@@ -56,8 +70,6 @@ useEffect(() => {
               </li>
             ))}
           </ul>
-
-          
 
           <h2>Instruktioner:</h2>
           <ol>
@@ -69,8 +81,10 @@ useEffect(() => {
           <p>Tid: {recipe.timeInMins} min</p>
           <p>Svårighetsgrad: {recipe.difficulty}</p>
         </div>
+
+        {/* Sidebar placed to the right */}
         <div className="sidebar">
-            <Sidebar/>
+          <Sidebar />
         </div>
       </div>
     </div>
