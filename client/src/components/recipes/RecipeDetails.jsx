@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import "./RecipeDetails.css";
+import { useParams, useNavigate } from "react-router-dom";
+import Sidebar from "../../pages/sidebar";
 
+import "./RecipeDetails.css";
+ 
 export default function RecipeDetailsPage() {
   const { id } = useParams();
   const location = useLocation();
@@ -26,40 +28,46 @@ export default function RecipeDetailsPage() {
 
   return (
     <div className="recipe-details">
-      <button className="back-button" onClick={() => navigate("/")}>
-        ← Tillbaka till alla recept
-      </button>
+  <button className="back-button" onClick={() => navigate("/")}>
+    ← Tillbaka till alla recept
+  </button>
+  
+  
+  <h1 className="recipe-details-title">{recipe.title}</h1>
+ 
+  <div className="recipe-details-container">
+    
+    <img
+      src={recipe.imageUrl}
+      alt={recipe.title}
+      className="recipe-details-card-image"
+    />
+ 
+    <div className="recipe-details-info">
 
-      <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
-
-      <div className="recipe-details-container">
-        <img
-          src={recipe.imageUrl}
-          alt={recipe.title}
-          className="recipe-details-card-image"
-        />
-
-        <div className="recipe-details-info">
-          <h2>Ingredienser:</h2>
-          <ul>
-            {recipe.ingredients.map((ing, idx) => (
-              <li key={idx}>
-                {ing.amount} {ing.unit} {ing.name}
-              </li>
-            ))}
-          </ul>
-
-          <h2>Instruktioner:</h2>
-          <ol>
-            {recipe.instructions.map((step, idx) => (
-              <li key={idx}>{step}</li>
-            ))}
-          </ol>
-
-          <p>Tid: {recipe.timeInMins} min</p>
-          <p>Svårighetsgrad: {recipe.difficulty}</p>
-        </div>
-      </div>
+      <p>{recipe.description}</p>
+      
+ 
+      <h2>Ingredienser:</h2>
+      <ul>
+        {recipe.ingredients.map((ing, index) => (
+          <li key={index}>
+            {ing.amount} {ing.unit} {ing.name}
+          </li>
+        ))}
+      </ul>
+ 
+      <h2>Instruktioner:</h2>
+      <ol>
+        {recipe.instructions.map((step, index) => (
+          <li key={index}>{step}</li>
+        ))}
+      </ol>
+ 
+      <p>Tid: {recipe.timeInMins} min</p>
+      <p>Svårighetsgrad: {recipe.difficulty}</p>
+    </div>
+    </div>
     </div>
   );
 }

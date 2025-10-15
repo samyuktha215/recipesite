@@ -39,6 +39,7 @@ export function RecipeCard({ drink }) {
             <Link to={`/recipes/${slug}`} className="recipe-link">{drink.name}</Link>
           </h1>
         </div>
+        
 
         <div className="recipe-card-rating">
           {[...Array(5)].map((_, index) => (
@@ -55,6 +56,7 @@ export function RecipeCard({ drink }) {
         <p className="recipe-card-category">Kategori: {drink.category}</p>
         <p className="recipe-card-difficulty">Svårighetsgrad: {drink.difficulty}</p>
         <p className="recipe-card-time">Tid: {drink.timeInMins} min</p>
+        <p className="recipe-card-ingredients">Antal ingredienser: {drink.ingredientCount}</p>
 
         <button
           className="recipe-card-favorite"
