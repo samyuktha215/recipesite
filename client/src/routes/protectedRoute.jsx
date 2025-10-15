@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import PropTypes from "prop-types";
 
 export default function ProtectedRoute({ children }) {
   const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
@@ -16,3 +17,6 @@ export default function ProtectedRoute({ children }) {
 
   return children;
 }
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
+};

@@ -16,15 +16,15 @@ const Rout = () => {
         <Route path='/' element={
           <ProtectedRoute><Home/></ProtectedRoute>}/> 
 
+        <Route path="/category" element={<CategoryCard />}/>
+
         <Route path="/category/:categoryName" element={<CategoryCard />}/>
         <Route path="/about" element={<ProtectedRoute><About/></ProtectedRoute>}/>
 
         <Route path="/contact" element={<ProtectedRoute><Contact/></ProtectedRoute>}/>
 
-        <Route path="/recipes" element={<RecipesPage />} />
 
         <Route path="/recipes/:slug" element={<RecipeDetails />} />
-        <Route path="/recipes/:id" element={<RecipeDetails />} />
 
 
         

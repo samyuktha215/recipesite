@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RecipeCard } from "./recipes/RecipeCard";
-import bannerImage from "../assets/background.png";
+import bannerImage from "../assets/Background.png";
 import Sidebar from "../pages/sidebar.jsx";
 import "./home.css";
 
@@ -78,22 +78,20 @@ const Home = () => {
 
         <div className="grid-container">
           {filteredDrinks.length > 0 ? (
-            filteredDrinks.map((recipe) => (
-              <RecipeCard
-                key={recipe._id}
-                drink={{
-                  image: recipe.imageUrl,
-                  name: recipe.title,
-                  rating: recipe.avgRating || 0,
-                  category: recipe.categories?.[0] || "Okänd",
-                  difficulty: recipe.difficulty || "Medel",
-                  timeInMins: recipe.timeInMins || 0,
-                  isFavorite: false,
-                  commentsCount: 0,
-                  _id: recipe._id,
-                }}
-              />
-            ))
+            filteredDrinks.map((recipe) => {
+              const adaptedDrink = {
+                image: recipe.imageUrl,
+                name: recipe.title,
+                rating: recipe.avgRating || 0,
+                category: recipe.categories?.[0] || "Okänd",
+                difficulty: recipe.difficulty || "Medel",
+                timeInMins: recipe.timeInMins || 0,
+                isFavorite: false,
+                commentsCount: 0,
+                ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0, // Rakna ingredienser
+              };
+              return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
+            })
           ) : (
             <p className="no-results">Inga recept hittades.</p>
           )}

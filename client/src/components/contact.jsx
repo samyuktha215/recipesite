@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './contact.css'
+import BackButton from './BackButton'
 
 const Contact = () => {
     const[user,setUser]= useState(
@@ -37,6 +38,7 @@ const Contact = () => {
   return (
     <>
     <div className='contact'>
+        <BackButton/>
         <div className='container'>
             <div className='form'>
                 <h2>Contact us</h2>
