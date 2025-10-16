@@ -1,121 +1,133 @@
-/* Reset and basics */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
-}
-
-/* Footer container */
+/* ====== GENERAL FOOTER STYLING ====== */
 .footer {
 	background-color: #d5a495;
-	color: #d5a495;
-	padding: 60px 0 30px;
+	color: white;
+	padding: 40px 0 20px;
 	width: 100%;
 }
 
-.footer .container {
+.footer-container {
 	width: 90%;
 	max-width: 1200px;
 	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 30px;
 }
 
-/* Footer container */
-.bottom {
+/* ====== BUTTON SECTION ====== */
+.footer-buttons {
 	display: flex;
-	justify-content: space-between;
+	gap: 20px;
 	flex-wrap: wrap;
-	gap: 20px; /* space between boxes */
-	padding: 40px 20px;
-	background-color: #d5a495;
+	position: relative;
+}
+
+.footer-buttons button {
+	background-color: #fff;
+	color: #131313;
+	border: none;
+	padding: 12px 20px;
 	border-radius: 8px;
+	font-size: 16px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all 0.3s ease;
+	min-width: 150px;
 }
 
-/* Individual box */
-.bottom .box {
-	flex: 1;
-	min-width: 200px; /* ensures boxes are not too small on narrow screens */
-	background: #fff;
-	padding: 20px;
-	border-radius: 12px;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px;
-	transition:
-		transform 0.2s ease,
-		box-shadow 0.2s ease;
+.footer-buttons button:hover {
+	background-color: #fed700;
+	color: #232323;
+	transform: translateY(-3px);
 }
 
-.bottom .box:hover {
-	transform: translateY(-5px);
-	box-shadow: rgba(0, 0, 0, 0.15) 0px 6px 12px;
-}
-
-/* Box headings */
-.bottom .box h3 {
-	font-size: 18px;
-	color: #cd1e76;
-	margin-bottom: 15px;
-	border-bottom: 2px solid #fed700;
-	padding-bottom: 5px;
-}
-
-/* Box lists */
-.bottom .box ul {
-	list-style: none;
-	padding: 0;
-}
-
-.bottom .box ul li {
-	margin-bottom: 10px;
-	color: #333;
-	font-size: 14px;
-	cursor: default;
-}
-
-.bottom .box ul li a {
-	color: #333;
-	text-decoration: none;
-	transition: color 0.3s ease;
-}
-
-.bottom .box ul li a:hover {
-	color: #cd1e76;
-}
-
-/* Social Icons */
-.bottom .box ul.social-icons {
+/* ====== SOCIAL ICONS (CENTERED, EQUALLY SPACED) ====== */
+/* ====== SOCIAL ICONS (VERTICAL, CIRCULAR) ====== */
+/* Social button container */
+/* Footer Buttons */
+.footer-buttons {
 	display: flex;
-	gap: 10px;
+	gap: 20px;
+	flex-wrap: wrap;
+	position: relative;
 }
 
-.bottom .box ul.social-icons li a {
+/* Social button container (for absolute positioning) */
+.social-button-container {
+	position: relative; /* needed for absolute child */
+}
+
+/* Sociala Medier button */
+.social-button {
+	background-color: #fff;
+	color: #cd1e76;
+	border: none;
+	padding: 12px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all 0.3s ease;
+}
+
+/* Vertical social list (absolutely positioned) */
+.social-list-vertical {
+	position: absolute; /* removes it from normal flow */
+	top: 100%; /* directly below the button */
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: transparent;
+	margin-top: 10px;
+	gap: 10px;
+	z-index: 10;
+}
+
+/* Social icons */
+.social-list-vertical a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
 	background-color: #cd1e76;
 	color: white;
-	width: 35px;
-	height: 35px;
-	border-radius: 50%;
-	font-size: 16px;
-	transition:
-		background-color 0.3s ease,
-		transform 0.2s ease;
+	font-size: 1.4rem;
+	transition: all 0.3s ease;
 }
 
-.bottom .box ul.social-icons li a:hover {
+.social-list-vertical a:hover {
 	background-color: #fed700;
 	color: #232323;
-	transform: translateY(-2px);
+	transform: translateY(-3px);
 }
 
-/* Responsive */
+/* ====== COPYRIGHT ====== */
+.footer-copy {
+	margin-top: 20px;
+	font-size: 14px;
+	color: #fff;
+
+	text-align: center;
+}
+
+/* ====== RESPONSIVE ====== */
 @media (max-width: 768px) {
-	.bottom {
+	.footer-buttons {
 		flex-direction: column;
-		gap: 20px;
+		gap: 15px;
 	}
 
-	.bottom .box {
-		min-width: 100%;
+	.footer-buttons button {
+		width: 200px;
+	}
+
+	.footer-social {
+		gap: 25px;
 	}
 }
