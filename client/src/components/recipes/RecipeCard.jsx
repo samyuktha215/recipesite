@@ -4,27 +4,9 @@ import { Link } from "react-router-dom";
 import "./RecipeCard.css";
 
 export function RecipeCard({ drink }) {
-  // Generates a slug based on the drink name for routing
-  const slug = drink.name
-    .toLowerCase()
-    .replace(/ /g, "-")
-    .replace(/[åä]/g, "a")
-    .replace(/ö/g, "o");
 
-  // Local state for rating and favorites
   const [rating, setRating] = useState(drink.rating || 0);
   const [isFavorite, setIsFavorite] = useState(drink.isFavorite || false);
-
-  // Saves or removes the drink from localStorage when favorite status changes
-  useEffect(() => {
-    const favs = JSON.parse(localStorage.getItem("favorites")) || {};
-    if (isFavorite) {
-      favs[slug] = true;
-    } else {
-      delete favs[slug];
-    }
-    localStorage.setItem("favorites", JSON.stringify(favs));
-  }, [isFavorite, slug]);
 
   // Updates the rating when a star is clicked
   const handleStarClick = (index) => {
@@ -44,9 +26,10 @@ export function RecipeCard({ drink }) {
             className="recipe-card-image"
           />
           <h1 className="recipe-card-title">
-            <Link to={`/recipes/${slug}`} className="recipe-link">
-              {drink.name}
-            </Link>
+        <Link to={`/recipes/${drink._id}`} className="recipe-link">
+          {drink.name}
+        </Link>
+
           </h1>
         </div>
 
