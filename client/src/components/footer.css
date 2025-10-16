@@ -1,0 +1,121 @@
+/* Reset and basics */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+/* Footer container */
+.footer {
+	background-color: #d5a495;
+	color: #d5a495;
+	padding: 60px 0 30px;
+	width: 100%;
+}
+
+.footer .container {
+	width: 90%;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+/* Footer container */
+.bottom {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 20px; /* space between boxes */
+	padding: 40px 20px;
+	background-color: #d5a495;
+	border-radius: 8px;
+}
+
+/* Individual box */
+.bottom .box {
+	flex: 1;
+	min-width: 200px; /* ensures boxes are not too small on narrow screens */
+	background: #fff;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+}
+
+.bottom .box:hover {
+	transform: translateY(-5px);
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 6px 12px;
+}
+
+/* Box headings */
+.bottom .box h3 {
+	font-size: 18px;
+	color: #cd1e76;
+	margin-bottom: 15px;
+	border-bottom: 2px solid #fed700;
+	padding-bottom: 5px;
+}
+
+/* Box lists */
+.bottom .box ul {
+	list-style: none;
+	padding: 0;
+}
+
+.bottom .box ul li {
+	margin-bottom: 10px;
+	color: #333;
+	font-size: 14px;
+	cursor: default;
+}
+
+.bottom .box ul li a {
+	color: #333;
+	text-decoration: none;
+	transition: color 0.3s ease;
+}
+
+.bottom .box ul li a:hover {
+	color: #cd1e76;
+}
+
+/* Social Icons */
+.bottom .box ul.social-icons {
+	display: flex;
+	gap: 10px;
+}
+
+.bottom .box ul.social-icons li a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #cd1e76;
+	color: white;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	font-size: 16px;
+	transition:
+		background-color 0.3s ease,
+		transform 0.2s ease;
+}
+
+.bottom .box ul.social-icons li a:hover {
+	background-color: #fed700;
+	color: #232323;
+	transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.bottom {
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.bottom .box {
+		min-width: 100%;
+	}
+}

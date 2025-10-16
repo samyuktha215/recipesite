@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Environment variables
+.env
+# Optional: if you have frontend and backend separate
+frontend/.env
+backend/.env
+
+# Local Netlify folder
+.netlify

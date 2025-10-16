@@ -1,12 +1,19 @@
 import React from 'react';
+<<<<<<< HEAD
 import { useNavigate } from 'react-router-dom';
+=======
+
+>>>>>>> 0efcc0427904152055fbfdf7b96a273b7f704224
 import './footer.css';
 import { FaFacebookF, FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
 
 
 const Footer = () => {
+<<<<<<< HEAD
   const navigate = useNavigate();
 
+=======
+>>>>>>> 0efcc0427904152055fbfdf7b96a273b7f704224
   return (
     <div className='footer'>
       <div className='container'>
@@ -14,6 +21,7 @@ const Footer = () => {
         
           <div className='bottom'>
             <div className='box'>
+<<<<<<< HEAD
                <button
                 className="footer-btn"
                 onClick={() => navigate("/about")}
@@ -21,6 +29,9 @@ const Footer = () => {
                 About Us
               </button>
               
+=======
+              <h3>About Us</h3>
+>>>>>>> 0efcc0427904152055fbfdf7b96a273b7f704224
               <ul>
                 <li>Our Story</li>
                 <li>Blog</li>
