@@ -134,22 +134,18 @@ aside h3 {
 	border-bottom: 2px solid #fed700;
 	padding-bottom: 5px;
 }
-
-aside ul {
-	list-style: none;
-	padding: 0;
-}
-
 aside ul li {
-	color: #333;
-	margin-bottom: 10px;
-	font-size: 15px;
 	cursor: pointer;
-	transition: color 0.3s ease;
+	transition: color 0.2s ease;
 }
 
 aside ul li:hover {
-	color: #fed700;
+	color: #eaf546;
+}
+
+aside ul li.active {
+	font-weight: bold;
+	color: #272625; /* valfritt men ger bra visuell feedback */
 }
 
 /* Responsive */
