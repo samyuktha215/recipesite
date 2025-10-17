@@ -42,7 +42,7 @@ const { id } = useParams();
       <BackButton />
 
       {/* Page title */}
-      <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
+      <h1 className="recipe-details-title">{recipe.title}</h1>
 
       {/* Main layout container */}
       <div className="recipe-details-container">
