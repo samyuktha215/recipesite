@@ -136,8 +136,10 @@ aside h3 {
 }
 
 aside ul {
-
 	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	list-style: none;
 	padding: 0;
 	margin: 0;
 
@@ -149,8 +151,13 @@ aside ul li {
 	transition:
 		color 0.2s ease,
 		font-weight 0.2s ease;
+	padding: 8px 12px;
+	transition:
+		color 0.2s ease,
+		font-weight 0.2s ease;
 }
 
+/* Hover effect */
 /* Hover effect */
 aside ul li:hover {
 	color: #fed700;
@@ -202,17 +209,55 @@ aside ul li.active {
 		transform 0.2s ease;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-	.sidebar-container {
-		max-width: 100%;
-		gap: 15px;
-	}
+/* Selected (active) category */
+aside ul li.active {
+	font-weight: bold; /* makes the selected category text bold */
+	color: #1f1f1e; /* optional, highlights the selected category */
+}
 
+/* Search Container (for fixed top-right search bar) */
+.search-bar-fixed {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	width: 250px;
+	z-index: 1000;
+	background-color: #fff;
+	padding: 5px 10px;
+	border-radius: 8px;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 6px;
+}
 
-	.search-form {
-		width: 100%;
-	}
+.search-bar-fixed form {
+	display: flex;
+	gap: 5px;
+}
+
+.search-bar-fixed input[type='text'] {
+	flex: 1;
+	padding: 8px 12px;
+	border-radius: 20px 0 0 20px;
+	border: 1px solid #ccc;
+	outline: none;
+}
+
+.search-bar-fixed button[type='submit'] {
+	padding: 8px 12px;
+	border-radius: 0 20px 20px 0;
+	border: none;
+	background-color: #cd1e76;
+	color: white;
+	cursor: pointer;
+	font-weight: 500;
+	transition:
+		background-color 0.3s ease,
+		transform 0.2s ease;
+}
+
+.search-bar-fixed button[type='submit']:hover {
+	background-color: #fed700;
+	color: #232323;
+	transform: translateY(-2px);
 }
 
 /* Recipe Grid */
