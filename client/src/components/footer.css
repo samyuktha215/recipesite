@@ -1,162 +1,133 @@
-/* Reset and basics */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
-}
-
-/* Footer container */
+/* ====== GENERAL FOOTER STYLING ====== */
 .footer {
-	background-color: hsl(0, 0%, 8%);
-	color: #f5f5f5;
-	padding: 60px 0 30px;
+	background-color: #d5a495;
+	color: white;
+	padding: 40px 0 20px;
 	width: 100%;
 }
 
-.footer .container {
+.footer-container {
 	width: 90%;
 	max-width: 1200px;
 	margin: 0 auto;
-}
-
-/* Footer content layout */
-.footer .bottom {
 	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	gap: 2rem;
-}
-
-.footer .box {
-	flex: 1;
-	min-width: 250px;
-}
-
-.footer .box h3 {
-	font-size: 1.2rem;
-	font-weight: 600;
-	margin-bottom: 1rem;
-	color: #fed700; /* accent color */
-	text-transform: uppercase;
-	letter-spacing: 1px;
-}
-
-.footer .box ul {
-	list-style: none;
-}
-
-.footer .box ul li {
-	margin-bottom: 0.6rem;
-	font-size: 0.95rem;
-	color: #ccc;
-	cursor: pointer;
-	transition: color 0.3s ease;
-}
-
-.footer .box ul li:hover {
-	color: #fed700;
-}
-
-/* Optional link styles */
-.footer .box ul li a {
-	text-decoration: none;
-	color: inherit;
-}
-
-/* Social Media Icons */
-.social-icons {
-	display: flex;
-	gap: 1rem;
-	list-style: none;
-	margin-top: 0.8rem;
-}
-
-.social-icons li a {
-	color: #ccc;
-	font-size: 1.3rem;
-	transition:
-		color 0.3s ease,
-		transform 0.2s ease;
-}
-
-.social-icons li a:hover {
-	color: #fed700;
-	transform: scale(1.2);
-}
-
-/* Footer bottom text */
-.footer .copy {
+	flex-direction: column;
+	align-items: center;
 	text-align: center;
-	margin-top: 2rem;
-	font-size: 0.85rem;
-	color: #999;
-	border-top: 1px solid #444;
-	padding-top: 1rem;
+	gap: 30px;
 }
 
-/* ---------------- RESPONSIVE DESIGN ---------------- */
-
-/* Tablets (<= 992px) */
-@media (max-width: 992px) {
-	.footer {
-		padding: 50px 0 25px;
-	}
-
-	.footer .bottom {
-		gap: 1.5rem;
-		justify-content: center;
-	}
-
-	.footer .box {
-		flex: 1 1 45%;
-		min-width: 200px;
-	}
-
-	.footer .box h3 {
-		font-size: 1.1rem;
-	}
+/* ====== BUTTON SECTION ====== */
+.footer-buttons {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	position: relative;
 }
 
-/* Mobile devices (<= 768px) */
+.footer-buttons button {
+	background-color: #fff;
+	color: #131313;
+	border: none;
+	padding: 12px 20px;
+	border-radius: 8px;
+	font-size: 16px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all 0.3s ease;
+	min-width: 150px;
+}
+
+.footer-buttons button:hover {
+	background-color: #fed700;
+	color: #232323;
+	transform: translateY(-3px);
+}
+
+/* ====== SOCIAL ICONS (CENTERED, EQUALLY SPACED) ====== */
+/* ====== SOCIAL ICONS (VERTICAL, CIRCULAR) ====== */
+/* Social button container */
+/* Footer Buttons */
+.footer-buttons {
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+	position: relative;
+}
+
+/* Social button container (for absolute positioning) */
+.social-button-container {
+	position: relative; /* needed for absolute child */
+}
+
+/* Sociala Medier button */
+.social-button {
+	background-color: #fff;
+	color: #cd1e76;
+	border: none;
+	padding: 12px 20px;
+	border-radius: 8px;
+	cursor: pointer;
+	font-weight: 500;
+	transition: all 0.3s ease;
+}
+
+/* Vertical social list (absolutely positioned) */
+.social-list-vertical {
+	position: absolute; /* removes it from normal flow */
+	top: 100%; /* directly below the button */
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: transparent;
+	margin-top: 10px;
+	gap: 10px;
+	z-index: 10;
+}
+
+/* Social icons */
+.social-list-vertical a {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	background-color: #cd1e76;
+	color: white;
+	font-size: 1.4rem;
+	transition: all 0.3s ease;
+}
+
+.social-list-vertical a:hover {
+	background-color: #fed700;
+	color: #232323;
+	transform: translateY(-3px);
+}
+
+/* ====== COPYRIGHT ====== */
+.footer-copy {
+	margin-top: 20px;
+	font-size: 14px;
+	color: #fff;
+
+	text-align: center;
+}
+
+/* ====== RESPONSIVE ====== */
 @media (max-width: 768px) {
-	.footer .bottom {
+	.footer-buttons {
 		flex-direction: column;
-		align-items: center;
-		text-align: center;
+		gap: 15px;
 	}
 
-	.footer .box {
-		min-width: unset;
-		width: 100%;
+	.footer-buttons button {
+		width: 200px;
 	}
 
-	.footer .box h3 {
-		margin-bottom: 0.8rem;
-	}
-
-	.social-icons {
-		justify-content: center;
-		margin-top: 1rem;
-	}
-}
-
-/* Extra small screens (<= 480px) */
-@media (max-width: 480px) {
-	.footer {
-		padding: 40px 0 20px;
-	}
-
-	.footer .box h3 {
-		font-size: 1rem;
-	}
-
-	.footer .box ul li {
-		font-size: 0.9rem;
-	}
-
-	.footer .copy {
-		font-size: 0.75rem;
-		padding-top: 0.8rem;
+	.footer-social {
+		gap: 25px;
 	}
 }

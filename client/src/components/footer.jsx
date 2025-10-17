@@ -1,47 +1,56 @@
-import React from 'react';
-
-import './footer.css';
-import { FaFacebookF, FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
+import React,{useState} from "react";
+import { useNavigate } from "react-router-dom";
+import "./footer.css";
+import { FaFacebookF, FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
 
 
 const Footer = () => {
+  
+  const navigate = useNavigate();
+  const [showSocial, setShowSocial] = useState(false);
+
   return (
-    <div className='footer'>
-      <div className='container'>
-        <div className='right_box'>
-        
-          <div className='bottom'>
-            <div className='box'>
-              <h3>About</h3>
-              <ul>
-                <li>Our Story</li>
-                <li>Blog</li>
-                <li>FAQs</li>
-                <li>Careers</li>
-              </ul>
-            </div>
-           <div className='box'>
-              <h3>Sociala Medier</h3>
-              <ul className='social-icons'>
-                <li><a href="https://facebook.com" target="_blank" rel="noreferrer"><FaFacebookF /></a></li>
-                <li><a href="https://twitter.com" target="_blank" rel="noreferrer"><FaTwitter /></a></li>
-                <li><a href="https://youtube.com" target="_blank" rel="noreferrer"><FaYoutube /></a></li>
-                <li><a href="https://instagram.com" target="_blank" rel="noreferrer"><FaInstagram /></a></li>
-              </ul>
-            </div>
-            <div className='box'>
-              <h3>Contact Us</h3>
-              <ul>
-                <li>123 Recipe Street, Food City</li>
-                <li>+(012) 345-6789</li>
-                <li>support@recipesite.com</li>
-              </ul>
-            </div>
+    <footer className="footer">
+      <div className="footer-container">
+        {/* Navigation Buttons */}
+        <div className="footer-buttons">
+          <button onClick={() => navigate("/about")}>About Us</button>
+          <button onClick={() => navigate("/contact")}>Contact</button>
+
+          {/* Sociala Medier Button */}
+          <div className="social-button-container">
+            <button
+              className="social-button"
+              onClick={() => setShowSocial(!showSocial)}
+            >
+              Sociala Medier
+            </button>
+
+            {showSocial && (
+              <div className="social-list-vertical">
+                <a href="https://facebook.com" target="_blank" rel="noreferrer">
+                  <FaFacebookF />
+                </a>
+                <a href="https://twitter.com" target="_blank" rel="noreferrer">
+                  <FaTwitter />
+                </a>
+                <a href="https://youtube.com" target="_blank" rel="noreferrer">
+                  <FaYoutube />
+                </a>
+                <a href="https://instagram.com" target="_blank" rel="noreferrer">
+                  <FaInstagram />
+                </a>
+              </div>
+            )}
           </div>
         </div>
-
       </div>
-    </div>
+
+        <p className="footer-copy">
+          © {new Date().getFullYear()} RecipeHub. All rights reserved.
+        </p>
+      
+    </footer>
   );
 };
 

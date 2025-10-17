@@ -7,8 +7,8 @@
 
 .header {
 	width: 100%;
-	background-color: #ffffff;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	background-color: #41374e;
+	box-shadow: 0 2px 8px rgba(164, 204, 241, 0.1);
 	position: sticky;
 	top: 0;
 	z-index: 100;
@@ -28,7 +28,7 @@
 .logo-text {
 	font-size: 22px;
 	font-weight: 700;
-	color: #007bff;
+	color: #f4f5f6;
 	text-decoration: none;
 }
 
@@ -45,7 +45,7 @@
 
 .link {
 	text-decoration: none;
-	color: #333;
+	color: #fffefe;
 	font-weight: 500;
 	transition:
 		color 0.3s ease,

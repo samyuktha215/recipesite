@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RecipeCard } from "./recipes/RecipeCard";
-import bannerImage from "../assets/background.jpg";
+import bannerImage from "../assets/Background.png";
 import Sidebar from "../pages/sidebar.jsx";
 import "./home.css";
 
@@ -47,21 +47,10 @@ const Home = () => {
       {/* Banner */}
       <div className="top_banner">
         <div className="content">
-          <h3>Fresh & Delicious</h3>
-          <h2>Drink Recipes</h2>
+          <h3>Drink IT</h3>
+          <h2>Uppfriskande Recept and Inspiretion</h2>
         </div>
 
-        <div className="banner-search">
-          <form onSubmit={handleSearchSubmit}>
-            <input
-              type="text"
-              placeholder="Search for a recipe..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <button type="submit">🔍</button>
-          </form>
-        </div>
 
         <div className="banner-image">
           <img src={bannerImage} alt="banner" />
@@ -70,26 +59,39 @@ const Home = () => {
 
       {/* Main Layout: Grid + Sidebar */}
       <div className="main-layout">
-           {/* Sidebar */}
-        <Sidebar onSelectCategory={setSelectedCategory} />
+          {/* Sidebar Section with Search on Top */}
+        <div className="sidebar-container">
+          <form onSubmit={handleSearchSubmit} className="search-form">
+            <input
+              type="text"
+              placeholder="Search for a recipe..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit">🔍</button>
+          </form>
+
+          <Sidebar onSelectCategory={setSelectedCategory} />
+        </div>
+
+        {/* Grid Container */}
+
         <div className="grid-container">
           {filteredDrinks.length > 0 ? (
-            filteredDrinks.map((recipe) => (
-              <RecipeCard
-                key={recipe._id}
-                drink={{
-                  image: recipe.imageUrl,
-                  name: recipe.title,
-                  rating: recipe.avgRating || 0,
-                  category: recipe.categories?.[0] || "Okänd",
-                  difficulty: recipe.difficulty || "Medel",
-                  timeInMins: recipe.timeInMins || 0,
-                  isFavorite: false,
-                  commentsCount: 0,
-                  _id: recipe._id,
-                }}
-              />
-            ))
+            filteredDrinks.map((recipe) => {
+              const adaptedDrink = {
+                image: recipe.imageUrl,
+                name: recipe.title,
+                rating: recipe.avgRating || 0,
+                category: recipe.categories?.[0] || "Okänd",
+                difficulty: recipe.difficulty || "Medel",
+                timeInMins: recipe.timeInMins || 0,
+                isFavorite: false,
+                commentsCount: 0,
+                ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0, // Rakna ingredienser
+              };
+              return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
+            })
           ) : (
             <p className="no-results">Inga recept hittades.</p>
           )}
