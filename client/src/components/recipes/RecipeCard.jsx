@@ -5,6 +5,7 @@ import "./RecipeCard.css";
 
 export function RecipeCard({ drink }) {
 
+
   // Räkna ingredienser
   const ingredientCount = Array.isArray(drink.ingredients) ? drink.ingredients.length : 0;
 

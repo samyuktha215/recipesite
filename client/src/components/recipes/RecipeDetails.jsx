@@ -17,7 +17,7 @@ const { id } = useParams();
   // Store the selected recipe (from navigation or to be fetched)
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
 
-  // Fetch all recipes and find the one matching the slug
+  // Optional: fetch by ID if state is not available
   useEffect(() => {
     if (!recipe) {
       fetch(`https://grupp1-mqzle.reky.se/recipes/${id}`)
@@ -31,8 +31,8 @@ const { id } = useParams();
   }, [id, recipe]);
  
   if (!recipe) return <p className="loading">Laddar recept...</p>;
-  if (recipe === "notfound")
-    return <p className="loading">Recept hittades inte 😢</p>;
+  if (recipe === "notfound") return <p className="loading">Recept hittades inte 😢</p>;
+
 
 
   // Render the recipe details page
