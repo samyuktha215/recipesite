@@ -71,19 +71,28 @@ aside h3 {
 }
 
 aside ul {
-	list-style: none;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
 }
 
 aside ul li {
-	color: #333;
-	margin-bottom: 10px;
-	font-size: 15px;
 	cursor: pointer;
-	transition: color 0.3s ease;
+	padding: 8px 12px;
+	transition:
+		color 0.2s ease,
+		font-weight 0.2s ease;
 }
 
+/* Hover effect */
 aside ul li:hover {
 	color: #fed700;
+}
+
+/* Selected (active) category */
+aside ul li.active {
+	font-weight: bold; /* makes the selected category text bold */
+	color: #1f1f1e; /* optional, highlights the selected category */
 }
 
 /* Search Container (for fixed top-right search bar) */
