@@ -42,7 +42,7 @@ const { id } = useParams();
       <BackButton />
 
       {/* Page title */}
-      <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
+      <h1 className="recipe-details-title">Drinkrecept: {recipe.name}</h1>
 
       {/* Main layout container */}
       <div className="recipe-details-container">
@@ -50,7 +50,7 @@ const { id } = useParams();
         {/* Recipe image */}
         <img
           src={recipe.imageUrl}
-          alt={recipe.title}
+          alt={recipe.name}
           className="recipe-details-card-image"
         />
 
