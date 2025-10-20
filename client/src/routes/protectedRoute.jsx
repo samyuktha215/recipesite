@@ -1,19 +1,22 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+import React from "react";
+import { useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import PropTypes from "prop-types";
 
-const isPreview = import.meta.env.VITE_NETLIFY_CONTEXT && import.meta.env.VITE_NETLIFY_CONTEXT !== 'production';
+export default function ProtectedRoute({ children }) {
+  const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0();
 
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, isLoading } = useAuth0();
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      loginWithRedirect();
+    }
+  }, [isLoading, isAuthenticated, loginWithRedirect]);
 
-  if (isPreview) return children; // always allow in preview
-
-  if (isLoading) return <div>Loading...</div>; // wait for auth state
-
-  if (!isAuthenticated) return <Navigate to="/" replace />;
+  if (isLoading) return <p>Loading...</p>;
+  if (!isAuthenticated) return <p>Redirecting...</p>;
 
   return children;
+}
+ProtectedRoute.propTypes = {
+  children: PropTypes.node.isRequired,
 };
-
-export default ProtectedRoute;

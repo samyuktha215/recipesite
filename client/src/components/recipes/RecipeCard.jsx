@@ -7,7 +7,7 @@ export function RecipeCard({ drink }) {
 
 
   // Räkna ingredienser
-  const ingredientCount = Array.isArray(drink.ingredients) ? drink.ingredients.length : 0;
+  const ingredientCount =  drink.ingredientCount ?? 0;
 
 
   // State för betyg och favorit
@@ -23,6 +23,7 @@ export function RecipeCard({ drink }) {
     // Card container
     <div className="recipe-card">
       <div className="recipe-card-body">
+        
         
         {/* Header with image and title link */}
         <div className="recipe-card-header">
@@ -57,7 +58,7 @@ export function RecipeCard({ drink }) {
         <p className="recipe-card-category">Kategori: {drink.category}</p>
         <p className="recipe-card-difficulty">Svårighetsgrad: {drink.difficulty}</p>
         <p className="recipe-card-time">Tid: {drink.timeInMins} min</p>
-        <p className="recipe-card-ingredients">Antal ingredienser: {drink.ingredientCount}</p>
+        <p className="recipe-card-ingredients">Antal ingredienser: {ingredientCount}</p>
 
         {/* Favorite toggle button */}
         <button

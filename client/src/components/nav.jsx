@@ -1,92 +1,88 @@
-import React, { useState } from 'react';
-import { FiLogIn, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import React, { useState, useEffect } from 'react';
+import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
 import './nav.css';
-import { useAuth0 } from '@auth0/auth0-react';
-import { Link, NavLink } from 'react-router-dom';
-
-const isPreview = import.meta.env.VITE_NETLIFY_CONTEXT && import.meta.env.VITE_NETLIFY_CONTEXT !== 'production';
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user, isLoading } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [isOpen, setIsOpen] = useState(false);
+  const [userData, setUserData] = useState(null);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
-  const handleLogin = () => {
-    if (isPreview) {
-      console.log('Preview login simulated');
-    } else {
-      loginWithRedirect();
+  // Function to call your protected backend API
+  const callProtectedAPI = async () => {
+    try {
+      const token = await getAccessTokenSilently(); // Get Auth0 access token
+      const response = await fetch("http://localhost:3000/protected", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      setUserData(data.user); // store user data from backend
+      console.log("Backend response:", data);
+    } catch (err) {
+      console.error("Error calling protected API:", err);
     }
-    closeMenu();
   };
 
-  const handleLogout = () => {
-    if (isPreview) {
-      console.log('Preview logout simulated');
-    } else {
-      logout({ logoutParams: { returnTo: window.location.origin } });
+  // Call protected API automatically when user is authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      callProtectedAPI();
     }
-    closeMenu();
-  };
-
-  if (isLoading) return null; // wait until Auth0 finishes loading
+  }, [isAuthenticated]);
 
   return (
-    <div className="header">
-      <div className="nav-bar">
-        <div className="logo">
-          <Link to="/" className="logo-text" onClick={closeMenu}>
-            Receptsida
-          </Link>
-        </div>
+    <>
+      <div className='header'>
+        <div className="nav-bar">
+          {/* Logo */}
+          <div className="logo">
+            <Link to="/" className="logo-text" onClick={closeMenu}>Receptsida</Link>
+          </div>
 
-        <div className="menu-icon" onClick={toggleMenu}>
-          {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-        </div>
+          {/* Hamburger Icon */}
+          <div className="menu-icon" onClick={toggleMenu}>
+            {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+          </div>
 
-        <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
-          <li>
-            <NavLink to="/" onClick={closeMenu}>
-              Hem
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/category" onClick={closeMenu}>
-              Kategorier
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/about" onClick={closeMenu}>
-              Om
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact" onClick={closeMenu}>
-              Kontakt
-            </NavLink>
-          </li>
-        </ul>
+          {/* Navigation Links */}
+          <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
+            <li><Link to="/" className="link" onClick={closeMenu}>Home</Link></li>
+            <li><Link to="/categories" className="link" onClick={closeMenu}>Category</Link></li>
+            <li><Link to="/about" className="link" onClick={closeMenu}>About</Link></li>
+            <li><Link to="/contact" className="link" onClick={closeMenu}>Contact</Link></li>
+          </ul>
 
-        <div className="auth-btn">
-          {isAuthenticated ? (
-            <>
-              <button onClick={handleLogout}>
-                <FiLogOut style={{ marginRight: '5px' }} /> Logga ut
+          {/* Auth Buttons */}
+          <div className="auth-btn">
+            {isAuthenticated ? (
+              <>
+                <button
+                  onClick={() => {
+                    logout({ logoutParams: { returnTo: window.location.origin } });
+                    closeMenu();
+                  }}
+                >
+                  <FiLogOut style={{ marginRight: '5px' }} /> Logga ut
+                </button>
+                {userData && <span style={{ marginLeft: '10px' }}>Hej, {userData.name || userData.email}</span>}
+              </>
+            ) : (
+              <button onClick={() => { loginWithRedirect(); closeMenu(); }}>
+                <FiLogIn style={{ marginRight: '5px' }} /> Logga in
               </button>
-              <span style={{ marginLeft: '10px' }}>
-                Hej, {user?.name || user?.email || 'Preview User'}
-              </span>
-            </>
-          ) : (
-            <button onClick={handleLogin}>
-              <FiLogIn style={{ marginRight: '5px' }} /> Logga in
-            </button>
-          )}
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

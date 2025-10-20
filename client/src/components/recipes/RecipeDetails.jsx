@@ -50,7 +50,7 @@ const { id } = useParams();
         {/* Recipe image */}
         <img
           src={recipe.imageUrl}
-          alt={recipe.title}
+          alt={recipe.name}
           className="recipe-details-card-image"
         />
 
