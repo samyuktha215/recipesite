@@ -37,7 +37,8 @@ const Home = () => {
 
     if (match) {
       navigate(`/recipes/${match._id}`, { state: { recipe: match } });
-    } else {
+    } 
+    else {
       alert("No recipe found with that name.");
     }
   };

@@ -25,7 +25,7 @@ const Rout = () => {
 
         <Route path="/categories" element={<CategoryPage />}/>
 
-        <Route path="/recipes/:slug" element={<RecipeDetails />} />
+        <Route path="/recipes/:id" element={<RecipeDetails />} />
 
 
         

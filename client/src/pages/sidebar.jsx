@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-
 const Sidebar = ({ onSelectCategory }) => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
   const categories = [
     "Klassiska Drinkar",
     "Varma Drinkar",
@@ -10,21 +11,23 @@ const Sidebar = ({ onSelectCategory }) => {
     "Veganska Drinkar",
     "All"
   ];
-   const handleCategoryClick = (cat) => {
-    if (cat === "All") {
-      onSelectCategory(""); // clear selection to show all
-    } else {
-      onSelectCategory(cat);
-    }
+
+  const handleCategoryClick = (cat) => {
+    setSelectedCategory(cat);
+    onSelectCategory(cat === "All" ? "" : cat);
   };
 
   return (
     <aside>
-      <h3>Categories</h3>
+      <h3>Kategorier</h3>
       <ul>
-        {categories.map((cat) => (
-          <li key={cat} onClick={() => handleCategoryClick(cat)}>
-            {cat}
+        {categories.map((category) => (
+          <li
+            key={category}
+            className={selectedCategory === category ? "active" : ""}
+            onClick={() => handleCategoryClick(category)}
+          >
+            {category}
           </li>
         ))}
       </ul>
