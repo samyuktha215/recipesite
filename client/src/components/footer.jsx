@@ -47,7 +47,7 @@ const Footer = () => {
       </div>
 
       <p className="footer-copy">
-        © {new Date().getFullYear()} RecipeHub. Alla rättigheter förbehållna.
+        © {new Date().getFullYear()} Receptsida. Alla rättigheter förbehållna.
       </p>
 
     </footer>

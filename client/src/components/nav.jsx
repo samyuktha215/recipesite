@@ -44,7 +44,7 @@ const Nav = () => {
         <div className="nav-bar">
           {/* Logo */}
           <div className="logo">
-            <Link to="/" className="logo-text" onClick={closeMenu}>RecipeHub</Link>
+            <Link to="/" className="logo-text" onClick={closeMenu}>Receptsida</Link>
           </div>
 
           {/* Hamburger Icon */}
@@ -70,13 +70,13 @@ const Nav = () => {
                     closeMenu();
                   }}
                 >
-                  <FiLogOut style={{ marginRight: '5px' }} /> Logout
+                  <FiLogOut style={{ marginRight: '5px' }} /> Logga ut
                 </button>
-                {userData && <span style={{ marginLeft: '10px' }}>Hello, {userData.name || userData.email}</span>}
+                {userData && <span style={{ marginLeft: '10px' }}>Hej, {userData.name || userData.email}</span>}
               </>
             ) : (
               <button onClick={() => { loginWithRedirect(); closeMenu(); }}>
-                <FiLogIn style={{ marginRight: '5px' }} /> Login
+                <FiLogIn style={{ marginRight: '5px' }} /> Logga in
               </button>
             )}
           </div>

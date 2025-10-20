@@ -39,7 +39,7 @@ const Home = () => {
       navigate(`/recipes/${match._id}`, { state: { recipe: match } });
     }
     else {
-      alert("No recipe found with that name.");
+      alert("Inget recept hittades med det namnet.");
     }
   };
 
