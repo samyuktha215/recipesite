@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const Sidebar = ({ onSelectCategory }) => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("Alla");
 
   const categories = [
     "Klassiska Drinkar",
     "Varma Drinkar",
     "Alkoholfria Drinkar",
     "Veganska Drinkar",
-    "All"
+    "Alla"
   ];
 
   const handleCategoryClick = (cat) => {
     setSelectedCategory(cat);
-    onSelectCategory(cat === "All" ? "" : cat);
-  };
+    onSelectCategory(cat === "Alla" ? "" : cat);
+  }
 
   return (
     <aside>

@@ -1,11 +1,11 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./footer.css";
 import { FaFacebookF, FaTwitter, FaYoutube, FaInstagram } from "react-icons/fa";
 
 
 const Footer = () => {
-  
+
   const navigate = useNavigate();
   const [showSocial, setShowSocial] = useState(false);
 
@@ -14,8 +14,8 @@ const Footer = () => {
       <div className="footer-container">
         {/* Navigation Buttons */}
         <div className="footer-buttons">
-          <button onClick={() => navigate("/about")}>About Us</button>
-          <button onClick={() => navigate("/contact")}>Contact</button>
+          <button onClick={() => navigate("/about")}>Om oss</button>
+          <button onClick={() => navigate("/contact")}>Kontakt</button>
 
           {/* Sociala Medier Button */}
           <div className="social-button-container">
@@ -46,10 +46,10 @@ const Footer = () => {
         </div>
       </div>
 
-        <p className="footer-copy">
-          © {new Date().getFullYear()} RecipeHub. All rights reserved.
-        </p>
-      
+      <p className="footer-copy">
+        © {new Date().getFullYear()} Receptsida. Alla rättigheter förbehållna.
+      </p>
+
     </footer>
   );
 };
