@@ -7,7 +7,7 @@ export function RecipeCard({ drink }) {
 
 
   // Räkna ingredienser
-  const ingredientCount = Array.isArray(drink.ingredients) ? drink.ingredients.length : 0;
+  const ingredientCount =  drink.ingredientCount ?? 0;
 
 
   // State för betyg och favorit
