@@ -14,7 +14,7 @@
 
 
  # Netlify secrets scanning: ignore frontend-safe Auth0 values
-  SECRETS_SCAN_OMIT_KEYS = "VITE_AUTH0_DOMAIN,VITE_AUTH0_AUDIENCE,VITE_AUTH0_CLIENT_ID"
+  SECRETS_SCAN_OMIT_KEYS = "VITE_AUTH0_DOMAIN,VITE_AUTH0_AUDIENCE,VITE_AUTH0_CLIENT_ID", "VITE_API_URL"
 # Redirect rule for client-side routing (important for React Router / Vite)
 [[redirects]]
   from = "/*"
