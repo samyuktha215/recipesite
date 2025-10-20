@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { FiLogIn, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
 import './nav.css';
 import { useAuth0 } from '@auth0/auth0-react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
-const isPreview = import.meta.env.VITE_NETLIFY_CONTEXT !== 'production';
+const isPreview = import.meta.env.VITE_NETLIFY_CONTEXT && import.meta.env.VITE_NETLIFY_CONTEXT !== 'production';
 
 const Nav = () => {
-  const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+  const { loginWithRedirect, logout, isAuthenticated, user, isLoading } = useAuth0();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -31,6 +31,8 @@ const Nav = () => {
     closeMenu();
   };
 
+  if (isLoading) return null; // wait until Auth0 finishes loading
+
   return (
     <div className="header">
       <div className="nav-bar">
@@ -45,10 +47,26 @@ const Nav = () => {
         </div>
 
         <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
-          <li><Link to="/" className="link" onClick={closeMenu}>Hem</Link></li>
-          <li><Link to="/category" className="link" onClick={closeMenu}>Kategorier</Link></li>
-          <li><Link to="/about" className="link" onClick={closeMenu}>Om</Link></li>
-          <li><Link to="/contact" className="link" onClick={closeMenu}>Kontakt</Link></li>
+          <li>
+            <NavLink to="/" onClick={closeMenu}>
+              Hem
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/category" onClick={closeMenu}>
+              Kategorier
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/about" onClick={closeMenu}>
+              Om
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact" onClick={closeMenu}>
+              Kontakt
+            </NavLink>
+          </li>
         </ul>
 
         <div className="auth-btn">
