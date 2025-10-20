@@ -8,8 +8,7 @@ import BackButton from "../BackButton";
 import Sidebar from "../../pages/sidebar";
 
 export default function RecipeDetailsPage() {
-  // Get the slug from the route URL
-  const { slug } = useParams();
+const { id } = useParams();
 
   // Access navigation and any passed state from previous page
   const location = useLocation();
@@ -18,28 +17,23 @@ export default function RecipeDetailsPage() {
   // Store the selected recipe (from navigation or to be fetched)
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
 
-  // Fetch all recipes and find the one matching the slug
+  // Optional: fetch by ID if state is not available
   useEffect(() => {
-    fetch("https://grupp1-mqzle.reky.se/recipes")
-      .then((res) => res.json())
-      .then((allRecipes) => {
-        const match = allRecipes.find((r) => {
-          const recipeSlug = r.title
-            .toLowerCase()
-            .replace(/ /g, "-")
-            .replace(/[åä]/g, "a")
-            .replace(/ö/g, "o");
-          return recipeSlug === slug;
-        });
-        setRecipe(match || "notfound");
-      })
-      .catch((err) => setRecipe("notfound"));
-  }, [slug]);
-
-  // Handle loading and error states
+    if (!recipe) {
+      fetch(`https://grupp1-mqzle.reky.se/recipes/${id}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Recipe not found");
+          return res.json();
+        })
+        .then((data) => setRecipe(data))
+        .catch((err) => setRecipe("notfound"));
+    }
+  }, [id, recipe]);
+ 
   if (!recipe) return <p className="loading">Laddar recept...</p>;
-  if (recipe === "notfound")
-    return <p className="loading">Recept hittades inte 😢</p>;
+  if (recipe === "notfound") return <p className="loading">Recept hittades inte 😢</p>;
+
+
 
   // Render the recipe details page
   return (
@@ -48,7 +42,7 @@ export default function RecipeDetailsPage() {
       <BackButton />
 
       {/* Page title */}
-      <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
+      <h1 className="recipe-details-title">{recipe.title}</h1>
 
       {/* Main layout container */}
       <div className="recipe-details-container">
@@ -62,6 +56,7 @@ export default function RecipeDetailsPage() {
 
         {/* Recipe text content */}
         <div className="recipe-details-info">
+          <p>{recipe.descrption}</p>
           <h2>Ingredienser:</h2>
           <ul>
             {recipe.ingredients.map((ing, idx) => (

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RecipeCard } from "./recipes/RecipeCard";
-import bannerImage from "../assets/background.png";
+import bannerImage from "../assets/Background.png";
 import Sidebar from "../pages/sidebar.jsx";
 import "./home.css";
 
@@ -21,12 +21,12 @@ const Home = () => {
   // Filter drinks based on selected category
   const filteredDrinks = selectedCategory
     ? drinks.filter((drink) =>
-        drink.categories?.some(
-          (cat) =>
-            cat.toLowerCase() === selectedCategory.toLowerCase() ||
-            cat.toLowerCase().includes(selectedCategory.toLowerCase())
-        )
+      drink.categories?.some(
+        (cat) =>
+          cat.toLowerCase() === selectedCategory.toLowerCase() ||
+          cat.toLowerCase().includes(selectedCategory.toLowerCase())
       )
+    )
     : drinks;
 
   const handleSearchSubmit = (e) => {
@@ -37,8 +37,9 @@ const Home = () => {
 
     if (match) {
       navigate(`/recipes/${match._id}`, { state: { recipe: match } });
-    } else {
-      alert("No recipe found with that name.");
+    }
+    else {
+      alert("Inget recept hittades med det namnet.");
     }
   };
 
@@ -59,12 +60,12 @@ const Home = () => {
 
       {/* Main Layout: Grid + Sidebar */}
       <div className="main-layout">
-          {/* Sidebar Section with Search on Top */}
+        {/* Sidebar Section with Search on Top */}
         <div className="sidebar-container">
           <form onSubmit={handleSearchSubmit} className="search-form">
             <input
               type="text"
-              placeholder="Search for a recipe..."
+              placeholder="Sök efter ett recept..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -97,7 +98,7 @@ const Home = () => {
           )}
         </div>
 
-     
+
       </div>
     </div>
   );
