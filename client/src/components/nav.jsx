@@ -16,7 +16,7 @@ const Nav = () => {
   const callProtectedAPI = async () => {
     try {
       const token = await getAccessTokenSilently(); // Get Auth0 access token
-      const response = await fetch("http://localhost:3000/protected", {
+      const response = await fetch("${import.meta.env.VITE_API_URL}/protected", {
         method: "GET",
         headers: {
           "Authorization": `Bearer ${token}`,
