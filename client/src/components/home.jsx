@@ -21,12 +21,12 @@ const Home = () => {
   // Filter drinks based on selected category
   const filteredDrinks = selectedCategory
     ? drinks.filter((drink) =>
-        drink.categories?.some(
-          (cat) =>
-            cat.toLowerCase() === selectedCategory.toLowerCase() ||
-            cat.toLowerCase().includes(selectedCategory.toLowerCase())
-        )
+      drink.categories?.some(
+        (cat) =>
+          cat.toLowerCase() === selectedCategory.toLowerCase() ||
+          cat.toLowerCase().includes(selectedCategory.toLowerCase())
       )
+    )
     : drinks;
 
   const handleSearchSubmit = (e) => {
@@ -37,7 +37,7 @@ const Home = () => {
 
     if (match) {
       navigate(`/recipes/${match._id}`, { state: { recipe: match } });
-    } 
+    }
     else {
       alert("No recipe found with that name.");
     }
@@ -60,12 +60,12 @@ const Home = () => {
 
       {/* Main Layout: Grid + Sidebar */}
       <div className="main-layout">
-          {/* Sidebar Section with Search on Top */}
+        {/* Sidebar Section with Search on Top */}
         <div className="sidebar-container">
           <form onSubmit={handleSearchSubmit} className="search-form">
             <input
               type="text"
-              placeholder="Search for a recipe..."
+              placeholder="Sök efter ett recept..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -98,7 +98,7 @@ const Home = () => {
           )}
         </div>
 
-     
+
       </div>
     </div>
   );
