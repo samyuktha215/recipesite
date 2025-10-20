@@ -42,7 +42,7 @@ const { id } = useParams();
       <BackButton />
 
       {/* Page title */}
-      <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
+      <h1 className="recipe-details-title">{recipe.title}</h1>
 
       {/* Main layout container */}
       <div className="recipe-details-container">
@@ -56,6 +56,7 @@ const { id } = useParams();
 
         {/* Recipe text content */}
         <div className="recipe-details-info">
+          <p>{recipe.descrption}</p>
           <h2>Ingredienser:</h2>
           <ul>
             {recipe.ingredients.map((ing, idx) => (

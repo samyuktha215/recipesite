@@ -8,6 +8,7 @@ function Categories() {
   
     const [categories, setCategories] = useState([]);
 
+    //fetch api and get all unique categories
 useEffect(() => {
   fetch("https://grupp1-mqzle.reky.se/recipes")
         .then((res) => res.json())
@@ -23,10 +24,11 @@ useEffect(() => {
     }, []);
 
     return (
+        //render the unique categories as links to category page
         <div className="categories">
            <BackButton/>
             {categories.map((category, index) => (
-                <Link key={index} to={`/category/${encodeURIComponent(category)}`} className="category-item">
+                <Link key={index} to={`/category/${encodeURIComponent(category)}`} className="category-item"> 
                     <span className="bullet">•</span>
                     <h2 className="category-name">{category}</h2>
                 </Link>
