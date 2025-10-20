@@ -44,7 +44,7 @@ const Nav = () => {
         <div className="nav-bar">
           {/* Logo */}
           <div className="logo">
-            <Link to="/" className="logo-text" onClick={closeMenu}>RecipeHub</Link>
+            <Link to="/" className="logo-text" onClick={closeMenu}>Receptsida</Link>
           </div>
 
           {/* Hamburger Icon */}
@@ -54,10 +54,10 @@ const Nav = () => {
 
           {/* Navigation Links */}
           <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
-            <li><Link to="/" className="link" onClick={closeMenu}>Home</Link></li>
-            <li><Link to="/categories" className="link" onClick={closeMenu}>Category</Link></li>
-            <li><Link to="/about" className="link" onClick={closeMenu}>About</Link></li>
-            <li><Link to="/contact" className="link" onClick={closeMenu}>Contact</Link></li>
+            <li><Link to="/" className="link" onClick={closeMenu}>Hem</Link></li>
+            <li><Link to="/category" className="link" onClick={closeMenu}>Kategorier</Link></li>
+            <li><Link to="/about" className="link" onClick={closeMenu}>Om</Link></li>
+            <li><Link to="/contact" className="link" onClick={closeMenu}>Kontakt</Link></li>
           </ul>
 
           {/* Auth Buttons */}
@@ -70,13 +70,13 @@ const Nav = () => {
                     closeMenu();
                   }}
                 >
-                  <FiLogOut style={{ marginRight: '5px' }} /> Logout
+                  <FiLogOut style={{ marginRight: '5px' }} /> Logga ut
                 </button>
-                {userData && <span style={{ marginLeft: '10px' }}>Hello, {userData.name || userData.email}</span>}
+                {userData && <span style={{ marginLeft: '10px' }}>Hej, {userData.name || userData.email}</span>}
               </>
             ) : (
               <button onClick={() => { loginWithRedirect(); closeMenu(); }}>
-                <FiLogIn style={{ marginRight: '5px' }} /> Login
+                <FiLogIn style={{ marginRight: '5px' }} /> Logga in
               </button>
             )}
           </div>
