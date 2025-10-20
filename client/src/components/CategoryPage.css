@@ -1,0 +1,59 @@
+/* ===== CATEGORY BUTTON STYLING ===== */
+.category-page {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* responsive */
+  background-color: #f4e9e9;
+}
+
+.category-button {
+  background-color: #fefaf8;
+  color: #2a2a2a;
+  border: 2px solid #2a2a2a;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  min-width: 150px;
+}
+
+/* Hover effect */
+.category-button:hover {
+  background-color: #9eb8a1;
+  color: #2a2a2a;
+}
+
+/* Active (selected) category button */
+.category-button.active {
+  background-color: #9eb8a1;   /* dark fill */
+  color: #2a2a2a;
+}
+
+/* Optional: subtle shadow for depth */
+.category-button,
+.category-button.active {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 600px) {
+  .category-page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .category-button {
+    width: 80%;
+  }
+}
+
+.drinks_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 15px;
+  background-color: #f4e9e9;
+}
