@@ -7,23 +7,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
-// ✅ Allow CORS for local + Netlify main + preview deploys
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://recipeproject216.netlify.app",
-      /\.netlify\.app$/, // wildcard for all Netlify preview URLs
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Authorization", "Content-Type"],
-  })
-);
+const isPreview = process.env.NODE_ENV !== 'production';
 
-// ✅ Auth0 JWT verification
-const checkJwt = jwt({
+const checkJwt = isPreview ? (req,res,next) => next() : jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
@@ -35,18 +24,16 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
-// ✅ Public route
-app.get("/", (req, res) => {
-  res.send("✅ RecipeHub API is live!");
-});
-
-// ✅ Protected route (requires Auth0 token)
 app.get("/protected", checkJwt, (req, res) => {
   res.json({
-    message: "Access granted to protected route 🎉",
-    user: req.auth,
+    message: "Access granted to protected route!",
+    user: isPreview ? { name: "Preview User", email: "preview@example.com" } : req.auth,
   });
 });
 
+app.get("/", (req, res) => {
+  res.send("Welcome to RecipeHub API");
+});
+
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Backend running at http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
