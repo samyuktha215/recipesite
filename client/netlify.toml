@@ -1,22 +1,14 @@
 [build]
-  # The command Netlify runs to build your app
-  command = "npm run build"
+command = "npm run build"
+publish = "dist"
 
-  # Folder that contains the production-ready build
-  publish = "dist"
+[build.environment]
+VITE_AUTH0_DOMAIN = ""
+VITE_AUTH0_AUDIENCE = ""
+VITE_AUTH0_CLIENT_ID = ""
+SECRETS_SCAN_OMIT_KEYS = "VITE_AUTH0_DOMAIN,VITE_AUTH0_AUDIENCE,VITE_AUTH0_CLIENT_ID,VITE_API_URL"
 
-  # (Optional) Non-sensitive defaults — you can override these from Netlify UI if needed
-  [build.environment]
-    VITE_AUTH0_DOMAIN = "dev-7whr3yiydc13aogp.eu.auth0.com"
-    VITE_AUTH0_AUDIENCE = "https://recipes-api"
-    VITE_AUTH0_CLIENT_ID = "dgzwTiXahFJjvtapPW9ASvSymz8qdMIT"
-    VITE_API_URL = "https://recipesite-1.onrender.com"
-
-
- # Netlify secrets scanning: ignore frontend-safe Auth0 values
-  SECRETS_SCAN_OMIT_KEYS = "VITE_AUTH0_DOMAIN,VITE_AUTH0_AUDIENCE,VITE_AUTH0_CLIENT_ID"
-# Redirect rule for client-side routing (important for React Router / Vite)
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+from = "/*"
+to = "/index.html"
+status = 200
