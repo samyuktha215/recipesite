@@ -8,6 +8,7 @@ import "./RecipeDetails.css";
 import BackButton from "../BackButton";
 import Sidebar from "../../pages/sidebar";
 
+import drinkImage from "../../assets/rating-img3.jpg";
 
 export default function RecipeDetailsPage() {
   const { id } = useParams();
@@ -17,6 +18,8 @@ export default function RecipeDetailsPage() {
   // Store recipe
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
   const [userRating, setUserRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+
   const [message, setMessage] = useState("");
 
   // Fetch recipe if not passed from navigation
@@ -81,18 +84,26 @@ const handleStarClick = async (index) => {
           />
 
           <h2>Ge ditt betyg:</h2>
-          <div className="recipe-card-rating">
-            {[...Array(5)].map((_, index) => (
-              <span
-                key={index}
-                className={index < userRating ? "star filled" : "star"}
-                onClick={() => handleStarClick(index)}
-              >
-                ⭐
-              </span>
-            ))}
-          </div>
+<div className="recipe-card-rating">
+  {[...Array(5)].map((_, index) => {
+    // Är bilden “fylld”? Om hover pågår, använd hoverRating, annars userRating
+    const isFilled = hoverRating ? index < hoverRating : index < userRating;
+
+    return (
+      <img
+        key={index}
+        src={drinkImage}
+        className={isFilled ? "rating-img-filled" : "rating-img-empty"}
+        alt={`rating ${index + 1}`}
+        onClick={() => handleStarClick(index)}
+        onMouseEnter={() => setHoverRating(index + 1)}
+        onMouseLeave={() => setHoverRating(0)}
+      />
+    );
+  })}
+</div>
           <p>{message}</p>
+
         </div>
 
         <div className="recipe-details-info">
