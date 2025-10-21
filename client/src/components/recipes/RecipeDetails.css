@@ -72,6 +72,31 @@
   align-items: flex-start;
 }
 
+/* Container runt bilden och stjärnorna */
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Stärnbetyg */
+.recipe-card-rating {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.recipe-card-rating .star {
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: gray;
+  transition: color 0.2s;
+}
+
+.recipe-card-rating .star.filled {
+  color: gold;
+}
+
 /* Recipe image styling */
 .recipe-details-card-image {
   max-width: 300px; /* controls image width */
