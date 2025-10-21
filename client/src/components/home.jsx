@@ -84,6 +84,7 @@ const Home = () => {
                 _id:recipe._id,
                 image: recipe.imageUrl,
                 name: recipe.title,
+                votes: recipe.ratings? recipe.ratings.length : 0,
                 rating: recipe.avgRating || 0,
                 category: recipe.categories?.[0] || "Okänd",
                 difficulty: recipe.difficulty || "Medel",

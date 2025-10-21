@@ -11,13 +11,10 @@ export function RecipeCard({ drink }) {
 
 
   // State för betyg och favorit
-  const [rating, setRating] = useState(drink.rating || 0);
   const [isFavorite, setIsFavorite] = useState(drink.isFavorite || false);
 
-  // Updates the rating when a star is clicked
-  const handleStarClick = (index) => {
-    setRating(index + 1);
-  };
+  const rating = Math.floor(drink.rating); // avrunda nedåt
+  const votes = drink.votes || 0; // antal som röstat
 
   return (
     // Card container
@@ -39,21 +36,15 @@ export function RecipeCard({ drink }) {
 
           </h1>
         </div>
+
+        {/* Show rating as stars + total votes */}
+       <div className="recipe-card-rating">
+        {[...Array(5)].map((_, index) => (
+          <span key={index}>{index < rating ? "★" : "☆"}</span>
+        ))}
+        {votes > 0 && <span> ({votes})</span>}
+      </div>
         
-
-        {/* Interactive star rating */}
-        <div className="recipe-card-rating">
-          {[...Array(5)].map((_, index) => (
-            <span
-              key={index}
-              style={{ cursor: "pointer" }}
-              onClick={() => handleStarClick(index)}
-            >
-              {index < rating ? "★" : "☆"}
-            </span>
-          ))}
-        </div>
-
         {/* Drink meta info */}
         <p className="recipe-card-category">Kategori: {drink.category}</p>
         <p className="recipe-card-difficulty">Svårighetsgrad: {drink.difficulty}</p>

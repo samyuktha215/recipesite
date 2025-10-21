@@ -40,6 +40,11 @@
 .recipe-card-rating {
   font-size: 1rem;
   color: #f5a623;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0.5rem 0;
 }
 
 /* Styles the category, difficulty and comments info */

@@ -1,7 +1,7 @@
-// React and router hooks for params, navigation, and location
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { addRating } from "../recipes/ratings";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // Component styles and shared components
 import "./RecipeDetails.css";
@@ -9,19 +9,16 @@ import BackButton from "../BackButton";
 import Sidebar from "../../pages/sidebar";
 
 export default function RecipeDetailsPage() {
-const { id } = useParams();
-
-  // Access navigation and any passed state from previous page
+  const { id } = useParams();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const location = useLocation();
-  const navigate = useNavigate();
 
-  // Store the selected recipe (from navigation or to be fetched)
+  // Store recipe
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
-
   const [userRating, setUserRating] = useState(0);
   const [message, setMessage] = useState("");
 
-  // Optional: fetch by ID if state is not available
+  // Fetch recipe if not passed from navigation
   useEffect(() => {
     if (!recipe) {
       fetch(`https://grupp1-mqzle.reky.se/recipes/${id}`)
@@ -30,67 +27,70 @@ const { id } = useParams();
           return res.json();
         })
         .then((data) => setRecipe(data))
-        .catch((err) => setRecipe("notfound"));
+        .catch(() => setRecipe("notfound"));
     }
   }, [id, recipe]);
- 
+
   if (!recipe) return <p className="loading">Laddar recept...</p>;
   if (recipe === "notfound") return <p className="loading">Recept hittades inte 😢</p>;
 
-
-  // Rating function
-  const handleStarClick = async (index) => {
-    const chosenRating = index + 1;
-    setUserRating(chosenRating);
-    setMessage("Sparar betyg...");
-
-    try {
-      const result = await addRating(recipe._id, chosenRating);
-      console.log("Omdömde sparat:", result);
-      setMessage("Tack för ditt betyg!")
-    } catch(err) {
-      console.error(err);
-      setMessage("Kunde inte spara ditt betyg!😢")
-    }
+  // Handle star click
+const handleStarClick = async (index) => {
+  if (!isAuthenticated) {
+    setMessage("Logga in för att ge betyg!");
+    return;
   }
 
+  const token = await getAccessTokenSilently({ audience: "https://recipes-api" });
+  const chosenRating = index + 1;
 
-  // Render the recipe details page
+  setUserRating(chosenRating);
+  setMessage("Sparar betyg...");
+
+  try {
+    await addRating(recipe._id, chosenRating, token);
+    setMessage("Tack för ditt betyg!");
+  } catch (err) {
+    console.error(err);
+    setMessage(err.message.includes("401") 
+      ? "Du måste logga in för att ge betyg!" 
+      : "Kunde inte spara ditt betyg!😢"
+    );
+  }
+};
+
+
   return (
     <div className="recipe-details">
-      {/* Global back button component */}
       <BackButton />
-
-      {/* Page title */}
       <h1 className="recipe-details-title">{recipe.title}</h1>
 
-      {/* Main layout container */}
       <div className="recipe-details-container">
-
         <div className="image-container">
-          {/* Recipe image */}
           <img
             src={recipe.imageUrl}
-            alt={recipe.name}
+            alt={recipe.title}
             className="recipe-details-card-image"
           />
 
-          {/* Rating */}
           <h2>Ge ditt betyg:</h2>
           <div className="recipe-card-rating">
             {[...Array(5)].map((_, index) => (
               <span
-              key={index}
-              className={index < userRating ? "star filled" : "star"}
-              onClick={() => handleStarClick(index)}
-              >⭐</span>
+                key={index}
+                className={index < userRating ? "star filled" : "star"}
+                onClick={() => handleStarClick(index)}
+              >
+                ⭐
+              </span>
             ))}
           </div>
+          <p>{message}</p>
         </div>
 
-        {/* Recipe text content */}
         <div className="recipe-details-info">
-          <p>{recipe.descrption}</p>
+          <p>{recipe.description}</p>
+
           <h2>Ingredienser:</h2>
           <ul>
             {recipe.ingredients.map((ing, idx) => (
@@ -108,10 +108,9 @@ const { id } = useParams();
           </ol>
 
           <p>Tid: {recipe.timeInMins} min</p>
-          <p>Svårighetsgrad: {recipe.difficulty}</p>
+          {recipe.difficulty && <p>Svårighetsgrad: {recipe.difficulty}</p>}
         </div>
 
-        {/* Sidebar placed to the right */}
         <div className="sidebar">
           <Sidebar />
         </div>

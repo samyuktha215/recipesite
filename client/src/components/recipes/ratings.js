@@ -1,9 +1,12 @@
-const BASE_URL = "https://grupp1-mqzle.reky.se";
+const BASE_URL = "https://grupp1-mqzle.reky.se"; // backend-URL, inte localhost:3000
 
-export async function addRating(recipeId, rating) {
+export async function addRating(recipeId, rating, token) {
   const response = await fetch(`${BASE_URL}/recipes/${recipeId}/ratings`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Authorization": `Bearer ${token}`, // skicka Auth0-token
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ rating }),
   });
 
@@ -11,5 +14,10 @@ export async function addRating(recipeId, rating) {
     throw new Error(`Kunde inte lägga till betyg: ${response.status}`);
   }
 
-  return response.json();
+  // Om backend inte returnerar JSON, hoppa över response.json()
+  try {
+    return await response.json();
+  } catch {
+    return null; // returnerar null om det inte finns JSON
+  }
 }
