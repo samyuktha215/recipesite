@@ -36,16 +36,33 @@
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
-/* Styles the star rating under the title */
+
 .recipe-card-rating {
-  font-size: 1rem;
-  color: #f5a623;
+
   display: flex;
+  gap: 0.3rem;
   justify-content: center;
   align-items: center;
-  gap: 0.2rem;
-  margin: 0.5rem 0;
 }
+
+.rating-img-filled,
+.rating-img-empty {
+  width: auto;        /* auto låter proportionerna vara korrekta */
+  max-width: 2rem;    /* maxbredd */
+  max-height: 2rem;   /* maxhöjd */
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.rating-img-empty {
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+
+
+
+
+
 
 /* Styles the category, difficulty and comments info */
 .recipe-card-category,

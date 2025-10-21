@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./RecipeCard.css";
+import drinkImage from "../../assets/rating-img3.jpg";
+
 
 export function RecipeCard({ drink }) {
 
@@ -13,8 +15,8 @@ export function RecipeCard({ drink }) {
   // State för betyg och favorit
   const [isFavorite, setIsFavorite] = useState(drink.isFavorite || false);
 
-  const rating = Math.floor(drink.rating); // avrunda nedåt
-  const votes = drink.votes || 0; // antal som röstat
+  const rating = drink.rating;
+
 
   return (
     // Card container
@@ -37,14 +39,17 @@ export function RecipeCard({ drink }) {
           </h1>
         </div>
 
-        {/* Show rating as stars + total votes */}
-       <div className="recipe-card-rating">
+      <div className="recipe-card-rating">
         {[...Array(5)].map((_, index) => (
-          <span key={index}>{index < rating ? "★" : "☆"}</span>
+          <img
+            key={index}
+            src={drinkImage}
+            className={index < rating ? "rating-img-filled" : "rating-img-empty"}
+            alt={`${index < rating ? "filled" : "empty"} rating`}
+          />
         ))}
-        {votes > 0 && <span> ({votes})</span>}
       </div>
-        
+
         {/* Drink meta info */}
         <p className="recipe-card-category">Kategori: {drink.category}</p>
         <p className="recipe-card-difficulty">Svårighetsgrad: {drink.difficulty}</p>

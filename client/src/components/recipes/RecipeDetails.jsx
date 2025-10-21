@@ -8,6 +8,7 @@ import "./RecipeDetails.css";
 import BackButton from "../BackButton";
 import Sidebar from "../../pages/sidebar";
 
+
 export default function RecipeDetailsPage() {
   const { id } = useParams();
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
@@ -34,21 +35,27 @@ export default function RecipeDetailsPage() {
   if (!recipe) return <p className="loading">Laddar recept...</p>;
   if (recipe === "notfound") return <p className="loading">Recept hittades inte 😢</p>;
 
-  // Handle star click
+// Handle star click with confirmation
 const handleStarClick = async (index) => {
   if (!isAuthenticated) {
     setMessage("Logga in för att ge betyg!");
     return;
   }
 
-  const token = await getAccessTokenSilently({ audience: "https://recipes-api" });
   const chosenRating = index + 1;
 
-  setUserRating(chosenRating);
-  setMessage("Sparar betyg...");
+  // Bekräftelse-dialog
+  const confirmMessage = `Vill du ge "${recipe.title}" betyget ${chosenRating}?`;
+  const confirmed = window.confirm(confirmMessage);
+  if (!confirmed) return; // Avbryt om användaren klickar "Avbryt"
 
   try {
+    setUserRating(chosenRating);
+    setMessage("Sparar betyg...");
+
+    const token = await getAccessTokenSilently({ audience: "https://recipes-api" });
     await addRating(recipe._id, chosenRating, token);
+
     setMessage("Tack för ditt betyg!");
   } catch (err) {
     console.error(err);
