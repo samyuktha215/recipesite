@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const Sidebar = ({ onSelectCategory }) => {
 
   const [selectedCategory, setSelectedCategory] = useState("Alla");
+  const location = useLocation();
 
+    useEffect(() => {
+    if (location.pathname === "/") {
+      setSelectedCategory("Alla");
+      onSelectCategory("");
+    }
+  }, [location, onSelectCategory]);
 
   const categories = [
     "Klassiska Drinkar",
