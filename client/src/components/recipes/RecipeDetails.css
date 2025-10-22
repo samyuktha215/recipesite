@@ -72,6 +72,37 @@
   align-items: flex-start;
 }
 
+/* Container runt bilden och stjärnorna */
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 10;
+}
+
+.recipe-card-rating {
+  display: flex;
+  gap: 0.3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.rating-img-filled,
+.rating-img-empty {
+  width: 2rem;       /* Storleken på bilderna */
+  height: 2rem;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.rating-img-empty {
+  opacity: 0.3;      /* Blurrig/transparent för tomma */
+  filter: grayscale(100%);
+}
+
+
 /* Recipe image styling */
 .recipe-details-card-image {
   max-width: 300px; /* controls image width */
