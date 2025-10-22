@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 const Sidebar = ({ onSelectCategory }) => {
+<<<<<<< HEAD
 
   const [selectedCategory, setSelectedCategory] = useState("Alla");
+=======
+  const [selectedCategory, setSelectedCategory] = useState("All");
+>>>>>>> b96d4c2 (fixed chenges before merge)
 
 
   const categories = [
@@ -16,9 +20,14 @@ const Sidebar = ({ onSelectCategory }) => {
 
   const handleCategoryClick = (cat) => {
     setSelectedCategory(cat);
+<<<<<<< HEAD
 
     onSelectCategory(cat === "Alla" ? "" : cat);
   }
+=======
+    onSelectCategory(cat === "All" ? "" : cat);
+  };
+>>>>>>> b96d4c2 (fixed chenges before merge)
 
 
   return (
