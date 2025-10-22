@@ -8,7 +8,7 @@ publish = "dist"
     VITE_AUTH0_AUDIENCE = "https://recipes-api"
     VITE_AUTH0_CLIENT_ID = "dgzwTiXahFJjvtapPW9ASvSymz8qdMIT"
     VITE_API_URL = "https://recipesite-1.onrender.com"
-[[redirects]]
+
 from = "/*"
 to = "/index.html"
 status = 200
