@@ -2,7 +2,7 @@ import React from 'react'
 import{Routes,Route} from 'react-router-dom'
 import Home from '../components/home.jsx'
 import RecipeDetails from '../components/recipes/RecipeDetails.jsx'
-import RecipesPage from '../components/recipes/RecipesPage.jsx'
+
 import CategoryCard from '../components/CategoryCard.jsx'
 import CategoryPage from '../components/CategoryPage.jsx'
 import Contact from '../components/contact.jsx'

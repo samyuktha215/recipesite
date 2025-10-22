@@ -142,19 +142,11 @@ aside ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-
 }
 
 aside ul li {
 	cursor: pointer;
-	padding: 8px 12px;
-	transition:
-		color 0.2s ease,
-		font-weight 0.2s ease;
-	padding: 8px 12px;
-	transition:
-		color 0.2s ease,
-		font-weight 0.2s ease;
+	transition: color 0.2s ease;
 }
 
 /* Hover effect */
@@ -162,7 +154,6 @@ aside ul li {
 aside ul li:hover {
 	color: #fed700;
 }
-
 
 /* Selected (active) category */
 aside ul li.active {
