@@ -1,0 +1,197 @@
+/* ===============================
+   GLOBAL.CSS – Drink IT Designsystem
+   =============================== */
+
+/* 🎨 1. Färgvariabler */
+:root {
+  --color-primary: #00A5B1;     /* Turkos/Cyan */
+  --color-secondary: #FF8C00;   /* Orange */
+  --color-accent: #9ACD32;      /* Ljusgrön/Lime */
+  --color-neutral: #F9F7F0;     /* Krämvit */
+  --color-text: #1A3249;        /* Mörkblå/Marin */
+
+  --font-heading: 'Montserrat', 'Poppins', sans-serif;
+  --font-body: 'Roboto', 'Open Sans', sans-serif;
+  --font-accent: 'Pacifico', cursive;
+
+  --radius: 12px;
+  --shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 🧱 2. Grundläggande reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-neutral);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+/* 📑 3. Rubriker */
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: var(--color-secondary); /* Orange sidtitel */
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.8rem;
+  color: var(--color-text); /* Mörkblå undertitel */
+  text-align: center;
+}
+
+/* 🔗 4. Länkar och knappar */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
+button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.6em 1.2em;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+/* 🔍 5. Navigering (Header) */
+header {
+  background-color: var(--color-text); /* Mörkblå bakgrund */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em 2em;
+}
+
+header.transparent {
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+nav a {
+  color: inherit;
+  margin-left: 1.5em;
+  font-weight: 600;
+}
+
+nav a.active {
+  color: var(--color-primary);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* 🍸 6. Drinkkort (Cards) */
+.card {
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card img {
+  width: 100%;
+  display: block;
+}
+
+.card-content {
+  padding: 1em;
+}
+
+.card h3 {
+  font-family: var(--font-heading);
+  color: var(--color-text);
+  margin-bottom: 0.5em;
+}
+
+.card:hover {
+  border: 2px solid var(--color-primary);
+  background-color: rgba(154, 205, 50, 0.05); /* Lätt grön ton vid hover */
+  transform: translateY(-3px);
+}
+
+/* 🧭 7. Sidebar */
+.sidebar {
+  padding: 1em;
+  background-color: white;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.sidebar input[type="search"] {
+  width: 100%;
+  padding: 0.6em;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  background-color: var(--color-neutral);
+  margin-bottom: 1em;
+}
+
+.sidebar .category {
+  color: var(--color-text);
+  font-weight: 500;
+  padding: 0.5em 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.sidebar .category.active::before {
+  content: '•';
+  color: var(--color-secondary);
+  font-size: 1.2em;
+}
+
+/* 🦶 8. Footer */
+footer {
+  background-color: var(--color-text);
+  color: white;
+  padding: 2em;
+  text-align: center;
+}
+
+footer a {
+  color: var(--color-secondary);
+  margin: 0 0.8em;
+  font-weight: bold;
+}
+
+footer a:hover {
+  color: var(--color-primary);
+}
+
+/* ✨ 9. Små accenter och effekter */
+.highlight {
+  color: var(--color-accent);
+  font-family: var(--font-accent);
+}
+
+.shadow {
+  box-shadow: var(--shadow);
+}
