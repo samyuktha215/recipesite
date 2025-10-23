@@ -1,172 +1,178 @@
-/* Reset and base styles */
+/* ===============================
+   CONTACT PAGE STYLING
+   =============================== */
+
+/* Reset & base */
 * {
-	margin: 0;
-	padding: 0;
-	font-family: 'Poppins', sans-serif;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  box-sizing: border-box;
 }
 
 .contact {
-	padding: 40px 20px;
-	width: 100%;
-	background-color: #fff;
+  padding: 40px 20px;
+  width: 100%;
+  background-color: var(--color-neutral);
 }
 
 .contact .container {
-	padding: 10px 20px;
-	max-width: 1200px;
-	margin: 0 auto;
+  padding: 10px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 /* Contact Form Box */
 .contact .container .form {
-	width: 400px;
-	background: #f6f6f6;
-	padding: 25px 30px;
-	box-shadow: rgba(100, 100, 111, 0.2) 0px 3px 8px;
-	margin: 0 auto;
-	border-top: 3px solid #fed700;
-	border-radius: 5px; /* fixed property name */
+  width: 400px;
+  background: var(--color-neutral);
+  padding: 25px 30px;
+  box-shadow: var(--shadow);
+  margin: 0 auto;
+  border-top: 3px solid var(--color-secondary); /* Orange accent */
+  border-radius: var(--radius);
+  transition: transform 0.2s ease;
 }
 
+.contact .container .form:hover {
+  transform: translateY(-2px);
+}
+
+/* Form title */
 .contact .container .form h2 {
-	color: #cd1e76;
-	text-transform: uppercase;
-	font-size: 18px;
-	letter-spacing: 1px;
-	font-weight: 600;
-	text-align: center;
-	margin-bottom: 10px;
+  color: var(--color-primary); /* Turkos */
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+  font-family: var(--font-heading);
 }
 
-/* Label + Input grouping */
+/* Label + input container */
 .contact .container .form .box {
-	display: flex;
-	margin-top: 20px;
-	justify-content: space-between;
-	align-items: flex-start;
-	gap: 10px;
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .contact .container .form .box .label h4 {
-	margin-left: 30px;
-	color: #232323;
-	font-size: 14px;
-	font-weight: 600;
-	margin-top: 10px;
+  margin-left: 30px;
+  color: var(--color-text);
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 10px;
 }
 
 .contact .container .form .box .input input,
 .contact .container .form .box .input textarea {
-	width: 100%;
-	border: none;
-	outline: none;
-	background: none;
-	border-bottom: 2px solid #8a8a8a;
-	padding: 10px 20px;
-	color: #232323;
-	font-size: 14px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 2px solid var(--color-text);
+  padding: 10px 20px;
+  color: var(--color-text);
+  font-size: 14px;
 }
 
 .contact .container .form .box .input textarea {
-	resize: none;
-	height: 80px;
+  resize: none;
+  height: 80px;
 }
 
 /* Submit button */
 .contact .container .form button {
-	margin-top: 25px;
-	display: block;
-	width: fit-content;
-	padding: 10px 30px;
-	color: #232323;
-	border: none;
-	outline: none;
-	background: #fed700;
-	cursor: pointer;
-	border-radius: 3px;
-	font-weight: 600;
-	transition:
-		background-color 0.3s ease,
-		transform 0.2s ease;
+  margin-top: 25px;
+  display: block;
+  width: fit-content;
+  padding: 10px 30px;
+  color: white;
+  border: none;
+  outline: none;
+  background: var(--color-secondary); /* Orange */
+  cursor: pointer;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .contact .container .form button:hover {
-	background-color: #e6c000;
-	transform: scale(1.05);
+  background-color: var(--color-primary); /* Turkos hover */
+  transform: scale(1.05);
 }
 
-/* ---------------------------------- */
-/* RESPONSIVE DESIGN */
-/* ---------------------------------- */
+/* ==============================
+   RESPONSIVE DESIGN
+   ============================== */
 
-/* Medium screens (Tablets ≤ 992px) */
 @media (max-width: 992px) {
-	.contact .container .form {
-		width: 80%;
-		padding: 25px;
-	}
+  .contact .container .form {
+    width: 80%;
+    padding: 25px;
+  }
 
-	.contact .container .form h2 {
-		font-size: 17px;
-	}
+  .contact .container .form h2 {
+    font-size: 17px;
+  }
 
-	.contact .container .form .box {
-		flex-direction: column;
-		align-items: flex-start;
-	}
+  .contact .container .form .box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-	.contact .container .form .box .label h4 {
-		margin-left: 0;
-		margin-bottom: 5px;
-	}
+  .contact .container .form .box .label h4 {
+    margin-left: 0;
+    margin-bottom: 5px;
+  }
 }
 
-/* Small screens (Mobile ≤ 768px) */
 @media (max-width: 768px) {
-	.contact {
-		padding: 30px 15px;
-	}
+  .contact {
+    padding: 30px 15px;
+  }
 
-	.contact .container .form {
-		width: 100%;
-		padding: 20px;
-	}
+  .contact .container .form {
+    width: 100%;
+    padding: 20px;
+  }
 
-	.contact .container .form h2 {
-		font-size: 16px;
-	}
+  .contact .container .form h2 {
+    font-size: 16px;
+  }
 
-	.contact .container .form button {
-		width: 100%;
-		text-align: center;
-	}
+  .contact .container .form button {
+    width: 100%;
+    text-align: center;
+  }
 }
 
-/* Extra small screens (≤ 480px) */
 @media (max-width: 480px) {
-	.contact {
-		padding: 25px 10px;
-	}
+  .contact {
+    padding: 25px 10px;
+  }
 
-	.contact .container .form {
-		padding: 15px;
-		box-shadow: none;
-		border-top: 2px solid #fed700;
-	}
+  .contact .container .form {
+    padding: 15px;
+    box-shadow: none;
+    border-top: 2px solid var(--color-secondary);
+  }
 
-	.contact .container .form h2 {
-		font-size: 15px;
-	}
+  .contact .container .form h2 {
+    font-size: 15px;
+  }
 
-	.contact .container .form .box .input input,
-	.contact .container .form .box .input textarea {
-		font-size: 13px;
-		padding: 8px 10px;
-	}
+  .contact .container .form .box .input input,
+  .contact .container .form .box .input textarea {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
 
-	.contact .container .form button {
-		padding: 10px;
-		font-size: 14px;
-	}
+  .contact .container .form button {
+    padding: 10px;
+    font-size: 14px;
+  }
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './contact.css'
 import BackButton from './BackButton'
+import "../styles/global.css";
 
 const Contact = () => {
     const [user, setUser] = useState(
