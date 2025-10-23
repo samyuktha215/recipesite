@@ -2,9 +2,9 @@ import React from 'react'
 import{Routes,Route} from 'react-router-dom'
 import Home from '../components/home.jsx'
 import RecipeDetails from '../components/recipes/RecipeDetails.jsx'
-import RecipesPage from '../components/recipes/RecipesPage.jsx'
-import CategoryCard from '../components/CategoryCard.jsx'
 
+import CategoryCard from '../components/CategoryCard.jsx'
+import CategoryPage from '../components/CategoryPage.jsx'
 import Contact from '../components/contact.jsx'
 import About from '../components/about.jsx'
 import ProtectedRoute from './protectedRoute.jsx'
@@ -23,8 +23,9 @@ const Rout = () => {
 
         <Route path="/contact" element={<ProtectedRoute><Contact/></ProtectedRoute>}/>
 
+        <Route path="/categories" element={<CategoryPage />}/>
 
-        <Route path="/recipes/:slug" element={<RecipeDetails />} />
+        <Route path="/recipes/:id" element={<RecipeDetails />} />
 
 
         

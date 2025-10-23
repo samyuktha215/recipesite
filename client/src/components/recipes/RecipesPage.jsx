@@ -31,7 +31,7 @@ export default function RecipesPage() {
   return (
     <div className="recipes-page">
       {/* Page heading */}
-      <h1 className="recipes-title">Look for your favourite Drink</h1>
+      <h1 className="recipes-title">Sök efter din favoritdryck</h1>
 
       {/* Grid with all recipe cards */}
       <div className="grid-container">

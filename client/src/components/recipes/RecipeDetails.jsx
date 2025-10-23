@@ -1,67 +1,112 @@
-// React and router hooks for params, navigation, and location
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
+import { addRating } from "../recipes/ratings";
+import { useAuth0 } from "@auth0/auth0-react";
 
 // Component styles and shared components
 import "./RecipeDetails.css";
 import BackButton from "../BackButton";
-import Sidebar from "../../pages/sidebar";
+import drinkImage from "../../assets/rating-img3.jpg";
 
 export default function RecipeDetailsPage() {
-  // Get the slug from the route URL
-  const { slug } = useParams();
-
-  // Access navigation and any passed state from previous page
+  const { id } = useParams();
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const location = useLocation();
-  const navigate = useNavigate();
 
-  // Store the selected recipe (from navigation or to be fetched)
+  // Store recipe
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
+  const [userRating, setUserRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
 
-  // Fetch all recipes and find the one matching the slug
+  const [message, setMessage] = useState("");
+
+  // Fetch recipe if not passed from navigation
   useEffect(() => {
-    fetch("https://grupp1-mqzle.reky.se/recipes")
-      .then((res) => res.json())
-      .then((allRecipes) => {
-        const match = allRecipes.find((r) => {
-          const recipeSlug = r.title
-            .toLowerCase()
-            .replace(/ /g, "-")
-            .replace(/[åä]/g, "a")
-            .replace(/ö/g, "o");
-          return recipeSlug === slug;
-        });
-        setRecipe(match || "notfound");
-      })
-      .catch((err) => setRecipe("notfound"));
-  }, [slug]);
+    if (!recipe) {
+      fetch(`https://grupp1-mqzle.reky.se/recipes/${id}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("Recipe not found");
+          return res.json();
+        })
+        .then((data) => setRecipe(data))
+        .catch(() => setRecipe("notfound"));
+    }
+  }, [id, recipe]);
 
-  // Handle loading and error states
   if (!recipe) return <p className="loading">Laddar recept...</p>;
-  if (recipe === "notfound")
-    return <p className="loading">Recept hittades inte 😢</p>;
+  if (recipe === "notfound") return <p className="loading">Recept hittades inte 😢</p>;
 
-  // Render the recipe details page
+// Handle star click with confirmation
+const handleStarClick = async (index) => {
+  if (!isAuthenticated) {
+    setMessage("Logga in för att ge betyg!");
+    return;
+  }
+
+  const chosenRating = index + 1;
+
+  // Bekräftelse-dialog
+  const confirmMessage = `Vill du ge "${recipe.title}" betyget ${chosenRating}?`;
+  const confirmed = window.confirm(confirmMessage);
+  if (!confirmed) return; // Avbryt om användaren klickar "Avbryt"
+
+  try {
+    setUserRating(chosenRating);
+    setMessage("Sparar betyg...");
+
+    const token = await getAccessTokenSilently({ audience: "https://recipes-api" });
+    await addRating(recipe._id, chosenRating, token);
+
+    setMessage("Tack för ditt betyg!");
+  } catch (err) {
+    console.error(err);
+    setMessage(err.message.includes("401") 
+      ? "Du måste logga in för att ge betyg!" 
+      : "Kunde inte spara ditt betyg!😢"
+    );
+  }
+};
+
+
   return (
     <div className="recipe-details">
-      {/* Global back button component */}
       <BackButton />
+      <h1 className="recipe-details-title">{recipe.title}</h1>
 
-      {/* Page title */}
-      <h1 className="recipe-details-title">Drinkrecept: {recipe.title}</h1>
-
-      {/* Main layout container */}
       <div className="recipe-details-container">
-        
-        {/* Recipe image */}
-        <img
-          src={recipe.imageUrl}
-          alt={recipe.title}
-          className="recipe-details-card-image"
-        />
+        <div className="image-container">
+          <img
+            src={recipe.imageUrl}
+            alt={recipe.title}
+            className="recipe-details-card-image"
+          />
 
-        {/* Recipe text content */}
+          <h2>Ge ditt betyg:</h2>
+<div className="recipe-card-rating">
+  {[...Array(5)].map((_, index) => {
+    // Är bilden “fylld”? Om hover pågår, använd hoverRating, annars userRating
+    const isFilled = hoverRating ? index < hoverRating : index < userRating;
+
+    return (
+      <img
+        key={index}
+        src={drinkImage}
+        className={isFilled ? "rating-img-filled" : "rating-img-empty"}
+        alt={`rating ${index + 1}`}
+        onClick={() => handleStarClick(index)}
+        onMouseEnter={() => setHoverRating(index + 1)}
+        onMouseLeave={() => setHoverRating(0)}
+      />
+    );
+  })}
+</div>
+          <p>{message}</p>
+
+        </div>
+
         <div className="recipe-details-info">
+          <p>{recipe.description}</p>
+
           <h2>Ingredienser:</h2>
           <ul>
             {recipe.ingredients.map((ing, idx) => (
@@ -79,10 +124,9 @@ export default function RecipeDetailsPage() {
           </ol>
 
           <p>Tid: {recipe.timeInMins} min</p>
-          <p>Svårighetsgrad: {recipe.difficulty}</p>
+          {recipe.difficulty && <p>Svårighetsgrad: {recipe.difficulty}</p>}
         </div>
 
-        
       </div>
     </div>
   );

@@ -1,21 +1,34 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const Sidebar = ({ onSelectCategory }) => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const [selectedCategory, setSelectedCategory] = useState("Alla");
+  const location = useLocation();
+
+    useEffect(() => {
+    if (location.pathname === "/") {
+      setSelectedCategory("Alla");
+      onSelectCategory("");
+    }
+  }, [location, onSelectCategory]);
 
   const categories = [
     "Klassiska Drinkar",
     "Varma Drinkar",
     "Alkoholfria Drinkar",
     "Veganska Drinkar",
-    "All"
+    "Alla"
   ];
 
   const handleCategoryClick = (cat) => {
     setSelectedCategory(cat);
-    onSelectCategory(cat === "All" ? "" : cat);
-  };
+
+    onSelectCategory(cat === "Alla" ? "" : cat);
+  }
+
 
   return (
     <aside>

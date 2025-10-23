@@ -21,12 +21,12 @@ const Home = () => {
   // Filter drinks based on selected category
   const filteredDrinks = selectedCategory
     ? drinks.filter((drink) =>
-        drink.categories?.some(
-          (cat) =>
-            cat.toLowerCase() === selectedCategory.toLowerCase() ||
-            cat.toLowerCase().includes(selectedCategory.toLowerCase())
-        )
+      drink.categories?.some(
+        (cat) =>
+          cat.toLowerCase() === selectedCategory.toLowerCase() ||
+          cat.toLowerCase().includes(selectedCategory.toLowerCase())
       )
+    )
     : drinks;
 
   const handleSearchSubmit = (e) => {
@@ -37,8 +37,9 @@ const Home = () => {
 
     if (match) {
       navigate(`/recipes/${match._id}`, { state: { recipe: match } });
-    } else {
-      alert("No recipe found with that name.");
+    }
+    else {
+      alert("Inget recept hittades med det namnet.");
     }
   };
 
@@ -59,12 +60,12 @@ const Home = () => {
 
       {/* Main Layout: Grid + Sidebar */}
       <div className="main-layout">
-          {/* Sidebar Section with Search on Top */}
+        {/* Sidebar Section with Search on Top */}
         <div className="sidebar-container">
           <form onSubmit={handleSearchSubmit} className="search-form">
             <input
               type="text"
-              placeholder="Search for a recipe..."
+              placeholder="Sök efter ett recept..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -80,6 +81,7 @@ const Home = () => {
           {filteredDrinks.length > 0 ? (
             filteredDrinks.map((recipe) => {
               const adaptedDrink = {
+                _id:recipe._id,
                 image: recipe.imageUrl,
                 name: recipe.title,
                 rating: recipe.avgRating || 0,
@@ -97,7 +99,7 @@ const Home = () => {
           )}
         </div>
 
-     
+
       </div>
     </div>
   );
