@@ -3,6 +3,7 @@ import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
 import './nav.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import "../styles/global.css";
  
 const Nav = () => {
   const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();

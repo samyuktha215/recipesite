@@ -1,20 +1,20 @@
-/* Reset */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
+/* ===============================
+   NAV.CSS – Navigationsfält
+   =============================== */
 
+/* ✅ Reset borttagen – den finns redan i global.css */
+
+/* Header / Navbar */
 .header {
 	width: 100%;
-	background-color: #41374e;
-	box-shadow: 0 2px 8px rgba(164, 204, 241, 0.1);
+	background-color: var(--color-text); /* Mörkblå bakgrund */
+	box-shadow: var(--shadow);
 	position: sticky;
 	top: 0;
 	z-index: 100;
 }
 
-/* Navigation bar */
+/* Navigation bar layout */
 .nav-bar {
 	display: flex;
 	align-items: center;
@@ -26,9 +26,10 @@
 
 /* Logo */
 .logo-text {
+	font-family: var(--font-heading);
 	font-size: 22px;
 	font-weight: 700;
-	color: #f4f5f6;
+	color: var(--color-neutral); /* Krämvit logotext */
 	text-decoration: none;
 }
 
@@ -45,22 +46,24 @@
 
 .link {
 	text-decoration: none;
-	color: #fffefe;
+	color: var(--color-neutral); /* Krämvit text */
 	font-weight: 500;
+	padding-bottom: 4px;
 	transition:
 		color 0.3s ease,
 		border-bottom 0.3s ease;
-	padding-bottom: 4px;
 }
 
-.link:hover {
-	color: #007bff;
-	border-bottom: 2px solid #007bff;
+/* Hover & Active */
+.link:hover,
+.link.active {
+	color: var(--color-primary); /* Turkos hover */
+	border-bottom: 2px solid var(--color-primary);
 }
 
 /* Auth Button */
 .auth-btn button {
-	background-color: #007bff;
+	background-color: var(--color-secondary); /* Orange CTA-knapp */
 	color: white;
 	border: none;
 	outline: none;
@@ -76,7 +79,7 @@
 }
 
 .auth-btn button:hover {
-	background-color: #0056b3;
+	background-color: var(--color-accent); /* Ljusgrön hover */
 	transform: scale(1.05);
 }
 
@@ -84,7 +87,7 @@
 .menu-icon {
 	display: none;
 	cursor: pointer;
-	color: #333;
+	color: var(--color-neutral);
 }
 
 /* Responsive Styles */
@@ -100,14 +103,14 @@
 	.nav-links {
 		flex-direction: column;
 		width: 100%;
-		background-color: #ffffff;
+		background-color: var(--color-neutral);
 		position: absolute;
 		top: 70px;
 		left: 0;
 		padding: 15px 0;
 		gap: 15px;
 		display: none;
-		border-top: 1px solid #ddd;
+		border-top: 1px solid rgba(0, 0, 0, 0.1);
 	}
 
 	.nav-links.active {
