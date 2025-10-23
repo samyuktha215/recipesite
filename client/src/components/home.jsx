@@ -4,6 +4,7 @@ import { RecipeCard } from "./recipes/RecipeCard";
 import bannerImage from "../assets/Background.png";
 import Sidebar from "../pages/sidebar.jsx";
 import "./home.css";
+import "../styles/global.css";
 
 const Home = () => {
   const [drinks, setDrinks] = useState([]);

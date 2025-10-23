@@ -1,36 +1,34 @@
-/* Reset */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	font-family: 'Poppins', sans-serif;
-}
+/* ===============================
+   HOME.CSS – Startsida & Recept
+   =============================== */
 
-/* Home container */
+/* ✅ Reset borttagen – finns redan i global.css */
+
+/* Container */
 .home {
 	width: 100%;
 	padding: 20px;
-	background-color: #f4e9e9;
+	background-color: var(--color-neutral);
 	position: relative;
+	font-family: var(--font-body);
 }
 
 /* Banner */
 .top_banner {
 	display: flex;
-	flex-direction: row-reverse; /* 🔄 image on right, text on left */
+	flex-direction: row-reverse; /* Bild till höger */
 	align-items: center;
 	justify-content: space-between;
-	background: #f1f1ed;
-	padding: 40px 60px; /* extra right padding */
-	border-radius: 8px;
+	background-color: white;
+	padding: 40px 60px;
+	border-radius: var(--radius);
 	margin-bottom: 40px;
 	gap: 40px;
+	box-shadow: var(--shadow);
 }
 
-/* Image section */
 .banner-image {
 	flex: 0 0 auto;
-	margin-right: 40px; /* 👉 shifts image further right */
 	display: flex;
 	justify-content: flex-end;
 }
@@ -38,54 +36,57 @@
 .banner-image img {
 	width: 200px;
 	height: auto;
-	border-radius: 8px;
+	border-radius: var(--radius);
 	object-fit: cover;
 	display: block;
 	margin-left: 80px;
 }
 
-/* Text content */
+/* Textinnehåll i banner */
 .top_banner .content {
 	flex: 1;
-	padding-left: 5px; /* small gap from left edge */
+	padding-left: 5px;
 }
 
 .top_banner .content h3 {
-	color: #d5a495;
+	color: var(--color-secondary); /* Orange undertitel */
+	font-family: var(--font-heading);
 	font-size: 22px;
 	margin-bottom: 10px;
 }
 
 .top_banner .content h2 {
 	font-size: 36px;
-	color: #232323;
+	color: var(--color-text);
+	font-family: var(--font-heading);
 }
 
-/* Main Layout: Sidebar + Recipe Grid */
+/* Layout: Sidebar + Grid */
 .main-layout {
 	display: flex;
 	align-items: flex-start;
 	gap: 2rem;
-	flex-direction: row-reverse; /* Sidebar on the right */
+	flex-direction: row-reverse; /* Sidebar till höger */
 }
-/* Sidebar Container */
+
+/* Sidebar-container */
 .sidebar-container {
 	display: flex;
 	flex-direction: column;
-	gap: 20px; /* space between search form and sidebar */
+	gap: 20px;
 	max-width: 280px;
 	flex: 1;
 }
 
-/* Search Form */
+/* 🔍 Sökformulär */
 .search-form {
 	display: flex;
 	align-items: center;
 	gap: 8px;
-	background: #fff;
+	background: var(--color-neutral);
 	padding: 10px 14px;
 	border-radius: 30px;
-	box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+	box-shadow: var(--shadow);
 }
 
 .search-form input {
@@ -95,6 +96,8 @@
 	outline: none;
 	font-size: 15px;
 	border-radius: 20px;
+	background: transparent;
+	color: var(--color-text);
 }
 
 .search-form input::placeholder {
@@ -102,7 +105,7 @@
 }
 
 .search-form button {
-	background-color: #cd1e76;
+	background-color: var(--color-primary); /* Turkos */
 	border: none;
 	color: white;
 	padding: 8px 14px;
@@ -113,145 +116,51 @@
 }
 
 .search-form button:hover {
-	background-color: #fed700;
-	color: #232323;
+	background-color: var(--color-accent); /* Ljusgrön hover */
+	color: var(--color-text);
 	transform: translateY(-2px);
 }
 
 /* Sidebar */
 aside {
-	background: #d5a495;
+	background: white;
 	padding: 20px;
-	border-radius: 8px;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px;
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
 	height: fit-content;
 }
 
 aside h3 {
-	color: #cd1e76;
+	color: var(--color-primary);
 	margin-bottom: 1rem;
 	font-size: 18px;
-	border-bottom: 2px solid #fed700;
+	border-bottom: 2px solid var(--color-secondary);
 	padding-bottom: 5px;
+	font-family: var(--font-heading);
 }
 
 aside ul {
 	list-style-type: none;
 	padding: 0;
 	margin: 0;
-	list-style: none;
-	padding: 0;
-	margin: 0;
 }
 
 aside ul li {
 	cursor: pointer;
+	color: var(--color-text);
 	transition: color 0.2s ease;
 }
 
-/* Hover effect */
-/* Hover effect */
 aside ul li:hover {
-	color: #fed700;
+	color: var(--color-secondary); /* Orange hover */
 }
 
-/* Selected (active) category */
 aside ul li.active {
-	font-weight: bold; /* makes the selected category text bold */
-	color: #1f1f1e; /* optional, highlights the selected category */
+	font-weight: bold;
+	color: var(--color-primary); /* Turkos markerad kategori */
 }
 
-/* Search Container (for fixed top-right search bar) */
-.search-bar-fixed {
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	width: 250px;
-	z-index: 1000;
-	background-color: #fff;
-	padding: 5px 10px;
-	border-radius: 8px;
-	box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 6px;
-}
-
-.search-bar-fixed form {
-	display: flex;
-	gap: 5px;
-}
-
-.search-bar-fixed input[type='text'] {
-	flex: 1;
-	padding: 8px 12px;
-	border-radius: 20px 0 0 20px;
-	border: 1px solid #ccc;
-	outline: none;
-}
-
-.search-bar-fixed button[type='submit'] {
-	padding: 8px 12px;
-	border-radius: 0 20px 20px 0;
-	border: none;
-	background-color: #cd1e76;
-	color: white;
-	cursor: pointer;
-	font-weight: 500;
-	transition:
-		background-color 0.3s ease,
-		transform 0.2s ease;
-}
-
-/* Selected (active) category */
-aside ul li.active {
-	font-weight: bold; /* makes the selected category text bold */
-	color: #1f1f1e; /* optional, highlights the selected category */
-}
-
-/* Search Container (for fixed top-right search bar) */
-.search-bar-fixed {
-	position: fixed;
-	top: 20px;
-	right: 20px;
-	width: 250px;
-	z-index: 1000;
-	background-color: #fff;
-	padding: 5px 10px;
-	border-radius: 8px;
-	box-shadow: rgba(0, 0, 0, 0.15) 0px 4px 6px;
-}
-
-.search-bar-fixed form {
-	display: flex;
-	gap: 5px;
-}
-
-.search-bar-fixed input[type='text'] {
-	flex: 1;
-	padding: 8px 12px;
-	border-radius: 20px 0 0 20px;
-	border: 1px solid #ccc;
-	outline: none;
-}
-
-.search-bar-fixed button[type='submit'] {
-	padding: 8px 12px;
-	border-radius: 0 20px 20px 0;
-	border: none;
-	background-color: #cd1e76;
-	color: white;
-	cursor: pointer;
-	font-weight: 500;
-	transition:
-		background-color 0.3s ease,
-		transform 0.2s ease;
-}
-
-.search-bar-fixed button[type='submit']:hover {
-	background-color: #fed700;
-	color: #232323;
-	transform: translateY(-2px);
-}
-
-/* Recipe Grid */
+/* 🧃 Recept-grid */
 .grid-container {
 	flex: 3;
 	display: grid;
@@ -259,16 +168,16 @@ aside ul li.active {
 	gap: 1.5rem;
 }
 
-/* Recipe Card Styles */
+/* Receptkort */
 .recipe-card {
-	background: #d5a495;
-	border-radius: 8px;
-	box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 6px;
+	background: white;
+	border-radius: var(--radius);
+	box-shadow: var(--shadow);
 	padding: 15px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	transition: transform 0.2s ease;
+	transition: transform 0.2s ease, border 0.2s ease;
 }
 
 .recipe-card img {
@@ -280,9 +189,10 @@ aside ul li.active {
 }
 
 .recipe-card h4 {
-	color: #232323;
+	color: var(--color-text);
 	margin-bottom: 5px;
 	text-align: center;
+	font-family: var(--font-heading);
 }
 
 .recipe-card p {
@@ -292,17 +202,20 @@ aside ul li.active {
 }
 
 .recipe-card:hover {
-	transform: scale(1.05);
+	transform: translateY(-3px);
+	border: 2px solid var(--color-primary);
 }
 
+/* Ingen träff */
 .no-results {
 	font-size: 16px;
 	color: #555;
 	margin-top: 20px;
 	grid-column: 1 / -1;
+	text-align: center;
 }
 
-/* Responsive Layout */
+/* Responsiv layout */
 @media (max-width: 992px) {
 	.main-layout {
 		flex-direction: column;
@@ -315,49 +228,9 @@ aside ul li.active {
 
 	.banner-image img {
 		width: 100%;
+		margin-left: 0;
 	}
 
-	.banner-search {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		margin-top: 20px;
-		gap: 10px;
-	}
-
-	.banner-search form {
-		display: flex;
-		width: 100%;
-		max-width: 500px;
-		background: #fff;
-		border-radius: 30px;
-		overflow: hidden;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	}
-
-	.banner-search input {
-		flex: 1;
-		padding: 12px 20px;
-		border: none;
-		outline: none;
-		font-size: 16px;
-	}
-
-	.banner-search button {
-		background-color: #cd1e76;
-		color: white;
-		border: none;
-		padding: 0 20px;
-		cursor: pointer;
-		font-size: 18px;
-		transition: 0.3s ease;
-	}
-
-	.banner-search button:hover {
-		background-color: #f38b00;
-	}
-
-	/* Stack banner on small screens */
 	.top_banner {
 		flex-direction: column;
 		text-align: center;
