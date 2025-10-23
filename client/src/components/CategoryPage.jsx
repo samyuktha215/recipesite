@@ -3,6 +3,7 @@ import nav from "./nav.jsx";
 import bannerImage from "../assets/Background.png";
 import "./CategoryPage.css";
 import { RecipeCard } from "./recipes/RecipeCard.jsx";
+import "../styles/global.css";
 
 // Define all category options that users can click
 const categories = [

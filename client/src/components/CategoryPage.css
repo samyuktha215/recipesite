@@ -1,40 +1,45 @@
-/* ===== CATEGORY BUTTON STYLING ===== */
+/* ===============================
+   CATEGORY PAGE & BUTTON STYLING
+   =============================== */
+
+/* Container */
 .category-page {
   display: flex;
   justify-content: center;
-  flex-wrap: wrap; /* responsive */
-  background-color: #f4e9e9;
+  flex-wrap: wrap;
+  background-color: var(--color-neutral); /* Krämvit bakgrund */
+  padding: 1rem;
+  gap: 1rem;
 }
 
+/* Category buttons */
 .category-button {
-  background-color: #fefaf8;
-  color: #2a2a2a;
-  border: 2px solid #2a2a2a;
+  background-color: white;
+  color: var(--color-text);
+  border: 2px solid var(--color-text);
+  border-radius: var(--radius);
   font-weight: 600;
   font-size: 1rem;
-  padding: 0.75rem 5rem;
+  padding: 0.75rem 3rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
   text-transform: uppercase;
   min-width: 150px;
+  box-shadow: var(--shadow);
 }
 
 /* Hover effect */
 .category-button:hover {
-  background-color: #9eb8a1;
-  color: #2a2a2a;
+  background-color: var(--color-accent); /* Ljusgrön hover */
+  color: var(--color-text);
+  transform: translateY(-2px);
 }
 
 /* Active (selected) category button */
 .category-button.active {
-  background-color: #9eb8a1;   /* dark fill */
-  color: #2a2a2a;
-}
-
-/* Optional: subtle shadow for depth */
-.category-button,
-.category-button.active {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-primary); /* Turkos aktiv knapp */
+  color: white;
+  border-color: var(--color-primary);
 }
 
 /* Responsive: stack on small screens */
@@ -49,11 +54,12 @@
   }
 }
 
+/* Drinks list container */
 .drinks_list {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
   padding: 15px;
-  background-color: #f4e9e9;
+  background-color: var(--color-neutral);
 }
