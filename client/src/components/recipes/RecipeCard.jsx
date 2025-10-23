@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./RecipeCard.css";
 import drinkImage from "../../assets/rating-img3.jpg";
+import "../../styles/global.css";
 
 
 export function RecipeCard({ drink }) {

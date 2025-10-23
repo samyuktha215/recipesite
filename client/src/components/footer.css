@@ -1,9 +1,13 @@
-/* ====== GENERAL FOOTER STYLING ====== */
+/* ===============================
+   FOOTER – Sidfotsdesign
+   =============================== */
+
 .footer {
-	background-color: #d5a495;
+	background-color: var(--color-primary); /* Turkos basfärg */
 	color: white;
 	padding: 40px 0 20px;
 	width: 100%;
+	font-family: var(--font-body);
 }
 
 .footer-container {
@@ -23,71 +27,67 @@
 	gap: 20px;
 	flex-wrap: wrap;
 	position: relative;
+	justify-content: center;
 }
 
 .footer-buttons button {
-	background-color: #fff;
-	color: #131313;
+	background-color: white;
+	color: var(--color-text);
 	border: none;
 	padding: 12px 20px;
-	border-radius: 8px;
+	border-radius: var(--radius);
 	font-size: 16px;
 	cursor: pointer;
 	font-weight: 500;
 	transition: all 0.3s ease;
 	min-width: 150px;
+	box-shadow: var(--shadow);
 }
 
 .footer-buttons button:hover {
-	background-color: #fed700;
-	color: #232323;
+	background-color: var(--color-secondary); /* Orange hover */
+	color: white;
 	transform: translateY(-3px);
 }
 
-/* ====== SOCIAL ICONS (CENTERED, EQUALLY SPACED) ====== */
-/* ====== SOCIAL ICONS (VERTICAL, CIRCULAR) ====== */
-/* Social button container */
-/* Footer Buttons */
-.footer-buttons {
-	display: flex;
-	gap: 20px;
-	flex-wrap: wrap;
+/* ====== SOCIAL ICONS ====== */
+.social-button-container {
 	position: relative;
 }
 
-/* Social button container (for absolute positioning) */
-.social-button-container {
-	position: relative; /* needed for absolute child */
-}
-
-/* Sociala Medier button */
 .social-button {
-	background-color: #fff;
-	color: #cd1e76;
+	background-color: white;
+	color: var(--color-primary);
 	border: none;
 	padding: 12px 20px;
-	border-radius: 8px;
+	border-radius: var(--radius);
 	cursor: pointer;
 	font-weight: 500;
 	transition: all 0.3s ease;
+	box-shadow: var(--shadow);
 }
 
-/* Vertical social list (absolutely positioned) */
+.social-button:hover {
+	background-color: var(--color-secondary);
+	color: white;
+	transform: translateY(-3px);
+}
+
+/* Vertikal social lista (dropdown-stil) */
 .social-list-vertical {
-	position: absolute; /* removes it from normal flow */
-	top: 100%; /* directly below the button */
+	position: absolute;
+	top: 100%;
 	left: 50%;
 	transform: translateX(-50%);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	background: transparent;
 	margin-top: 10px;
 	gap: 10px;
 	z-index: 10;
+	background: transparent;
 }
 
-/* Social icons */
 .social-list-vertical a {
 	display: flex;
 	align-items: center;
@@ -95,15 +95,16 @@
 	width: 45px;
 	height: 45px;
 	border-radius: 50%;
-	background-color: #cd1e76;
+	background-color: var(--color-primary);
 	color: white;
 	font-size: 1.4rem;
 	transition: all 0.3s ease;
+	box-shadow: var(--shadow);
 }
 
 .social-list-vertical a:hover {
-	background-color: #fed700;
-	color: #232323;
+	background-color: var(--color-secondary);
+	color: white;
 	transform: translateY(-3px);
 }
 
@@ -111,8 +112,7 @@
 .footer-copy {
 	margin-top: 20px;
 	font-size: 14px;
-	color: #fff;
-
+	color: var(--color-neutral);
 	text-align: center;
 }
 

@@ -1,7 +1,12 @@
-/* Styles the main container for each recipe card */
+/* ===============================
+   RECIPE CARD STYLING
+   =============================== */
+
+/* Main card container */
 .recipe-card {
-  border: 2px solid #ccc;
-  border-radius: 12px;
+  background-color: var(--color-neutral);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
   overflow: hidden;
   width: 100%;
   max-width: 100%;
@@ -10,35 +15,49 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow);
   margin: 0;
   box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-/* Styles the image at the top of the card */
+/* Hover effect for the card */
+.recipe-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border-color: var(--color-accent); /* Ljusgrön accent vid hover */
+}
+
+/* Image styling */
 .recipe-card-image {
   width: 100%;
   height: auto;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: calc(var(--radius) - 4px);
   display: block;
   margin-bottom: 0.75rem;
 }
 
-/* Styles the recipe title text */
+/* Recipe title */
 .recipe-card-title {
-  font-size: 2.1rem;
-  font-weight: bold;
-  font-family: cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--font-heading);
   margin: 0;
-  border-bottom: 1px solid #333;
+  color: var(--color-text);
+  border-bottom: 2px solid var(--color-primary);
   display: inline-block;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
+/* Hover effect for the title */
+.recipe-link:hover .recipe-card-title {
+  color: var(--color-secondary); /* Orange vid hover */
+  transform: scale(1.05);
+}
 
+/* Rating stars */
 .recipe-card-rating {
-
   display: flex;
   gap: 0.3rem;
   justify-content: center;
@@ -47,9 +66,9 @@
 
 .rating-img-filled,
 .rating-img-empty {
-  width: auto;        /* auto låter proportionerna vara korrekta */
-  max-width: 2rem;    /* maxbredd */
-  max-height: 2rem;   /* maxhöjd */
+  width: auto;
+  max-width: 2rem;
+  max-height: 2rem;
   object-fit: contain;
   cursor: pointer;
 }
@@ -59,20 +78,17 @@
   filter: grayscale(100%);
 }
 
-
-
-
-
-
-/* Styles the category, difficulty and comments info */
+/* Info text (category, difficulty, comments) */
 .recipe-card-category,
 .recipe-card-difficulty,
-.recipe-card-comments {
+.recipe-card-comments,
+.recipe-card-time {
   font-size: 0.9rem;
-  color: #555;
+  color: var(--color-text);
+  opacity: 0.8;
 }
 
-/* Styles the favorite/like button */
+/* Favorite/like button */
 .recipe-card-favorite {
   background: none;
   border: none;
@@ -81,22 +97,17 @@
   align-items: center;
   gap: 0.25rem;
   font-size: 0.95rem;
+  color: var(--color-primary);
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-/* Styles the title link appearance */
+.recipe-card-favorite:hover {
+  color: var(--color-secondary);
+  transform: scale(1.1);
+}
+
+/* Link wrapping the title */
 .recipe-link {
   color: inherit;
   text-decoration: none;
-}
-
-/* Adds hover effect to the title link */
-.recipe-link:hover {
-  transform: scale(1.05);
-  color: #f38b00;
-}
-
-/* Styles the time label on the card */
-.recipe-card-time {
-  font-size: 0.9rem;
-  color: #555;
 }
