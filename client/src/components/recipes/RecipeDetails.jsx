@@ -82,10 +82,7 @@ export default function RecipeDetailsPage() {
           <p>Svårighetsgrad: {recipe.difficulty}</p>
         </div>
 
-        {/* Sidebar placed to the right */}
-        <div className="sidebar">
-          <Sidebar />
-        </div>
+        
       </div>
     </div>
   );
