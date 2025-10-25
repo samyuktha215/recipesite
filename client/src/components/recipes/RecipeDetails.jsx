@@ -3,12 +3,15 @@ import { useLocation, useParams } from "react-router-dom";
 import { addRating } from "../recipes/ratings";
 import { useAuth0 } from "@auth0/auth0-react";
 
+
 // Component styles and shared components
 import "./RecipeDetails.css";
 import BackButton from "../BackButton";
 import Sidebar from "../../pages/sidebar";
 
 import drinkImage from "../../assets/rating-img3.jpg";
+import RecipeComments from "../../pages/comment";
+
 
 export default function RecipeDetailsPage() {
   const { id } = useParams();
@@ -21,7 +24,7 @@ export default function RecipeDetailsPage() {
   const [hoverRating, setHoverRating] = useState(0);
 
   const [message, setMessage] = useState("");
-
+ 
   // Fetch recipe if not passed from navigation
   useEffect(() => {
     if (!recipe) {
@@ -130,6 +133,10 @@ const handleStarClick = async (index) => {
         </div>
 
         
+      </div>
+      <div className="comments-section">
+         {/* Comments section (form + list) */}
+      <RecipeComments recipeId={recipe._id} />
       </div>
     </div>
   );
