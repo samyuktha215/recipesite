@@ -1,0 +1,86 @@
+.recipe-comments {
+	max-width: 600px;
+	margin: 2rem auto;
+	font-family: Arial, sans-serif;
+}
+
+.comment-form {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 2rem;
+}
+
+.comment-form input,
+.comment-form textarea {
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.comment-form textarea {
+	min-height: 80px;
+	resize: vertical;
+}
+
+.comment-form button {
+	background-color: #007bff;
+	color: white;
+	font-weight: bold;
+	border: none;
+	padding: 0.6rem 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.comment-form button:hover:not(:disabled) {
+	background-color: #0056b3;
+}
+
+.comment-form button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.comment-success {
+	color: green;
+	margin-bottom: 0.5rem;
+}
+
+.comment-error {
+	color: red;
+	margin-bottom: 0.5rem;
+}
+
+.comments-list {
+	list-style: none;
+	padding: 0;
+}
+
+.comments-list li {
+	border-bottom: 1px solid #ddd;
+	padding: 1rem 0;
+}
+
+.comments-list li:last-child {
+	border-bottom: none;
+}
+
+.comment-author {
+	font-weight: bold;
+}
+
+.comment-date {
+	font-size: 0.8rem;
+	color: #555;
+	margin-top: 0.2rem;
+}
+
+@media (max-width: 600px) {
+	.recipe-comments {
+		margin: 1rem;
+	}
+}
