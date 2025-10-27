@@ -194,6 +194,7 @@
   .recipe-details {
     max-width: 90%;
     padding: 20px;
+    align-items: center;
   }
 
   .recipe-details-title {
@@ -202,6 +203,7 @@
 
   .recipe-details-container {
     flex-direction: column;
+    align-items: center;
     gap: 25px;
   }
 
@@ -219,7 +221,7 @@
 /* === 📱 MOBIL (max 599px) === */
 @media (max-width: 599px) {
   .recipe-details {
-    padding: 15px;
+    padding: 25px;
     margin: 0 auto;
   }
 
