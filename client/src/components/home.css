@@ -351,3 +351,18 @@ aside ul li.active {
 	}
 }
 
+/* ===============================
+   ♿️ SIDEBAR: TANGENTBORD & FOKUS
+   =============================== */
+aside ul li:focus {
+  outline: 3px solid var(--color-primary); /* Turkos kant */
+  outline-offset: 3px;
+  background-color: var(--color-accent);   /* Ljusgrön bakgrund */
+  color: var(--color-text);
+  border-radius: 6px;
+}
+
+aside ul li:focus-visible {
+  outline: 3px solid var(--color-primary);
+}
+
