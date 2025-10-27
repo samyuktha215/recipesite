@@ -2,29 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { addRating } from "../recipes/ratings";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import RatingPopup from "./RatingPopup";
 
 // Component styles and shared components
 import "./RecipeDetails.css";
 import BackButton from "../BackButton";
-import Sidebar from "../../pages/sidebar";
 
 import drinkImage from "../../assets/rating-img3.jpg";
 import RecipeComments from "../../pages/comment";
-
 
 export default function RecipeDetailsPage() {
   const { id } = useParams();
   const { getAccessTokenSilently, isAuthenticated } = useAuth0();
   const location = useLocation();
 
-  // Store recipe
   const [recipe, setRecipe] = useState(location.state?.recipe || null);
   const [userRating, setUserRating] = useState(0);
+  const [popupRating, setPopupRating] = useState(null);
   const [hoverRating, setHoverRating] = useState(0);
-
   const [message, setMessage] = useState("");
- 
+
   // Fetch recipe if not passed from navigation
   useEffect(() => {
     if (!recipe) {
@@ -41,37 +38,40 @@ export default function RecipeDetailsPage() {
   if (!recipe) return <p className="loading">Laddar recept...</p>;
   if (recipe === "notfound") return <p className="loading">Recept hittades inte 😢</p>;
 
-// Handle star click with confirmation
-const handleStarClick = async (index) => {
-  if (!isAuthenticated) {
-    setMessage("Logga in för att ge betyg!");
-    return;
-  }
+  // Öppna popup när användaren klickar eller trycker Enter/Space på en stjärna
+  const handleStarClick = (index) => {
+    if (!isAuthenticated) {
+      setMessage("Logga in för att ge betyg!");
+      return;
+    }
+    setPopupRating(index + 1);
+  };
 
-  const chosenRating = index + 1;
+  // Bekräfta rating från popup
+  const confirmRating = async () => {
+    if (!recipe || popupRating === null) return;
+    try {
+      setUserRating(popupRating);
+      setMessage("Sparar betyg...");
+      const token = await getAccessTokenSilently({ audience: "https://recipes-api" });
+      await addRating(recipe._id, popupRating, token);
+      setMessage("Tack för ditt betyg!");
+    } catch (err) {
+      console.error(err);
+      setMessage(
+        err.message.includes("401")
+          ? "Du måste logga in för att ge betyg!"
+          : "Kunde inte spara ditt betyg!😢"
+      );
+    } finally {
+      setPopupRating(null);
+    }
+  };
 
-  // Bekräftelse-dialog
-  const confirmMessage = `Vill du ge "${recipe.title}" betyget ${chosenRating}?`;
-  const confirmed = window.confirm(confirmMessage);
-  if (!confirmed) return; // Avbryt om användaren klickar "Avbryt"
-
-  try {
-    setUserRating(chosenRating);
-    setMessage("Sparar betyg...");
-
-    const token = await getAccessTokenSilently({ audience: "https://recipes-api" });
-    await addRating(recipe._id, chosenRating, token);
-
-    setMessage("Tack för ditt betyg!");
-  } catch (err) {
-    console.error(err);
-    setMessage(err.message.includes("401") 
-      ? "Du måste logga in för att ge betyg!" 
-      : "Kunde inte spara ditt betyg!😢"
-    );
-  }
-};
-
+  // Avbryt rating
+  const cancelRating = () => {
+    setPopupRating(null);
+  };
 
   return (
     <div className="recipe-details">
@@ -87,7 +87,7 @@ const handleStarClick = async (index) => {
           />
 
           <h2>Ge ditt betyg:</h2>
-            <div className="recipe-card-rating">
+          <div className="recipe-card-rating">
             {[...Array(5)].map((_, index) => {
               const isFilled = hoverRating ? index < hoverRating : index < userRating;
               return (
@@ -109,10 +109,8 @@ const handleStarClick = async (index) => {
                 />
               );
             })}
-
-            </div>
+          </div>
           <p>{message}</p>
-
         </div>
 
         <div className="recipe-details-info">
@@ -137,13 +135,21 @@ const handleStarClick = async (index) => {
           <p>Tid: {recipe.timeInMins} min</p>
           {recipe.difficulty && <p>Svårighetsgrad: {recipe.difficulty}</p>}
         </div>
+      </div>
 
-        
-      </div>
       <div className="comments-section">
-         {/* Comments section (form + list) */}
-      <RecipeComments recipeId={recipe._id} />
+        <RecipeComments recipeId={recipe._id} />
       </div>
+
+      {/* Popup för rating */}
+      {popupRating !== null && (
+        <RatingPopup
+          recipeTitle={recipe.title}
+          rating={popupRating}
+          onConfirm={confirmRating}
+          onCancel={cancelRating}
+        />
+      )}
     </div>
   );
 }
