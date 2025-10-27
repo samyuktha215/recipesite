@@ -227,6 +227,7 @@ aside ul li.active {
 		text-align: center;
 		padding: 20px 15px;
 		gap: 20px;
+		margin: 1.5rem;
 	}
 
 	.banner-image img {
@@ -246,6 +247,7 @@ aside ul li.active {
 	.main-layout {
 		flex-direction: column;
 		align-items: center;
+		margin: 2rem;
 	}
 
 	.sidebar-container {
