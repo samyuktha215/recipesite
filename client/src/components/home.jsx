@@ -43,19 +43,31 @@ const Home = () => {
     )
     : drinks;
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    const match = drinks.find((d) =>
-      d.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
-    );
+    const handleSearchSubmit = (e) => {
+      e.preventDefault();
 
-    if (match) {
-      navigate(`/recipes/${match._id}`, { state: { recipe: match } });
-    }
-    else {
-      alert("Inget recept hittades med det namnet.");
-    }
-  };
+      const cleanQuery = searchQuery
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .slice(0, 50) // max 50 tecken
+        .trim();
+
+      if (!cleanQuery) {
+        alert("Skriv något att söka efter.");
+        return;
+      }
+
+      const match = drinks.find((d) =>
+        d.title.toLowerCase().includes(cleanQuery.toLowerCase())
+      );
+
+      if (match) {
+        navigate(`/recipes/${match._id}`, { state: { recipe: match } });
+      } else {
+        alert("Inget recept hittades med det namnet.");
+      }
+    };
+
 
   return (
     <div className="home">
@@ -82,6 +94,7 @@ const Home = () => {
               placeholder="Sök efter ett recept..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              maxLength={50}
             />
             <button type="submit">🔍</button>
           </form>
