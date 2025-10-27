@@ -215,38 +215,6 @@ aside ul li.active {
 	text-align: center;
 }
 
-/* Responsiv layout */
-@media (max-width: 992px) {
-	.main-layout {
-		flex-direction: column;
-	}
-
-	aside {
-		max-width: 100%;
-		margin-bottom: 20px;
-	}
-
-	.banner-image img {
-		width: 100%;
-		margin-left: 0;
-	}
-
-	.top_banner {
-		flex-direction: column;
-		text-align: center;
-		padding: 30px 20px;
-	}
-
-	.banner-image {
-		margin-right: 0;
-		justify-content: center;
-	}
-
-	.top_banner .content {
-		margin-top: 20px;
-		padding-left: 0;
-	}
-}
 
 /* ===============================
    🌍 RESPONSIVE DESIGN
@@ -281,6 +249,7 @@ aside ul li.active {
 
 	.main-layout {
 		flex-direction: column;
+		align-items: center;
 	}
 
 	.sidebar-container {
@@ -319,6 +288,7 @@ aside ul li.active {
 	.main-layout {
 		flex-direction: column;
 		gap: 1.5rem;
+		align-items: center;
 	}
 
 	.sidebar-container {
