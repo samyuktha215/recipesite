@@ -163,29 +163,99 @@
   text-align: left;
 }
 
-/* Responsive design for tablets/smaller screens */
-@media (max-width: 768px) {
+/* ===============================
+   🌍 RESPONSIVE DESIGN
+   =============================== */
+
+/* === 🖥️ DESKTOP (min 992px) === */
+@media (min-width: 992px) {
+  .recipe-details {
+    max-width: 900px;
+    padding: 30px;
+  }
+
   .recipe-details-container {
-    flex-direction: column; /* stack image + text on smaller screens */
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 30px;
   }
 
   .recipe-details-card-image {
-    max-width: 100%;
-    margin-bottom: 15px;
-  }
-}
-
-/* Responsive for mobile */
-@media (max-width: 480px) {
-  .recipe-details {
-    padding: 15px;
-  }
-
-  .recipe-details-title {
-    font-size: 24px;
+    max-width: 350px;
   }
 
   .recipe-details-info {
-    padding: 15px;
+    padding: 25px;
   }
 }
+
+/* === 💻 SURFPLATTA (600px – 991px) === */
+@media (min-width: 600px) and (max-width: 991px) {
+  .recipe-details {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .recipe-details-title {
+    font-size: 26px;
+  }
+
+  .recipe-details-container {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .recipe-details-card-image {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .recipe-details-info {
+    padding: 20px;
+  }
+}
+
+/* === 📱 MOBIL (max 599px) === */
+@media (max-width: 599px) {
+  .recipe-details {
+    padding: 15px;
+    margin: 0 auto;
+  }
+
+  .recipe-details-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+
+  .recipe-details-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .recipe-details-card-image {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  .recipe-details-info {
+    width: 100%;
+    padding: 15px;
+    background: #fff;
+    box-shadow: none;
+  }
+
+  .recipe-details-info h2 {
+    font-size: 18px;
+  }
+
+  .recipe-details-info p,
+  .recipe-details-info li {
+    font-size: 14px;
+  }
+}
+
