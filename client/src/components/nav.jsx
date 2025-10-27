@@ -56,7 +56,7 @@ const Nav = () => {
           {/* Navigation Links */}
           <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
             <li><Link to="/" className="link" onClick={closeMenu}>Hem</Link></li>
-            <li><Link to="/categori" className="link" onClick={closeMenu}>Kategori</Link></li>
+            <li><Link to="/categories" className="link" onClick={closeMenu}>Kategori</Link></li>
             <li><Link to="/about" className="link" onClick={closeMenu}>Om</Link></li>
             <li><Link to="/contact" className="link" onClick={closeMenu}>Kontakt</Link></li>
           </ul>
