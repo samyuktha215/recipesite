@@ -86,6 +86,7 @@ function CategoryPage() {
             {filteredDrinks.length > 0 ? (
               filteredDrinks.map((recipe) => {
                 const adaptedDrink = {
+                  _id: recipe._id,
                   image: recipe.imageUrl,
                   name: recipe.title,
                   rating: recipe.avgRating || 0,
@@ -98,7 +99,7 @@ function CategoryPage() {
                     ? recipe.ingredients.length
                     : 0,
                 };
-                return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
+                return <RecipeCard key={recipe._id} drink={adaptedDrink}/>;
               })
             ) : (
               <p className="no-results">Inga recept hittades.</p>
