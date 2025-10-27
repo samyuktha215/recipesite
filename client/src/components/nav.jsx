@@ -55,17 +55,10 @@ const Nav = () => {
  
           {/* Navigation Links */}
           <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
-<<<<<<< HEAD
-            <li><Link to="/" className="link" onClick={closeMenu}>Hem</Link></li>
-            <li><Link to="/categories" className="link" onClick={closeMenu}>Kategory</Link></li>
-            <li><Link to="/about" className="link" onClick={closeMenu}>Om oss</Link></li>
-            <li><Link to="/contact" className="link" onClick={closeMenu}>Kontakt</Link></li>
-=======
             <li><Link to="/" className="link" onClick={closeMenu}>Home</Link></li>
             <li><Link to="/categori" className="link" onClick={closeMenu}>Category</Link></li>
             <li><Link to="/about" className="link" onClick={closeMenu}>About</Link></li>
             <li><Link to="/contact" className="link" onClick={closeMenu}>Contact</Link></li>
->>>>>>> aac8158 (changed for testing page)
           </ul>
  
           {/* Auth Buttons */}
