@@ -11,13 +11,26 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("https://grupp1-mqzle.reky.se/recipes")
-      .then((res) => res.json())
-      .then((data) => setDrinks(data))
-      .catch((err) => console.error("Error fetching drinks:", err));
-  }, []);
+    useEffect(() => {
+      setLoading(true);
+      fetch("https://grupp1-mqzle.reky.se/recipes")
+        .then(res => {
+          if (!res.ok) throw new Error("Nätverksfel vid hämtning av recept");
+          return res.json();
+        })
+        .then(data => {
+          setDrinks(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error("Error fetching drinks:", err);
+          setError("Kunde inte hämta recept. Kontrollera din internetanslutning.");
+          setLoading(false);
+        });
+    }, []);
 
   // Filter drinks based on selected category
   const filteredDrinks = selectedCategory
@@ -79,10 +92,13 @@ const Home = () => {
         {/* Grid Container */}
 
         <div className="grid-container">
-          {filteredDrinks.length > 0 ? (
+          {loading && <p>Laddar recept...</p>}
+          {error && <p className="error">{error}</p>}
+          
+          {!loading && !error && filteredDrinks.length > 0 ? (
             filteredDrinks.map((recipe) => {
               const adaptedDrink = {
-                _id:recipe._id,
+                _id: recipe._id,
                 image: recipe.imageUrl,
                 name: recipe.title,
                 rating: recipe.avgRating || 0,
@@ -91,15 +107,16 @@ const Home = () => {
                 timeInMins: recipe.timeInMins || 0,
                 isFavorite: false,
                 commentsCount: 0,
-                ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0, // Rakna ingredienser
+                ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0,
               };
               return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
             })
-          ) : (
+          ) : null}
+
+          {!loading && !error && filteredDrinks.length === 0 && (
             <p className="no-results">Inga recept hittades.</p>
           )}
         </div>
-
 
       </div>
     </div>
