@@ -1,8 +1,6 @@
 /* ===============================
-   HOME.CSS – Startsida & Recept
+   HOME.CSS – Startsida & Recept (Högkontrast)
    =============================== */
-
-/* ✅ Reset borttagen – finns redan i global.css */
 
 /* Container */
 .home {
@@ -19,7 +17,7 @@
 	flex-direction: row-reverse; /* Bild till höger */
 	align-items: center;
 	justify-content: space-between;
-	background-color: white;
+	background-color: var(--color-neutral); /* Mjukare än vit */
 	padding: 40px 60px;
 	border-radius: var(--radius);
 	margin-bottom: 40px;
@@ -49,7 +47,6 @@
 }
 
 .top_banner .content h3 {
-	color: var(--color-secondary); /* Orange undertitel */
 	font-family: var(--font-heading);
 	font-size: 22px;
 	margin-bottom: 10px;
@@ -57,7 +54,7 @@
 
 .top_banner .content h2 {
 	font-size: 36px;
-	color: var(--color-text);
+	color: var(--color-text); /* Mörk text mot ljus bakgrund */
 	font-family: var(--font-heading);
 }
 
@@ -101,11 +98,11 @@
 }
 
 .search-form input::placeholder {
-	color: #888;
+	color: #444; /* Mörkare placeholder för kontrast */
 }
 
 .search-form button {
-	background-color: var(--color-primary); /* Turkos */
+	background-color: var(--color-primary-dark); /* Högkontrast knapp */
 	border: none;
 	color: white;
 	padding: 8px 14px;
@@ -116,14 +113,14 @@
 }
 
 .search-form button:hover {
-	background-color: var(--color-accent); /* Ljusgrön hover */
+	background-color: var(--color-accent-dark); /* Hover */
 	color: var(--color-text);
 	transform: translateY(-2px);
 }
 
 /* Sidebar */
 aside {
-	background: white;
+	background: var(--color-neutral);
 	padding: 20px;
 	border-radius: var(--radius);
 	box-shadow: var(--shadow);
@@ -131,10 +128,10 @@ aside {
 }
 
 aside h3 {
-	color: var(--color-primary);
+	color: var(--color-primary-dark); /* Högkontrast rubrik */
 	margin-bottom: 1rem;
 	font-size: 18px;
-	border-bottom: 2px solid var(--color-secondary);
+	border-bottom: 2px solid var(--color-secondary-dark);
 	padding-bottom: 5px;
 	font-family: var(--font-heading);
 }
@@ -152,12 +149,12 @@ aside ul li {
 }
 
 aside ul li:hover {
-	color: var(--color-secondary); /* Orange hover */
+	color: var(--color-secondary-dark); /* Högkontrast hover */
 }
 
 aside ul li.active {
 	font-weight: bold;
-	color: var(--color-primary); /* Turkos markerad kategori */
+	color: var(--color-primary-dark); /* Högkontrast markerad */
 }
 
 /* 🧃 Recept-grid */
@@ -170,7 +167,7 @@ aside ul li.active {
 
 /* Receptkort */
 .recipe-card {
-	background: white;
+	background: var(--color-neutral);
 	border-radius: var(--radius);
 	box-shadow: var(--shadow);
 	padding: 15px;
@@ -189,32 +186,31 @@ aside ul li.active {
 }
 
 .recipe-card h4 {
-	color: var(--color-text);
+	color: var(--color-primary-dark); /* Högkontrast rubrik */
 	margin-bottom: 5px;
 	text-align: center;
 	font-family: var(--font-heading);
 }
 
 .recipe-card p {
-	color: #555;
+	color: #333; /* Mörk text för kontrast */
 	font-size: 14px;
 	text-align: center;
 }
 
 .recipe-card:hover {
 	transform: translateY(-3px);
-	border: 2px solid var(--color-primary);
+	border: 2px solid var(--color-primary-dark);
 }
 
 /* Ingen träff */
 .no-results {
 	font-size: 16px;
-	color: #555;
+	color: #333;
 	margin-top: 20px;
 	grid-column: 1 / -1;
 	text-align: center;
 }
-
 
 /* ===============================
    🌍 RESPONSIVE DESIGN
@@ -325,14 +321,13 @@ aside ul li.active {
    ♿️ SIDEBAR: TANGENTBORD & FOKUS
    =============================== */
 aside ul li:focus {
-  outline: 3px solid var(--color-primary); /* Turkos kant */
+  outline: 3px solid var(--color-primary-dark);
   outline-offset: 3px;
-  background-color: var(--color-accent);   /* Ljusgrön bakgrund */
+  background-color: var(--color-accent-dark);
   color: var(--color-text);
   border-radius: 6px;
 }
 
 aside ul li:focus-visible {
-  outline: 3px solid var(--color-primary);
+  outline: 3px solid var(--color-primary-dark);
 }
-

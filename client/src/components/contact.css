@@ -93,7 +93,7 @@
   color: white;
   border: none;
   outline: none;
-  background: var(--color-secondary); /* Orange */
+  background: var(--color-text); /* Orange */
   cursor: pointer;
   border-radius: var(--radius);
   font-weight: 600;

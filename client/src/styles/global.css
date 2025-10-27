@@ -4,11 +4,16 @@
 
 /* 🎨 1. Färgvariabler */
 :root {
-  --color-primary: #00A5B1;     /* Turkos/Cyan */
+  --color-primary: #1A3249;     /* Turkos/Cyan */
   --color-secondary: #FF8C00;   /* Orange */
   --color-accent: hsl(80, 61%, 50%);      /* Ljusgrön/Lime */
-  --color-neutral: #F9f7f0;     /* Krämvit */
+  --color-neutral: #F9f7F0;     /* Krämvit */
   --color-text: #1A3249;        /* Mörkblå/Marin */
+
+  /* Högkontrast-alternativ */
+  --color-primary-dark: #007c91;    /* Högkontrast turkos */
+  --color-secondary-dark: #40220b;  /* Högkontrast orange */
+  --color-accent-dark: #60a021;     /* Högkontrast grön */
 
   --font-heading: 'Montserrat', 'Poppins', sans-serif;
   --font-body: 'Roboto', 'Open Sans', sans-serif;
@@ -50,32 +55,37 @@ h1, h2, h3, h4 {
   margin-bottom: 0.5em;
 }
 
+/* Högkontrast för rubriker */
+h3 {
+  color: var(--color-text);
+}
+
 h1 {
   font-size: 2.5rem;
-  color: var(--color-secondary); /* Orange sidtitel */
+  color: var(--color-text); /* Orange sidtitel med bättre kontrast */
   text-align: center;
 }
 
 h2 {
   font-size: 1.8rem;
-  color: var(--color-text); /* Mörkblå undertitel */
+  color: var(--color-text);
   text-align: center;
 }
 
 /* 🔗 4. Länkar och knappar */
 a {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-dark);
 }
 
 button {
-  background-color: var(--color-primary);
-  color: white;
+  background-color: var(--color-secondary-dark);
+  color: var(--color-neutral);
   border: none;
   border-radius: var(--radius);
   padding: 0.6em 1.2em;
@@ -86,14 +96,14 @@ button {
 }
 
 button:hover {
-  background-color: var(--color-accent);
+  background-color: var(--color-accent-dark);
   transform: translateY(-2px);
 }
 
 /* 🔍 5. Navigering (Header) */
 header {
   background-color: var(--color-text); /* Mörkblå bakgrund */
-  color: white;
+  color: var(--color-neutral);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -112,8 +122,8 @@ nav a {
 }
 
 nav a.active {
-  color: var(--color-primary);
-  border-bottom: 2px solid var(--color-primary);
+  color: var(--color-primary-dark);
+  border-bottom: 2px solid var(--color-primary-dark);
 }
 
 /* 🍸 6. Drinkkort (Cards) */
@@ -136,13 +146,13 @@ nav a.active {
 
 .card h3 {
   font-family: var(--font-heading);
-  color: var(--color-text);
+  color: var(--color-primary-dark); /* högkontrast h3 */
   margin-bottom: 0.5em;
 }
 
 .card:hover {
-  border: 2px solid var(--color-primary);
-  background-color: rgba(154, 205, 50, 0.05); /* Lätt grön ton vid hover */
+  border: 2px solid var(--color-primary-dark);
+  background-color: rgba(111, 161, 58, 0.05); /* högkontrast hover */
   transform: translateY(-3px);
 }
 
@@ -157,7 +167,7 @@ nav a.active {
 .sidebar input[type="search"] {
   width: 100%;
   padding: 0.6em;
-  border: 2px solid var(--color-primary);
+  border: 2px solid var(--color-primary-dark);
   border-radius: var(--radius);
   background-color: var(--color-neutral);
   margin-bottom: 1em;
@@ -173,9 +183,13 @@ nav a.active {
   gap: 0.5em;
 }
 
+.sidebar .category.active {
+  color: var(--color-primary-dark);
+}
+
 .sidebar .category.active::before {
   content: '•';
-  color: var(--color-secondary);
+  color: var(--color-secondary-dark);
   font-size: 1.2em;
 }
 
@@ -188,18 +202,18 @@ footer {
 }
 
 footer a {
-  color: var(--color-secondary);
+  color: var(--color-secondary-dark);
   margin: 0 0.8em;
   font-weight: bold;
 }
 
 footer a:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-dark);
 }
 
 /* ✨ 9. Små accenter och effekter */
 .highlight {
-  color: var(--color-accent);
+  color: var(--color-accent-dark);
   font-family: var(--font-accent);
 }
 

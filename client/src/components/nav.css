@@ -2,8 +2,6 @@
    NAV.CSS – Navigationsfält
    =============================== */
 
-/* ✅ Reset borttagen – den finns redan i global.css */
-
 /* Header / Navbar */
 .header {
 	width: 100%;
@@ -57,15 +55,15 @@
 /* Hover & Active */
 .link:hover,
 .link.active {
-	color: var(--color-primary); /* Turkos hover */
-	border-bottom: 2px solid var(--color-primary);
+	color: var(--color-primary-dark); /* Turkos högkontrast */
+	border-bottom: 2px solid var(--color-primary-dark);
 }
 
 /* Auth Button */
 .auth-btn button {
-	background-color: var(--color-secondary); /* Orange CTA-knapp */
+	background-color: transparent; /* Mörkare orange för kontrast */
 	color: white;
-	border: none;
+	border: 2px solid var(--color-neutral);
 	outline: none;
 	padding: 8px 16px;
 	border-radius: 20px;
@@ -79,7 +77,8 @@
 }
 
 .auth-btn button:hover {
-	background-color: var(--color-accent); /* Ljusgrön hover */
+	background-color: var(--color-accent-dark); /* Mörkare grön/lime */
+	color: var(--color-text); /* säkerställer kontrast */
 	transform: scale(1.05);
 }
 
@@ -189,14 +188,14 @@
    =============================== */
 .link:focus,
 .auth-btn button:focus {
-	outline: 3px solid var(--color-primary);
+	outline: 3px solid var(--color-primary-dark);
 	outline-offset: 3px;
 	border-radius: 4px;
-	background-color: rgba(0, 255, 255, 0.1);
+	background-color: var(--color-accent-dark); /* tydlig fokusbakgrund */
+	color: var(--color-text);
 }
 
 .menu-icon:focus {
-	outline: 2px solid var(--color-secondary);
+	outline: 2px solid var(--color-secondary-dark);
 	outline-offset: 2px;
 }
-
