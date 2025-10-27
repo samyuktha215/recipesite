@@ -46,7 +46,7 @@ const Contact = () => {
                         <form method='POST'>
                             <div className='box'>
                                 <div className='label'>
-                                    <h4>Name</h4>
+                                    <h3>Name</h3>
                                 </div>
                                 <div className='input'>
                                     <input type='text' placeholder='Namn' value={user.Name} name='Name' onChange={data}></input>
@@ -54,7 +54,7 @@ const Contact = () => {
                             </div>
                             <div className='box'>
                                 <div className='label'>
-                                    <h4>E-mail</h4>
+                                    <h3>E-mail</h3>
                                 </div>
                                 <div className='input'>
                                     <input type='email' placeholder='E-post' value={user.email} name='email' onChange={data}></input>
@@ -62,7 +62,7 @@ const Contact = () => {
                             </div>
                             <div className='box'>
                                 <div className='label'>
-                                    <h4>Subject</h4>
+                                    <h3>Subject</h3>
                                 </div>
                                 <div className='input'>
                                     <input type='text' placeholder='Ämne' value={user.Subject} name='Subject' onChange={data}></input>
@@ -70,7 +70,7 @@ const Contact = () => {
                             </div>
                             <div className='box'>
                                 <div className='label'>
-                                    <h4>Meddelande</h4>
+                                    <h3>Meddelande</h3>
                                 </div>
                                 <div className='input'>
                                 </div>
