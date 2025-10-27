@@ -87,24 +87,30 @@ const handleStarClick = async (index) => {
           />
 
           <h2>Ge ditt betyg:</h2>
-<div className="recipe-card-rating">
-  {[...Array(5)].map((_, index) => {
-    // Är bilden “fylld”? Om hover pågår, använd hoverRating, annars userRating
-    const isFilled = hoverRating ? index < hoverRating : index < userRating;
+            <div className="recipe-card-rating">
+            {[...Array(5)].map((_, index) => {
+              const isFilled = hoverRating ? index < hoverRating : index < userRating;
+              return (
+                <img
+                  key={index}
+                  src={drinkImage}
+                  className={isFilled ? "rating-img-filled" : "rating-img-empty"}
+                  alt={`rating ${index + 1}`}
+                  onClick={() => handleStarClick(index)}
+                  onMouseEnter={() => setHoverRating(index + 1)}
+                  onMouseLeave={() => setHoverRating(0)}
+                  tabIndex="0"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleStarClick(index);
+                    }
+                  }}
+                />
+              );
+            })}
 
-    return (
-      <img
-        key={index}
-        src={drinkImage}
-        className={isFilled ? "rating-img-filled" : "rating-img-empty"}
-        alt={`rating ${index + 1}`}
-        onClick={() => handleStarClick(index)}
-        onMouseEnter={() => setHoverRating(index + 1)}
-        onMouseLeave={() => setHoverRating(0)}
-      />
-    );
-  })}
-</div>
+            </div>
           <p>{message}</p>
 
         </div>

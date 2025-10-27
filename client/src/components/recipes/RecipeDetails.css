@@ -258,3 +258,17 @@
   }
 }
 
+/* ===============================
+   ♿ FOCUS-STYLES (tillgänglighet)
+   =============================== */
+
+.rating-img-filled:focus,
+.rating-img-empty:focus {
+  outline: 3px solid var(--color-primary);
+  opacity: 1;
+  filter: none;
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+
