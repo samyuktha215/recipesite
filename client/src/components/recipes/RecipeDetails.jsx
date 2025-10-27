@@ -74,9 +74,12 @@ export default function RecipeDetailsPage() {
   };
 
   return (
-    <div className="recipe-details">
-      <BackButton />
-      <h1 className="recipe-details-title">{recipe.title}</h1>
+      <div className="recipe-details">
+        <div className="back-button-container">
+          <BackButton />
+        </div>
+
+        <h1 className="recipe-details-title">{recipe.title}</h1>
 
       <div className="recipe-details-container">
         <div className="image-container">

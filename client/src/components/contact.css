@@ -105,87 +105,77 @@
   transform: scale(1.05);
 }
 
-/* ==============================
+/* ===============================
    RESPONSIVE DESIGN
-   ============================== */
+   =============================== */
 
+/* Tablet */
 @media (max-width: 992px) {
+  .contact {
+    padding: 50px 15px;
+  }
+
   .contact .container .form {
-    width: 80%;
-    padding: 25px;
+    max-width: 80%;
+    padding: 25px 30px;
+  }
+
+  .contact .container .form h2 {
+    font-size: 18px;
+  }
+}
+
+/* Small tablet / large phone */
+@media (max-width: 768px) {
+  .contact {
+    padding: 40px 15px;
+  }
+
+  .contact .container .form {
+    max-width: 90%;
+    padding: 20px;
   }
 
   .contact .container .form h2 {
     font-size: 17px;
   }
 
-  .contact .container .form .box {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .contact .container .form .box .label h4 {
-    margin-left: 0;
-    margin-bottom: 5px;
+  .contact .container .form button {
+    padding: 10px;
   }
 }
 
-@media (max-width: 768px) {
+/* Mobile */
+@media (max-width: 599px) {
   .contact {
-    padding: 30px 15px;
+    padding: 30px 10px;
   }
 
   .contact .container .form {
-    width: 100%;
-    padding: 20px;
+    max-width: 100%;
+    padding: 15px;
+    border-top: 2px solid var(--color-secondary);
   }
 
   .contact .container .form h2 {
     font-size: 16px;
   }
 
-  .contact .container .form button {
-    width: 100%;
-    text-align: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact {
-    padding: 25px 10px;
-  }
-
-  .contact .container .form {
-    padding: 15px;
-    box-shadow: none;
-    border-top: 2px solid var(--color-secondary);
-  }
-
-  .contact .container .form h2 {
-    font-size: 15px;
-  }
-
   .contact .container .form .box .input input,
   .contact .container .form .box .input textarea {
-    font-size: 13px;
-    padding: 8px 10px;
-  }
-
-  .contact .container .form button {
-    padding: 10px;
     font-size: 14px;
+    padding: 8px 5px;
   }
 }
 
 /* ===============================
    ♿️ FOCUS STYLE – Skicka-knapp
    =============================== */
-
 .contact .container .form button:focus,
 .contact .container .form button:focus-visible {
-  outline: 3px solid var(--color-primary); /* Turkos kant */
+  outline: 3px solid var(--color-primary);
   outline-offset: 3px;
-  background-color: var(--color-accent);   /* Ljusgrön bakgrund */
+  background-color: var(--color-accent);
   color: var(--color-text);
   transform: scale(1.05);
 }
