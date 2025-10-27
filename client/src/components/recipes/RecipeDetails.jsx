@@ -129,9 +129,7 @@ const handleStarClick = async (index) => {
           {recipe.difficulty && <p>Svårighetsgrad: {recipe.difficulty}</p>}
         </div>
 
-        <div className="sidebar">
-          <Sidebar />
-        </div>
+        
       </div>
     </div>
   );
