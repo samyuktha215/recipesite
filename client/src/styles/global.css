@@ -6,8 +6,8 @@
 :root {
   --color-primary: #00A5B1;     /* Turkos/Cyan */
   --color-secondary: #FF8C00;   /* Orange */
-  --color-accent: #9ACD32;      /* Ljusgrön/Lime */
-  --color-neutral: #F9F7F0;     /* Krämvit */
+  --color-accent: hsl(80, 61%, 50%);      /* Ljusgrön/Lime */
+  --color-neutral: #F9f7f0;     /* Krämvit */
   --color-text: #1A3249;        /* Mörkblå/Marin */
 
   --font-heading: 'Montserrat', 'Poppins', sans-serif;
