@@ -90,41 +90,113 @@
 	color: var(--color-neutral);
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-	.menu-icon {
-		display: block;
+/* ===============================
+   🌍 RESPONSIVE DESIGN (3 nivåer)
+   =============================== */
+
+/* === 🖥️ Desktop (min 992px) === */
+@media (min-width: 992px) {
+	.nav-bar {
+		padding: 20px 60px;
+		max-width: 1300px;
 	}
 
+	.logo-text {
+		font-size: 26px;
+	}
+
+	.nav-links {
+		gap: 35px;
+	}
+
+	.link {
+		font-size: 17px;
+	}
+}
+
+/* === 💻 Surfplatta (600px – 991px) === */
+@media (min-width: 600px) and (max-width: 991px) {
+	.nav-bar {
+		padding: 15px 30px;
+	}
+
+	.logo-text {
+		font-size: 20px;
+	}
+
+	.nav-links {
+		gap: 20px;
+	}
+
+	.link {
+		font-size: 15px;
+	}
+}
+
+/* === 📱 Mobil (max 599px) === */
+@media (max-width: 599px) {
 	.nav-bar {
 		flex-wrap: wrap;
+		padding: 12px 20px;
+	}
+
+	.menu-icon {
+		display: block;
+		font-size: 1.8rem;
 	}
 
 	.nav-links {
 		flex-direction: column;
+		align-items: center;
 		width: 100%;
-		background-color: var(--color-neutral);
+		background-color: var(--color-text);
 		position: absolute;
-		top: 70px;
+		top: 60px;
 		left: 0;
 		padding: 15px 0;
-		gap: 15px;
+		gap: 10px;
 		display: none;
-		border-top: 1px solid rgba(0, 0, 0, 0.1);
+		border-top: 1px solid rgba(255, 255, 255, 0.2);
 	}
 
 	.nav-links.active {
 		display: flex;
 	}
 
+	.link {
+		color: var(--color-neutral);
+		font-size: 16px;
+		padding: 8px 0;
+		width: 100%;
+		text-align: center;
+	}
+
 	.auth-btn {
 		width: 100%;
-		margin-top: 10px;
 		display: flex;
 		justify-content: center;
+		margin-top: 10px;
 	}
 
 	.auth-btn button {
 		width: fit-content;
+		font-size: 14px;
 	}
 }
+
+/* ===============================
+   ♿ FOCUS-STYLES (tillgänglighet)
+   =============================== */
+.link:focus,
+.auth-btn button:focus {
+	outline: 3px solid var(--color-primary);
+	outline-offset: 3px;
+	border-radius: 4px;
+	background-color: rgba(0, 255, 255, 0.1);
+}
+
+.menu-icon:focus {
+	outline: 2px solid var(--color-secondary);
+	outline-offset: 2px;
+}
+
