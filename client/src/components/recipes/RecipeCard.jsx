@@ -6,7 +6,7 @@ import drinkImage from "../../assets/rating-img3.jpg";
 import "../../styles/global.css";
 
 
-export function RecipeCard({ drink }) {
+const RecipeCard = ({ drink }) => {
 
 
   // Räkna ingredienser
@@ -73,4 +73,6 @@ export function RecipeCard({ drink }) {
       </div>
     </div>
   );
-}
+};
+
+export default RecipeCard;

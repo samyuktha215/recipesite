@@ -21,7 +21,7 @@ export default function RecipeDetailsPage() {
   const [popupRating, setPopupRating] = useState(null);
   const [hoverRating, setHoverRating] = useState(0);
   const [message, setMessage] = useState("");
-
+ 
   // Fetch recipe if not passed from navigation
   useEffect(() => {
     if (!recipe) {

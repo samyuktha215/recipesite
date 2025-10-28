@@ -59,6 +59,7 @@ const Nav = () => {
             <li><Link to="/categories" className="link" onClick={closeMenu}>Kategori</Link></li>
             <li><Link to="/about" className="link" onClick={closeMenu}>Om</Link></li>
             <li><Link to="/contact" className="link" onClick={closeMenu}>Kontakt</Link></li>
+
           </ul>
  
           {/* Auth Buttons */}
