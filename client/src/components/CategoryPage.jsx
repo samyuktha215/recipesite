@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import nav from "./nav.jsx";
 import bannerImage from "../assets/Background.png";
 import "./CategoryPage.css";
-import { RecipeCard } from "./recipes/RecipeCard.jsx";
+import RecipeCard from "./recipes/RecipeCard.jsx";
 
 // Define all category options that users can click
 const categories = [
