@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./RecipeCard.css";
 
-export function RecipeCard({ drink }) {
+const RecipeCard = ({ drink }) => {
 
 
   // Räkna ingredienser
@@ -76,4 +76,6 @@ export function RecipeCard({ drink }) {
       </div>
     </div>
   );
-}
+};
+
+export default RecipeCard;
