@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import RecipeCard from '../components/recipes/RecipeCard';
+import { RecipeCard } from '../components/recipes/RecipeCard';
 
 const MockRecipeCard = (props) => {
   return (
@@ -27,7 +27,7 @@ describe('RecipeCard', () => {
         render(<MockRecipeCard drink={mockRecipe} />);
 
         expect(screen.getByText(mockRecipe.name)).toBeInTheDocument();
-        expect(screen.getByRole('img')).toHaveAttribute('src', mockRecipe.image);
+        expect(screen.getByRole('img', { name: mockRecipe.name })).toHaveAttribute('src', mockRecipe.image);
         expect(screen.getByText(`Antal ingredienser: ${mockRecipe.ingredientCount}`)).toBeInTheDocument();
         expect(screen.getByText(`Kategori: ${mockRecipe.category}`)).toBeInTheDocument();
     });

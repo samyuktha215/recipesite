@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Categories.css';
 import BackButton from './BackButton';
+import "../styles/global.css";
 
 function Categories() {
   
