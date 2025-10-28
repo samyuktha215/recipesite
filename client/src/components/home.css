@@ -146,14 +146,7 @@ aside ul {
 
 aside ul li {
 	cursor: pointer;
-	padding: 8px 12px;
-	transition:
-		color 0.2s ease,
-		font-weight 0.2s ease;
-	padding: 8px 12px;
-	transition:
-		color 0.2s ease,
-		font-weight 0.2s ease;
+	transition: color 0.2s ease;
 }
 
 /* Hover effect */

@@ -49,7 +49,7 @@ const Home = () => {
       <div className="top_banner">
         <div className="content">
           <h3>Drink IT</h3>
-          <h2>Uppfriskande Recept and Inspiretion</h2>
+          <h2>Uppfriskande Recept och Inspiration</h2>
         </div>
 
 

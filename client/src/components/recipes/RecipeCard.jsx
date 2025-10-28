@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./RecipeCard.css";
+import drinkImage from "../../assets/rating-img3.jpg";
+
 
 const RecipeCard = ({ drink }) => {
 
@@ -11,13 +13,10 @@ const RecipeCard = ({ drink }) => {
 
 
   // State för betyg och favorit
-  const [rating, setRating] = useState(drink.rating || 0);
   const [isFavorite, setIsFavorite] = useState(drink.isFavorite || false);
 
-  // Updates the rating when a star is clicked
-  const handleStarClick = (index) => {
-    setRating(index + 1);
-  };
+  const rating = drink.rating;
+
 
   return (
     // Card container
@@ -39,20 +38,17 @@ const RecipeCard = ({ drink }) => {
 
           </h1>
         </div>
-        
 
-        {/* Interactive star rating */}
-        <div className="recipe-card-rating">
-          {[...Array(5)].map((_, index) => (
-            <span
-              key={index}
-              style={{ cursor: "pointer" }}
-              onClick={() => handleStarClick(index)}
-            >
-              {index < rating ? "★" : "☆"}
-            </span>
-          ))}
-        </div>
+      <div className="recipe-card-rating">
+        {[...Array(5)].map((_, index) => (
+          <img
+            key={index}
+            src={drinkImage}
+            className={index < rating ? "rating-img-filled" : "rating-img-empty"}
+            alt={`${index < rating ? "filled" : "empty"} rating`}
+          />
+        ))}
+      </div>
 
         {/* Drink meta info */}
         <p className="recipe-card-category">Kategori: {drink.category}</p>

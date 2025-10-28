@@ -3,15 +3,15 @@ import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
 import './nav.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-
+ 
 const Nav = () => {
   const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [isOpen, setIsOpen] = useState(false);
   const [userData, setUserData] = useState(null);
-
+ 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
-
+ 
   // Function to call your protected backend API
   const callProtectedAPI = async () => {
     try {
@@ -30,14 +30,14 @@ const Nav = () => {
       console.error("Error calling protected API:", err);
     }
   };
-
+ 
   // Call protected API automatically when user is authenticated
   useEffect(() => {
     if (isAuthenticated) {
       callProtectedAPI();
     }
   }, [isAuthenticated]);
-
+ 
   return (
     <>
       <div className='header'>
@@ -46,20 +46,21 @@ const Nav = () => {
           <div className="logo">
             <Link to="/" className="logo-text" onClick={closeMenu}>Receptsida</Link>
           </div>
-
+ 
           {/* Hamburger Icon */}
           <div className="menu-icon" onClick={toggleMenu}>
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </div>
-
+ 
           {/* Navigation Links */}
           <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
             <li><Link to="/" className="link" onClick={closeMenu}>Hem</Link></li>
-            <li><Link to="/categories" className="link" onClick={closeMenu}>Kategory</Link></li>
+            <li><Link to="/categories" className="link" onClick={closeMenu}>Kategori</Link></li>
             <li><Link to="/about" className="link" onClick={closeMenu}>Om oss</Link></li>
             <li><Link to="/contact" className="link" onClick={closeMenu}>Kontakt</Link></li>
-          </ul>
 
+          </ul>
+ 
           {/* Auth Buttons */}
           <div className="auth-btn">
             {isAuthenticated ? (
@@ -85,5 +86,5 @@ const Nav = () => {
     </>
   );
 };
-
+ 
 export default Nav;
