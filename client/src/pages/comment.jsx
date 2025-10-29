@@ -31,10 +31,13 @@ const RecipeComments = ({ recipeId }) => {
       }
 
       const token = await getAccessTokenSilently();
+      const API_URL = import.meta.env.VITE_API_URL;
+
       const response = await axios.get(
-        `http://localhost:3000/recipes/${recipeId}/comments`,
+        `${API_URL}/recipes/${recipeId}/comments`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
+
 
       const validComments = response.data
         .filter(c => c.comment && c.name)
@@ -73,11 +76,14 @@ const RecipeComments = ({ recipeId }) => {
       const token = await getAccessTokenSilently();
       const safeComment = DOMPurify.sanitize(comment);
 
+       const API_URL = import.meta.env.VITE_API_URL;
+
       await axios.post(
-        `http://localhost:3000/recipes/${recipeId}/comments`,
+        `${API_URL}/recipes/${recipeId}/comments`,
         { name, comment: safeComment },
         { headers: { Authorization: `Bearer ${token}` } }
       );
+
 
       setSuccess(true);
       setName("");
