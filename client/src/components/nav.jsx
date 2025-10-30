@@ -45,7 +45,7 @@ const Nav = () => {
         <div className="nav-bar">
           {/* Logo */}
           <div className="logo">
-            <Link to="/" className="logo-text" onClick={closeMenu}>Receptsida</Link>
+            <Link to="/" className="logo-text" onClick={closeMenu}>Drink IT</Link>
           </div>
  
           {/* Hamburger Icon */}

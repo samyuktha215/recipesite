@@ -17,6 +17,9 @@ const RecipeComments = ({ recipeId }) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
 
+  const API_URL = import.meta.env.VITE_API_URL;
+  const isDev = import.meta.env.MODE === "development";
+
   // --- Hämta kommentarer ---
   const fetchComments = async () => {
     if (!recipeId) return;
@@ -24,28 +27,31 @@ const RecipeComments = ({ recipeId }) => {
     setError(null);
 
     try {
-      if (!isAuthenticated) {
-        setError("Du måste vara inloggad för att se kommentarer.");
-        setLoadingComments(false);
-        return;
+      let headers = {};
+      let url = "";
+
+      if (isDev) {
+        url = `https://grupp1-mqzle.reky.se/recipes/${recipeId}/comments`;
+      } else {
+        url = `${API_URL}/recipes/${recipeId}/comments`;
+        if (!isAuthenticated) {
+          setError("Du måste vara inloggad för att se kommentarer.");
+          setLoadingComments(false);
+          return;
+        }
+        const token = await getAccessTokenSilently();
+        headers.Authorization = `Bearer ${token}`;
       }
 
-      const token = await getAccessTokenSilently();
-      const API_URL = import.meta.env.VITE_API_URL;
-
-      const response = await axios.get(
-        `${API_URL}/recipes/${recipeId}/comments`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-
+      const response = await axios.get(url, { headers });
 
       const validComments = response.data
-        .filter(c => c.comment && c.name)
+        .filter((c) => c.comment && c.name)
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
       setComments(validComments);
     } catch (err) {
-      console.error("Fel vid hämtning av kommentarer:", err);
+      console.error("❌ Fel vid hämtning av kommentarer:", err);
       setError("Kunde inte hämta kommentarer.");
     } finally {
       setLoadingComments(false);
@@ -54,7 +60,7 @@ const RecipeComments = ({ recipeId }) => {
 
   useEffect(() => {
     fetchComments();
-  }, [recipeId, isAuthenticated, getAccessTokenSilently]);
+  }, [recipeId, isAuthenticated]);
 
   // --- Skicka kommentar ---
   const handleSubmit = async (e) => {
@@ -73,24 +79,31 @@ const RecipeComments = ({ recipeId }) => {
     setError(null);
 
     try {
-      const token = await getAccessTokenSilently();
-      const safeComment = DOMPurify.sanitize(comment);
+      let headers = { "Content-Type": "application/json" };
+      let url = "";
 
-       const API_URL = import.meta.env.VITE_API_URL;
+      if (isDev) {
+        url = `https://grupp1-mqzle.reky.se/recipes/${recipeId}/comments`;
+      } else {
+        url = `${API_URL}/recipes/${recipeId}/comments`;
+        const token = await getAccessTokenSilently();
+        headers.Authorization = `Bearer ${token}`;
+      }
 
-      await axios.post(
-        `${API_URL}/recipes/${recipeId}/comments`,
-        { name, comment: safeComment },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const safeComment = comment
+  .replace(/<script.*?>.*?<\/script>/gi, "[skyddad text]")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;");
 
+
+      await axios.post(url, { name, comment: safeComment }, { headers });
 
       setSuccess(true);
       setName("");
       setComment("");
       fetchComments();
     } catch (err) {
-      console.error("Fel vid skickning av kommentar:", err);
+      console.error("❌ Fel vid skickning av kommentar:", err);
       setError("Kunde inte skicka kommentaren.");
     } finally {
       setLoadingSubmit(false);
@@ -105,13 +118,15 @@ const RecipeComments = ({ recipeId }) => {
     }
   }, [success]);
 
-  const formatDate = (isoString) => {
-    if (!isoString) return "";
-    return new Date(isoString).toLocaleString("sv-SE", { dateStyle: "medium", timeStyle: "short" });
-  };
+  const formatDate = (isoString) =>
+    isoString
+      ? new Date(isoString).toLocaleString("sv-SE", {
+          dateStyle: "medium",
+          timeStyle: "short",
+        })
+      : "";
 
-  // --- Rendering ---
-  if (!isAuthenticated) {
+  if (!isDev && !isAuthenticated) {
     return (
       <div className="recipe-comments">
         <h3>Logga in för att se och skriva kommentarer</h3>
@@ -150,11 +165,16 @@ const RecipeComments = ({ recipeId }) => {
       {!loadingComments && comments.length === 0 && <p>Inga kommentarer ännu.</p>}
 
       <ul className="comments-list">
-        {comments.map(c => (
+        {comments.map((c) => (
           <li key={c._id}>
             <p className="comment-author">{c.name} skrev:</p>
+            {/* Renderar text säkert, script blockeras */}
             <p>{c.comment}</p>
-            {c.createdAt && <p className="comment-date"><em>{formatDate(c.createdAt)}</em></p>}
+            {c.createdAt && (
+              <p className="comment-date">
+                <em>{formatDate(c.createdAt)}</em>
+              </p>
+            )}
           </li>
         ))}
       </ul>

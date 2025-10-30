@@ -52,49 +52,42 @@ const Contact = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!isAuthenticated) {
-      return loginWithRedirect();
-    }
+  const { Name, email, Subject, Message } = user;
 
-    const { Name, email, Subject, Message } = user;
+  if (!Name || !email || !Subject || !Message) {
+    setError("Alla fält måste fyllas i.");
+    return;
+  }
 
-    if (!Name.trim() || !email.trim() || !Subject.trim() || !Message.trim()) {
-      setError("Alla fält måste fyllas i.");
-      return;
-    }
+  setLoading(true);
+  setError(null);
 
-    setLoading(true);
-    setError(null);
-
-    try {
-      const API_URL = import.meta.env.VITE_API_URL;
-
-      const response = await fetch(`${API_URL}/contact`, {
+  try {
+    const response = await fetch(
+      "https://recipesite-ab146-default-rtdb.firebaseio.com/Message.json",
+      {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ Name, email, Subject, Message })
-      });
-
-
-      if (!response.ok) {
-        throw new Error("Kunde inte skicka meddelandet");
       }
+    );
 
-      setSuccess(true);
-      setUser({ Name: '', email: '', Subject: '', Message: '' });
-      setTimeout(() => setSuccess(false), 3000);
-    } catch (err) {
-      console.error(err);
-      setError(err.message || "Något gick fel");
-    } finally {
-      setLoading(false);
+    if (!response.ok) {
+      throw new Error("Kunde inte skicka meddelandet.");
     }
-  };
+
+    setSuccess(true);
+    setUser({ Name: "", email: "", Subject: "", Message: "" });
+    setTimeout(() => setSuccess(false), 3000);
+  } catch (err) {
+    setError("Fel vid skickning av meddelande.");
+    console.error(err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className='contact'>
