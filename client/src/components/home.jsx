@@ -43,6 +43,15 @@ const Home = () => {
     )
     : drinks;
 
+    // Räkna antal recept per kategori
+    const categoryCounts = drinks.reduce((acc, recipe) => {
+      recipe.categories?.forEach(cat => {
+        acc[cat] = (acc[cat] || 0) + 1;
+      });
+      return acc;
+    }, {});
+
+
     const handleSearchSubmit = (e) => {
       e.preventDefault();
 
@@ -99,7 +108,7 @@ const Home = () => {
             <button type="submit">🔍</button>
           </form>
 
-          <Sidebar onSelectCategory={setSelectedCategory} />
+          <Sidebar onSelectCategory={setSelectedCategory} categoryCounts={categoryCounts} />
         </div>
 
         {/* Grid Container */}

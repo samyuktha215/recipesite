@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-const Sidebar = ({ onSelectCategory }) => {
-  const [selectedCategory, setSelectedCategory] = useState("Alla");
-  const location = useLocation();
+// Sidebar component to display categories
+// categoryCounts is an optional prop to show the number of recipes per category
+const Sidebar = ({ onSelectCategory, categoryCounts = {} }) => {
+  const [selectedCategory, setSelectedCategory] = useState("Alla"); // State for currently selected category
+  const location = useLocation(); // Current URL path
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
-  // Återställ kategori till "Alla" när man går till startsidan
+  // Reset category to "Alla" when visiting the home page
   useEffect(() => {
     if (location.pathname === "/") {
       setSelectedCategory("Alla");
-      onSelectCategory("");
+      onSelectCategory(""); // Call parent callback to reset
     }
   }, [location, onSelectCategory]);
 
+  // Fixed list of categories
   const categories = [
     "Klassiska Drinkar",
     "Varma Drinkar",
@@ -22,9 +26,13 @@ const Sidebar = ({ onSelectCategory }) => {
     "Alla",
   ];
 
+  // Handle click on a category
   const handleCategoryClick = (cat) => {
-    setSelectedCategory(cat);
-    onSelectCategory(cat === "Alla" ? "" : cat);
+    setSelectedCategory(cat); // Update local state
+    onSelectCategory(cat === "Alla" ? "" : cat); // Call parent callback
+
+    // Navigate to CategoryPage with selected category in URL
+    navigate(`/category/${cat === "Alla" ? "" : cat}`);
   };
 
   return (
@@ -34,18 +42,21 @@ const Sidebar = ({ onSelectCategory }) => {
         {categories.map((category) => (
           <li
             key={category}
-            tabIndex="0" // 🔹 Gör tabb-bar
+            tabIndex="0" // Make li focusable
             className={selectedCategory === category ? "active" : ""}
             onClick={() => handleCategoryClick(category)}
             onKeyDown={(e) => {
-              // 🔹 Tangentbordsstöd: Enter & Mellanslag
+              // Support keyboard: Enter or Space triggers click
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 handleCategoryClick(category);
               }
             }}
           >
-            {category}
+            {category}{" "}
+            {category !== "Alla" && categoryCounts[category]
+              ? `(${categoryCounts[category]})` // Show count if available
+              : ""}
           </li>
         ))}
       </ul>
@@ -53,8 +64,10 @@ const Sidebar = ({ onSelectCategory }) => {
   );
 };
 
+// Prop validation
 Sidebar.propTypes = {
-  onSelectCategory: PropTypes.func,
+  onSelectCategory: PropTypes.func, // Callback when category changes
+  categoryCounts: PropTypes.object, // Optional object for recipe counts per category
 };
 
 export default Sidebar;

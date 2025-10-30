@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import nav from "./nav.jsx";
+import { useLocation, useParams } from "react-router-dom";
 import bannerImage from "../assets/Background.png";
-import "./CategoryPage.css";
 import { RecipeCard } from "./recipes/RecipeCard.jsx";
 import "../styles/global.css";
+import "./CategoryPage.css";
 
-// Define all category options that users can click
+// Fixed category buttons with labels
 const categories = [
   { key: "Varma Drinkar", label: "VARMA" },
   { key: "Alkoholfria Drinkar", label: "ALKOHOLFRIA" },
@@ -14,18 +14,33 @@ const categories = [
 ];
 
 function CategoryPage() {
-  const [activeCategory, setActiveCategory] = useState("Klassiska Drinkar");    // State variable for the currently selected category (default = "Klassiska Drinkar")
-  const [drinks, setDrinks] = useState([]); // Holds all drinks fetched from the API
-  const [loading, setLoading] = useState(false); // Loading state while fetching data
+  const location = useLocation(); // Get state passed via navigation (from sidebar)
+  const params = useParams();     // Get category from URL if visiting /category/:categoryName
+  const categoryFromSidebar = location.state?.selectedCategory;
+  const categoryFromURL = params.categoryName
+    ? decodeURIComponent(params.categoryName)
+    : null;
 
-  // useEffect runs once when the component mounts
-  // It fetches all drinks from the API
+  // Set active category: priority -> sidebar state, then URL, then default
+  const [activeCategory, setActiveCategory] = useState(
+    categoryFromSidebar || categoryFromURL || "Klassiska Drinkar"
+  );
+
+  const [drinks, setDrinks] = useState([]); // Stores all fetched recipes
+  const [loading, setLoading] = useState(false); // Loading state
+
+  // Fetch all drinks on mount
   useEffect(() => {
     fetchDrinks();
   }, []);
 
-    // Function to fetch drinks from the API
-    async function fetchDrinks() {
+  // Update activeCategory if sidebar selection or URL param changes
+  useEffect(() => {
+    setActiveCategory(categoryFromSidebar || categoryFromURL || "Klassiska Drinkar");
+  }, [categoryFromSidebar, categoryFromURL]);
+
+  // Fetch recipes from API
+  async function fetchDrinks() {
     setLoading(true);
     try {
       const response = await fetch("https://grupp1-mqzle.reky.se/recipes");
@@ -38,10 +53,9 @@ function CategoryPage() {
     }
   }
 
-  // Filter drinks by category
+  // Filter recipes based on selected category
   const filteredDrinks = drinks.filter((recipe) => {
-    if (!activeCategory) return true;
-    // normalize category text for comparison
+    if (!activeCategory || activeCategory === "Alla") return true;
     return recipe.categories?.some(
       (cat) => cat.toLowerCase() === activeCategory.toLowerCase()
     );
@@ -49,8 +63,8 @@ function CategoryPage() {
 
   return (
     <>
+      {/* Banner section */}
       <div className="home">
-        {/* Header and banner */}
         <div className="top_banner">
           <div className="content">
             <h3>Drink IT</h3>
@@ -62,12 +76,12 @@ function CategoryPage() {
         </div>
       </div>
 
+      {/* Category buttons */}
       <div className="category-page">
-        {/* Category buttons */}
         {categories.map((category) => (
           <button
             key={category.key}
-            onClick={() => setActiveCategory(category.key)} 
+            onClick={() => setActiveCategory(category.key)} // Update active category when clicked
             className={`category-button ${
               activeCategory === category.key ? "active" : ""
             }`}
@@ -77,14 +91,15 @@ function CategoryPage() {
         ))}
       </div>
 
+      {/* Recipes grid */}
       <div className="drinks_list">
-        {/* Drinks Results */}
         {loading ? (
-          <p className="no_results">Laddar recept...</p>
+          <p className="no_results">Laddar recept...</p> // Loading text
         ) : (
           <div className="grid-container">
             {filteredDrinks.length > 0 ? (
               filteredDrinks.map((recipe) => {
+                // Adapt API data to RecipeCard props
                 const adaptedDrink = {
                   _id: recipe._id,
                   image: recipe.imageUrl,
@@ -99,10 +114,10 @@ function CategoryPage() {
                     ? recipe.ingredients.length
                     : 0,
                 };
-                return <RecipeCard key={recipe._id} drink={adaptedDrink}/>;
+                return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
               })
             ) : (
-              <p className="no-results">Inga recept hittades.</p>
+              <p className="no-results">Inga recept hittades.</p> // No results text
             )}
           </div>
         )}
