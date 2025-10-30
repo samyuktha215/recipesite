@@ -11,7 +11,7 @@ const allowedOrigins = [
   "http://localhost:8888", 
   "https://recipesite.netlify.app", 
   "https://recipesite--feature-rob.netlify.app", 
-  "https://recipesite-1.onrender.com"
+  "https://grupp1-mqzle.reky.se"
 ];
 
 app.use(cors({
