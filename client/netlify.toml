@@ -1,7 +1,7 @@
 [build]
   base = "client"
   publish = "dist"
-  command = " npm run build"
+  command = "npm run build"
  
   # (Optional) Non-sensitive defaults — you can override these from Netlify UI if needed
   [build.environment]
