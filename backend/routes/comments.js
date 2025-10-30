@@ -5,10 +5,9 @@ import { expressjwt as jwt } from "express-jwt";
 import jwksRsa from "jwks-rsa";
 
 const router = express.Router();
-
 const MAX_COMMENT_LENGTH = 500;
 
-// JWT-verifiering
+// JWT-verifiering (för produktion)
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
@@ -21,21 +20,24 @@ const checkJwt = jwt({
   algorithms: ["RS256"],
 });
 
-// GET kommentarer (kräver token)
-router.get("/:id/comments", checkJwt, async (req, res) => {
+// Kontrollera om vi kör i utveckling
+const isDev = process.env.NODE_ENV !== "production";
+
+// --- Hämta kommentarer ---
+router.get("/:id/comments", isDev ? async (req, res, next) => next() : checkJwt, async (req, res) => {
   try {
     const response = await axios.get(
       `https://grupp1-mqzle.reky.se/recipes/${req.params.id}/comments`
     );
     res.json(response.data);
   } catch (err) {
-    console.error(err);
+    console.error("Fel vid hämtning av kommentarer:", err);
     res.status(500).json({ message: "Kunde inte hämta kommentarer" });
   }
 });
 
-// POST kommentar (kräver token)
-router.post("/:id/comments", checkJwt, async (req, res) => {
+// --- Skicka kommentar ---
+router.post("/:id/comments", isDev ? async (req, res, next) => next() : checkJwt, async (req, res) => {
   try {
     const { name, comment } = req.body;
 
@@ -47,11 +49,13 @@ router.post("/:id/comments", checkJwt, async (req, res) => {
       return res.status(400).json({ message: `Kommentaren får max vara ${MAX_COMMENT_LENGTH} tecken.` });
     }
 
-    // Sanera input
+    // Sanera input – tar bort script/HTML men behåller text
     const safeComment = comment
+      .replace(/<script.*?>.*?<\/script>/gi, "")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
 
+    // Skicka vidare till Reky API
     const response = await axios.post(
       `https://grupp1-mqzle.reky.se/recipes/${req.params.id}/comments`,
       { name, comment: safeComment }
@@ -59,7 +63,7 @@ router.post("/:id/comments", checkJwt, async (req, res) => {
 
     res.status(201).json(response.data);
   } catch (err) {
-    console.error(err);
+    console.error("Fel vid sparande av kommentar:", err);
     res.status(500).json({ message: "Kunde inte spara kommentaren" });
   }
 });
