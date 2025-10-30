@@ -4,19 +4,33 @@ import { RecipeCard } from "./recipes/RecipeCard";
 import bannerImage from "../assets/Background.png";
 import Sidebar from "../pages/sidebar.jsx";
 import "./home.css";
+import "../styles/global.css";
 
 const Home = () => {
   const [drinks, setDrinks] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("https://grupp1-mqzle.reky.se/recipes")
-      .then((res) => res.json())
-      .then((data) => setDrinks(data))
-      .catch((err) => console.error("Error fetching drinks:", err));
-  }, []);
+    useEffect(() => {
+      setLoading(true);
+      fetch("https://grupp1-mqzle.reky.se/recipes")
+        .then(res => {
+          if (!res.ok) throw new Error("Nätverksfel vid hämtning av recept");
+          return res.json();
+        })
+        .then(data => {
+          setDrinks(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error("Error fetching drinks:", err);
+          setError("Kunde inte hämta recept. Kontrollera din internetanslutning.");
+          setLoading(false);
+        });
+    }, []);
 
   // Filter drinks based on selected category
   const filteredDrinks = selectedCategory
@@ -29,19 +43,31 @@ const Home = () => {
     )
     : drinks;
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    const match = drinks.find((d) =>
-      d.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
-    );
+    const handleSearchSubmit = (e) => {
+      e.preventDefault();
 
-    if (match) {
-      navigate(`/recipes/${match._id}`, { state: { recipe: match } });
-    }
-    else {
-      alert("Inget recept hittades med det namnet.");
-    }
-  };
+      const cleanQuery = searchQuery
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .slice(0, 50) // max 50 tecken
+        .trim();
+
+      if (!cleanQuery) {
+        alert("Skriv något att söka efter.");
+        return;
+      }
+
+      const match = drinks.find((d) =>
+        d.title.toLowerCase().includes(cleanQuery.toLowerCase())
+      );
+
+      if (match) {
+        navigate(`/recipes/${match._id}`, { state: { recipe: match } });
+      } else {
+        alert("Inget recept hittades med det namnet.");
+      }
+    };
+
 
   return (
     <div className="home">
@@ -68,6 +94,7 @@ const Home = () => {
               placeholder="Sök efter ett recept..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              maxLength={50}
             />
             <button type="submit">🔍</button>
           </form>
@@ -78,10 +105,13 @@ const Home = () => {
         {/* Grid Container */}
 
         <div className="grid-container">
-          {filteredDrinks.length > 0 ? (
+          {loading && <p>Laddar recept...</p>}
+          {error && <p className="error">{error}</p>}
+          
+          {!loading && !error && filteredDrinks.length > 0 ? (
             filteredDrinks.map((recipe) => {
               const adaptedDrink = {
-                _id:recipe._id,
+                _id: recipe._id,
                 image: recipe.imageUrl,
                 name: recipe.title,
                 rating: recipe.avgRating || 0,
@@ -90,15 +120,16 @@ const Home = () => {
                 timeInMins: recipe.timeInMins || 0,
                 isFavorite: false,
                 commentsCount: 0,
-                ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0, // Rakna ingredienser
+                ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0,
               };
               return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
             })
-          ) : (
+          ) : null}
+
+          {!loading && !error && filteredDrinks.length === 0 && (
             <p className="no-results">Inga recept hittades.</p>
           )}
         </div>
-
 
       </div>
     </div>

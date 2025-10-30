@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
+import DOMPurify from "dompurify";
 import "./recipecomment.css";
+
+const MAX_COMMENT_LENGTH = 500;
 
 const RecipeComments = ({ recipeId }) => {
   const { isAuthenticated, loginWithRedirect, getAccessTokenSilently } = useAuth0();
 
-  // State
   const [comments, setComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(true);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
@@ -15,31 +17,41 @@ const RecipeComments = ({ recipeId }) => {
   const [name, setName] = useState("");
   const [comment, setComment] = useState("");
 
-  // Fetch comments
+  const API_URL = import.meta.env.VITE_API_URL;
+  const isDev = import.meta.env.MODE === "development";
+
+  // --- Hämta kommentarer ---
   const fetchComments = async () => {
     if (!recipeId) return;
     setLoadingComments(true);
     setError(null);
-    try {
-      if (!isAuthenticated) {
-        setError("Du måste vara inloggad för att se kommentarer.");
-        setLoadingComments(false);
-        return;
-      }
-      const token = await getAccessTokenSilently();
-      const response = await axios.get(
-        `https://grupp1-mqzle.reky.se/recipes/${recipeId}/comments`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
 
-      // Filter valid comments and sort newest first
+    try {
+      let headers = {};
+      let url = "";
+
+      if (isDev) {
+        url = `https://grupp1-mqzle.reky.se/recipes/${recipeId}/comments`;
+      } else {
+        url = `${API_URL}/recipes/${recipeId}/comments`;
+        if (!isAuthenticated) {
+          setError("Du måste vara inloggad för att se kommentarer.");
+          setLoadingComments(false);
+          return;
+        }
+        const token = await getAccessTokenSilently();
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      const response = await axios.get(url, { headers });
+
       const validComments = response.data
-        .filter(c => c.comment && c.name)
+        .filter((c) => c.comment && c.name)
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
       setComments(validComments);
     } catch (err) {
-      console.error("Fel vid hämtning av kommentarer:", err);
+      console.error("❌ Fel vid hämtning av kommentarer:", err);
       setError("Kunde inte hämta kommentarer.");
     } finally {
       setLoadingComments(false);
@@ -48,39 +60,57 @@ const RecipeComments = ({ recipeId }) => {
 
   useEffect(() => {
     fetchComments();
-  }, [recipeId, isAuthenticated, getAccessTokenSilently]);
+  }, [recipeId, isAuthenticated]);
 
-  // Submit new comment
+  // --- Skicka kommentar ---
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!name.trim() || !comment.trim()) {
       setError("Fyll i både namn och kommentar.");
       return;
     }
+    if (comment.length > MAX_COMMENT_LENGTH) {
+      setError(`Kommentaren är för lång (max ${MAX_COMMENT_LENGTH} tecken).`);
+      return;
+    }
+
     setLoadingSubmit(true);
     setError(null);
+
     try {
-      const token = await getAccessTokenSilently();
-      await axios.post(
-        `https://grupp1-mqzle.reky.se/recipes/${recipeId}/comments`,
-        { name, comment },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      let headers = { "Content-Type": "application/json" };
+      let url = "";
+
+      if (isDev) {
+        url = `https://grupp1-mqzle.reky.se/recipes/${recipeId}/comments`;
+      } else {
+        url = `${API_URL}/recipes/${recipeId}/comments`;
+        const token = await getAccessTokenSilently();
+        headers.Authorization = `Bearer ${token}`;
+      }
+
+      const safeComment = comment
+  .replace(/<script.*?>.*?<\/script>/gi, "[skyddad text]")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;");
+
+
+      await axios.post(url, { name, comment: safeComment }, { headers });
 
       setSuccess(true);
       setName("");
       setComment("");
-      fetchComments(); // refresh comment list
-
+      fetchComments();
     } catch (err) {
-      console.error("Fel vid skickning av kommentar:", err);
+      console.error("❌ Fel vid skickning av kommentar:", err);
       setError("Kunde inte skicka kommentaren.");
     } finally {
       setLoadingSubmit(false);
     }
   };
 
-  // Auto-hide success message after 3 seconds
+  // --- Auto-hide success message ---
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => setSuccess(false), 3000);
@@ -88,13 +118,15 @@ const RecipeComments = ({ recipeId }) => {
     }
   }, [success]);
 
-  const formatDate = (isoString) => {
-    if (!isoString) return "";
-    return new Date(isoString).toLocaleString("sv-SE", { dateStyle: "medium", timeStyle: "short" });
-  };
+  const formatDate = (isoString) =>
+    isoString
+      ? new Date(isoString).toLocaleString("sv-SE", {
+          dateStyle: "medium",
+          timeStyle: "short",
+        })
+      : "";
 
-  // --- Rendering ---
-  if (!isAuthenticated) {
+  if (!isDev && !isAuthenticated) {
     return (
       <div className="recipe-comments">
         <h3>Logga in för att se och skriva kommentarer</h3>
@@ -105,9 +137,9 @@ const RecipeComments = ({ recipeId }) => {
 
   return (
     <div className="recipe-comments">
-      {/* Comment Form */}
       <h2>Lämna en kommentar</h2>
       {success && <p className="comment-success">Tack för din kommentar!</p>}
+
       <form onSubmit={handleSubmit} className="comment-form">
         <input
           type="text"
@@ -128,16 +160,21 @@ const RecipeComments = ({ recipeId }) => {
         </button>
       </form>
 
-      {/* Comments List */}
       <h2>Kommentarer</h2>
       {loadingComments && <p>Laddar kommentarer...</p>}
       {!loadingComments && comments.length === 0 && <p>Inga kommentarer ännu.</p>}
+
       <ul className="comments-list">
-        {comments.map(c => (
+        {comments.map((c) => (
           <li key={c._id}>
             <p className="comment-author">{c.name} skrev:</p>
+            {/* Renderar text säkert, script blockeras */}
             <p>{c.comment}</p>
-            {c.createdAt && <p className="comment-date"><em>{formatDate(c.createdAt)}</em></p>}
+            {c.createdAt && (
+              <p className="comment-date">
+                <em>{formatDate(c.createdAt)}</em>
+              </p>
+            )}
           </li>
         ))}
       </ul>

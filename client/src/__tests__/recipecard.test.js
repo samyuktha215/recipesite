@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import RecipeCard from '../components/recipes/RecipeCard';
+import { RecipeCard } from '../components/recipes/RecipeCard';
 
 const MockRecipeCard = (props) => {
   return (
