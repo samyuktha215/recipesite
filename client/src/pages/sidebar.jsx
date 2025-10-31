@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 
 const Sidebar = ({ onSelectCategory }) => {
-
   const [selectedCategory, setSelectedCategory] = useState("Alla");
   const location = useLocation();
 
-    useEffect(() => {
+  // Återställ kategori till "Alla" när man går till startsidan
+  useEffect(() => {
     if (location.pathname === "/") {
       setSelectedCategory("Alla");
       onSelectCategory("");
@@ -20,15 +19,13 @@ const Sidebar = ({ onSelectCategory }) => {
     "Varma Drinkar",
     "Alkoholfria Drinkar",
     "Veganska Drinkar",
-    "Alla"
+    "Alla",
   ];
 
   const handleCategoryClick = (cat) => {
     setSelectedCategory(cat);
-
     onSelectCategory(cat === "Alla" ? "" : cat);
-  }
-
+  };
 
   return (
     <aside>
@@ -37,8 +34,16 @@ const Sidebar = ({ onSelectCategory }) => {
         {categories.map((category) => (
           <li
             key={category}
+            tabIndex="0" // 🔹 Gör tabb-bar
             className={selectedCategory === category ? "active" : ""}
             onClick={() => handleCategoryClick(category)}
+            onKeyDown={(e) => {
+              // 🔹 Tangentbordsstöd: Enter & Mellanslag
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleCategoryClick(category);
+              }
+            }}
           >
             {category}
           </li>

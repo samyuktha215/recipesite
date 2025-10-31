@@ -3,6 +3,7 @@ import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
 import './nav.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
+import "../styles/global.css";
  
 const Nav = () => {
   const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -44,7 +45,7 @@ const Nav = () => {
         <div className="nav-bar">
           {/* Logo */}
           <div className="logo">
-            <Link to="/" className="logo-text" onClick={closeMenu}>Receptsida</Link>
+            <Link to="/" className="logo-text" onClick={closeMenu}>Drink IT</Link>
           </div>
  
           {/* Hamburger Icon */}
@@ -55,9 +56,10 @@ const Nav = () => {
           {/* Navigation Links */}
           <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
             <li><Link to="/" className="link" onClick={closeMenu}>Hem</Link></li>
-            <li><Link to="/categories" className="link" onClick={closeMenu}>Kategory</Link></li>
-            <li><Link to="/about" className="link" onClick={closeMenu}>Om oss</Link></li>
+            <li><Link to="/categories" className="link" onClick={closeMenu}>Kategori</Link></li>
+            <li><Link to="/about" className="link" onClick={closeMenu}>Om</Link></li>
             <li><Link to="/contact" className="link" onClick={closeMenu}>Kontakt</Link></li>
+
           </ul>
  
           {/* Auth Buttons */}

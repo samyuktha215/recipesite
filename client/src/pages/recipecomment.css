@@ -1,0 +1,157 @@
+.recipe-comments {
+	max-width: 600px;
+	margin: 2rem auto;
+	font-family: Arial, sans-serif;
+}
+
+.comment-form {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 2rem;
+}
+
+.comment-form input,
+.comment-form textarea {
+	padding: 0.5rem;
+	margin-bottom: 0.5rem;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.comment-form textarea {
+	min-height: 80px;
+	resize: vertical;
+}
+
+.comment-form button {
+	background-color: var(--color-text);
+	color: white;
+	font-weight: bold;
+	border: none;
+	padding: 0.6rem 1rem;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.comment-form button:hover:not(:disabled) {
+	background-color: #0056b3;
+}
+
+.comment-form button:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.comment-success {
+	color: green;
+	margin-bottom: 0.5rem;
+}
+
+.comment-error {
+	color: red;
+	margin-bottom: 0.5rem;
+}
+
+.comments-list {
+	list-style: none;
+	padding: 0;
+}
+
+.comments-list li {
+	border-bottom: 1px solid #ddd;
+	padding: 1rem 0;
+}
+
+.comments-list li:last-child {
+	border-bottom: none;
+}
+
+.comment-author {
+	font-weight: bold;
+}
+
+.comment-date {
+	font-size: 0.8rem;
+	color: #555;
+	margin-top: 0.2rem;
+}
+
+/* ===============================
+   🌍 RESPONSIVE DESIGN – COMMENTS
+   =============================== */
+
+/* 🖥️ Desktop (min-width: 992px) */
+@media (min-width: 992px) {
+  .recipe-comments {
+    max-width: 700px;
+    margin: 2.5rem auto;
+  }
+
+  .comment-form input,
+  .comment-form textarea {
+    font-size: 16px;
+    padding: 0.75rem;
+  }
+
+  .comment-form button {
+    padding: 0.75rem 1.5rem;
+    font-size: 16px;
+  }
+}
+
+/* 💻 Tablet (600px – 991px) */
+@media (min-width: 600px) and (max-width: 991px) {
+  .recipe-comments {
+    max-width: 90%;
+    margin: 2rem auto;
+  }
+
+  .comment-form input,
+  .comment-form textarea {
+    font-size: 15px;
+    padding: 0.6rem;
+  }
+
+  .comment-form button {
+    padding: 0.6rem 1.2rem;
+    font-size: 15px;
+  }
+}
+
+/* 📱 Mobile (max-width: 599px) */
+@media (max-width: 599px) {
+  .recipe-comments {
+    margin: 1rem;
+  }
+
+  .comment-form input,
+  .comment-form textarea {
+    font-size: 14px;
+    padding: 0.5rem;
+  }
+
+  .comment-form button {
+    width: 100%;
+    font-size: 14px;
+    padding: 0.5rem;
+  }
+}
+
+/* ===============================
+   ♿ ACCESSIBILITY – FOCUS STATES
+   =============================== */
+.comment-form input:focus,
+.comment-form textarea:focus,
+.comment-form button:focus {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.comment-form button:focus-visible {
+  box-shadow: 0 0 0 4px rgba(0, 165, 177, 0.3); /* Turkos halo */
+}
+

@@ -1,20 +1,18 @@
-/* Reset */
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
+/* ===============================
+   NAV.CSS – Navigationsfält
+   =============================== */
 
+/* Header / Navbar */
 .header {
 	width: 100%;
-	background-color: #41374e;
-	box-shadow: 0 2px 8px rgba(164, 204, 241, 0.1);
+	background-color: var(--color-text); /* Mörkblå bakgrund */
+	box-shadow: var(--shadow);
 	position: sticky;
 	top: 0;
 	z-index: 100;
 }
 
-/* Navigation bar */
+/* Navigation bar layout */
 .nav-bar {
 	display: flex;
 	align-items: center;
@@ -26,9 +24,10 @@
 
 /* Logo */
 .logo-text {
+	font-family: var(--font-heading);
 	font-size: 22px;
 	font-weight: 700;
-	color: #f4f5f6;
+	color: var(--color-neutral); /* Krämvit logotext */
 	text-decoration: none;
 }
 
@@ -45,24 +44,26 @@
 
 .link {
 	text-decoration: none;
-	color: #fffefe;
+	color: var(--color-neutral); /* Krämvit text */
 	font-weight: 500;
+	padding-bottom: 4px;
 	transition:
 		color 0.3s ease,
 		border-bottom 0.3s ease;
-	padding-bottom: 4px;
 }
 
-.link:hover {
-	color: #007bff;
-	border-bottom: 2px solid #007bff;
+/* Hover & Active */
+.link:hover,
+.link.active {
+	color: var(--color-primary-dark); /* Turkos högkontrast */
+	border-bottom: 2px solid var(--color-primary-dark);
 }
 
 /* Auth Button */
 .auth-btn button {
-	background-color: #007bff;
+	background-color: transparent; /* Mörkare orange för kontrast */
 	color: white;
-	border: none;
+	border: 2px solid var(--color-neutral);
 	outline: none;
 	padding: 8px 16px;
 	border-radius: 20px;
@@ -76,7 +77,8 @@
 }
 
 .auth-btn button:hover {
-	background-color: #0056b3;
+	background-color: var(--color-accent-dark); /* Mörkare grön/lime */
+	color: var(--color-text); /* säkerställer kontrast */
 	transform: scale(1.05);
 }
 
@@ -84,44 +86,116 @@
 .menu-icon {
 	display: none;
 	cursor: pointer;
-	color: #333;
+	color: var(--color-neutral);
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-	.menu-icon {
-		display: block;
+/* ===============================
+   🌍 RESPONSIVE DESIGN (3 nivåer)
+   =============================== */
+
+/* === 🖥️ Desktop (min 992px) === */
+@media (min-width: 992px) {
+	.nav-bar {
+		padding: 20px 60px;
+		max-width: 1300px;
 	}
 
+	.logo-text {
+		font-size: 26px;
+	}
+
+	.nav-links {
+		gap: 35px;
+	}
+
+	.link {
+		font-size: 17px;
+	}
+}
+
+/* === 💻 Surfplatta (600px – 991px) === */
+@media (min-width: 600px) and (max-width: 991px) {
+	.nav-bar {
+		padding: 15px 30px;
+	}
+
+	.logo-text {
+		font-size: 20px;
+	}
+
+	.nav-links {
+		gap: 20px;
+	}
+
+	.link {
+		font-size: 15px;
+	}
+}
+
+/* === 📱 Mobil (max 599px) === */
+@media (max-width: 599px) {
 	.nav-bar {
 		flex-wrap: wrap;
+		padding: 12px 20px;
+	}
+
+	.menu-icon {
+		display: block;
+		font-size: 1.8rem;
 	}
 
 	.nav-links {
 		flex-direction: column;
+		align-items: center;
 		width: 100%;
-		background-color: #ffffff;
+		background-color: var(--color-text);
 		position: absolute;
-		top: 70px;
+		top: 60px;
 		left: 0;
 		padding: 15px 0;
-		gap: 15px;
+		gap: 10px;
 		display: none;
-		border-top: 1px solid #ddd;
+		border-top: 1px solid rgba(255, 255, 255, 0.2);
 	}
 
 	.nav-links.active {
 		display: flex;
 	}
 
+	.link {
+		color: var(--color-neutral);
+		font-size: 16px;
+		padding: 8px 0;
+		width: 100%;
+		text-align: center;
+	}
+
 	.auth-btn {
 		width: 100%;
-		margin-top: 10px;
 		display: flex;
 		justify-content: center;
+		margin-top: 10px;
 	}
 
 	.auth-btn button {
 		width: fit-content;
+		font-size: 14px;
 	}
+}
+
+/* ===============================
+   ♿ FOCUS-STYLES (tillgänglighet)
+   =============================== */
+.link:focus,
+.auth-btn button:focus {
+	outline: 3px solid var(--color-primary-dark);
+	outline-offset: 3px;
+	border-radius: 4px;
+	background-color: var(--color-accent-dark); /* tydlig fokusbakgrund */
+	color: var(--color-text);
+}
+
+.menu-icon:focus {
+	outline: 2px solid var(--color-secondary-dark);
+	outline-offset: 2px;
 }
