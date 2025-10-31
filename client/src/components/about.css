@@ -1,19 +1,98 @@
+/* ===============================
+   ABOUT PAGE STYLING
+   =============================== */
+
 .about {
-	padding: 60px 20px;
-	max-width: 900px;
-	margin: 0 auto;
-	text-align: center;
-	line-height: 1.6;
-	color: #444;
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.6;
+  color: var(--color-text);
+  font-family: var(--font-body);
 }
 
 .about h2 {
-	color: #cd1e76;
-	margin-bottom: 20px;
-	font-size: 24px;
-	text-transform: uppercase;
+  color: var(--color-primary); /* Turkos för titlar */
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-transform: uppercase;
+  font-family: var(--font-heading);
 }
 
 .about p {
-	font-size: 16px;
+  font-size: 16px;
 }
+
+/* ===============================
+   🌍 RESPONSIVE DESIGN (3 breakpoints)
+   =============================== */
+
+/* 🖥️ Desktop (min 992px) */
+@media (min-width: 992px) {
+  .about {
+    padding: 80px 40px;
+    max-width: 1000px;
+  }
+
+  .about h2 {
+    font-size: 28px;
+  }
+
+  .about p {
+    font-size: 18px;
+  }
+}
+
+/* 💻 Surfplatta (600px – 991px) */
+@media (min-width: 600px) and (max-width: 991px) {
+  .about {
+    padding: 60px 30px;
+    max-width: 90%;
+  }
+
+  .about h2 {
+    font-size: 24px;
+  }
+
+  .about p {
+    font-size: 16px;
+  }
+}
+
+/* 📱 Mobil (max 599px) */
+@media (max-width: 599px) {
+  .about {
+    padding: 40px 15px;
+    text-align: left;
+  }
+
+  .about h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .about p {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+}
+
+/* ===============================
+   ♿ TILLGÄNGLIGHET (FOCUS-STYLES)
+   =============================== */
+
+/* Om du har länkar eller knappar i about-sektionen */
+.about a:focus,
+.about button:focus {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Extra tydligt fokus vid tangentbordsnavigation */
+.about a:focus-visible,
+.about button:focus-visible {
+  box-shadow: 0 0 0 4px rgba(0, 255, 255, 0.3);
+}
+

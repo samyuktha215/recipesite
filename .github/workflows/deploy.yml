@@ -4,7 +4,11 @@ on:
   workflow_dispatch:
   push:
     branches:
+<<<<<<< HEAD
       - main
+=======
+      - main # deploy when code is pushed to main
+>>>>>>> 9ec3144086ef4b138135497e0ed0c0cee53459d4
       - dev
 
 jobs:
@@ -47,4 +51,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+<<<<<<< HEAD
           publish_dir: ./client/dist
+=======
+          publish_dir: .client/dist # change to ./dist if using Vite
+>>>>>>> 9ec3144086ef4b138135497e0ed0c0cee53459d4
