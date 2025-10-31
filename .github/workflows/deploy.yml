@@ -4,11 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-<<<<<<< HEAD
       - main
-=======
-      - main # deploy when code is pushed to main
->>>>>>> 9ec3144086ef4b138135497e0ed0c0cee53459d4
       - dev
 
 jobs:
@@ -20,7 +16,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2️⃣ Verify contents of current folder
+      # 2️⃣ Debug folder structure (optional, for troubleshooting)
       - name: Debug Folder Structure
         run: ls -R
 
@@ -30,29 +26,19 @@ jobs:
         with:
           node-version: 22
 
-      # 4️⃣ Change directory into client folder
-      - name: Change directory
-        run: cd client && pwd && ls -la
-
-      # 5️⃣ Install dependencies
+      # 4️⃣ Install dependencies (inside client)
       - name: Install Dependencies
-        run: |
-          cd client
-          npm ci
+        run: npm ci
+        working-directory: ./client
 
-      # 6️⃣ Build project
+      # 5️⃣ Build project (inside client)
       - name: Build Project
-        run: |
-          cd client
-          npm run build
+        run: npm run build
+        working-directory: ./client
 
-      # 7️⃣ Deploy to GitHub Pages
+      # 6️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-<<<<<<< HEAD
           publish_dir: ./client/dist
-=======
-          publish_dir: .client/dist # change to ./dist if using Vite
->>>>>>> 9ec3144086ef4b138135497e0ed0c0cee53459d4
