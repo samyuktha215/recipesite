@@ -7,7 +7,24 @@ import contactRouter from "./routes/contact.js";
  
  
 const app = express();
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:8888", 
+  "https://recipesite.netlify.app", 
+  "https://recipesite--feature-rob.netlify.app", 
+  "https://grupp1-mqzle.reky.se"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
+
 app.use(express.json());
  
 // ✅ Auth0 token verification middleware
