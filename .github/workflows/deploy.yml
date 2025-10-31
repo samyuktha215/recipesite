@@ -4,34 +4,47 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main # deploy when code is pushed to main
+      - main
+      - dev
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repo
+      # 1️⃣ Checkout repository
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Setup Node.js (upgrade to Node 22)
+      # 2️⃣ Verify contents of current folder
+      - name: Debug Folder Structure
+        run: ls -R
+
+      # 3️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      # Install dependencies
+      # 4️⃣ Change directory into client folder
+      - name: Change directory
+        run: cd client && pwd && ls -la
+
+      # 5️⃣ Install dependencies
       - name: Install Dependencies
-        run: npm ci
+        run: |
+          cd client
+          npm ci
 
-      # Build project
+      # 6️⃣ Build project
       - name: Build Project
-        run: npm run build
+        run: |
+          cd client
+          npm run build
 
-      # Deploy to GitHub Pages
+      # 7️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist # change to ./dist if using Vite
+          publish_dir: ./client/dist
