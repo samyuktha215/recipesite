@@ -91,7 +91,7 @@ const RecipeComments = ({ recipeId }) => {
       }
 
       const safeComment = comment
-  .replace(/<script.*?>.*?<\/script>/gi, "[skyddad text]")
+  .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "[skyddad text]")
   .replace(/</g, "&lt;")
   .replace(/>/g, "&gt;");
 
