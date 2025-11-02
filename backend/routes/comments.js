@@ -51,9 +51,9 @@ router.post("/:id/comments", isDev ? async (req, res, next) => next() : checkJwt
 
     // Sanera input – tar bort script/HTML men behåller text
     const safeComment = comment
-      .replace(/<script.*?>.*?<\/script>/gi, "")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;");
+  .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "[skyddad text]")
+  .replace(/</g, "&lt;")
+  .replace(/>/g, "&gt;");
 
     // Skicka vidare till Reky API
     const response = await axios.post(
