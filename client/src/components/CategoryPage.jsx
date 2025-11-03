@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import nav from "./nav.jsx";
 import bannerImage from "../assets/Background.png";
 import "./CategoryPage.css";
 import { RecipeCard } from "./recipes/RecipeCard.jsx";

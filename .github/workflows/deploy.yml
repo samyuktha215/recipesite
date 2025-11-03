@@ -1,4 +1,4 @@
-name: Build, SonarCloud, and Deploy Recipe Site
+name: Build, Test (Playwright), SonarCloud, and Deploy Recipe Site
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
       - dev
 
 jobs:
-  build-scan-deploy:
+  build-test-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 2️⃣ Set up Node.js
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -27,7 +27,7 @@ jobs:
         working-directory: ./client
         run: npm ci
 
-      # 4️⃣ SonarCloud Analysis
+      # 4️⃣ Run SonarCloud Scan
       - name: SonarCloud Scan
         working-directory: ./client
         env:
@@ -41,8 +41,29 @@ jobs:
         working-directory: ./client
         run: npm run build
 
-      # 6️⃣ Deploy to GitHub Pages
+      # 6️⃣ Install Playwright browsers
+      - name: Install Playwright Browsers
+        working-directory: ./client
+        run: npx playwright install --with-deps
+
+      # 7️⃣ Run Playwright Tests (Chromium only for speed)
+      - name: Run Playwright Tests
+        working-directory: ./client
+        run: |
+          npx playwright test --browser=chromium --reporter=list,html
+        continue-on-error: false
+
+      # 8️⃣ Upload Playwright HTML report (for debugging)
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: client/playwright-report
+
+      # 9️⃣ Deploy to GitHub Pages (only if tests pass)
       - name: Deploy to GitHub Pages
+        if: success() # only deploy if previous steps (tests) succeeded
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
