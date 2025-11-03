@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
-import DOMPurify from "dompurify";
 import "./recipecomment.css";
 
 const MAX_COMMENT_LENGTH = 500;

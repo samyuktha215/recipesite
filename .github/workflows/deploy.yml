@@ -1,38 +1,49 @@
-name: Deploy Recipe Site
+name: Build, SonarCloud, and Deploy Recipe Site
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main # deploy when code is pushed to main
+      - main
       - dev
 
 jobs:
-  build-deploy:
+  build-scan-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repo
+      # 1️⃣ Checkout code
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # Setup Node.js (upgrade to Node 22)
+      # 2️⃣ Set up Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
 
-      # Install dependencies
+      # 3️⃣ Install dependencies
       - name: Install Dependencies
+        working-directory: ./client
         run: npm ci
 
-      # Build project
+      # 4️⃣ SonarCloud Analysis
+      - name: SonarCloud Scan
+        working-directory: ./client
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          npx sonar-scanner "-Dsonar.host.url=$SONAR_HOST_URL" "-Dsonar.login=$SONAR_TOKEN"
+
+      # 5️⃣ Build project
       - name: Build Project
+        working-directory: ./client
         run: npm run build
 
-      # Deploy to GitHub Pages
+      # 6️⃣ Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .client/dist # change to ./dist if using Vite
+          publish_dir: ./client/dist
