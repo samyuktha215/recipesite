@@ -24,6 +24,7 @@ const Rout = () => {
         <Route path="/contact" element={<ProtectedRoute><Contact/></ProtectedRoute>}/>
 
         <Route path="/categories" element={<CategoryPage />}/>
+        <Route path="/categories/:category" element={<CategoryPage />} />
 
         <Route path="/recipes/:id" element={<RecipeDetails />} />
 

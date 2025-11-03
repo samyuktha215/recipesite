@@ -1,8 +1,8 @@
-import React from "react";
+
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import './home.css';
-import { RecipeCard } from "./recipes/RecipeCard";
+import RecipeCard from "./recipes/RecipeCard";
 import BackButton from "./BackButton";
 
 function CategoryCard() {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
 import bannerImage from "../assets/Background.png";
 import { RecipeCard } from "./recipes/RecipeCard.jsx";
 import "../styles/global.css";
-import "./CategoryPage.css";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 // Fixed category buttons with labels
 const categories = [
+  { key: "", label: "ALLA" }, // show all when key is empty
   { key: "Varma Drinkar", label: "VARMA" },
   { key: "Alkoholfria Drinkar", label: "ALKOHOLFRIA" },
   { key: "Veganska Drinkar", label: "VEGANSKA" },
@@ -14,32 +14,35 @@ const categories = [
 ];
 
 function CategoryPage() {
-  const location = useLocation(); // Get state passed via navigation (from sidebar)
-  const params = useParams();     // Get category from URL if visiting /category/:categoryName
-  const categoryFromSidebar = location.state?.selectedCategory;
-  const categoryFromURL = params.categoryName
-    ? decodeURIComponent(params.categoryName)
-    : null;
+  const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
 
-  // Set active category: priority -> sidebar state, then URL, then default
-  const [activeCategory, setActiveCategory] = useState(
-    categoryFromSidebar || categoryFromURL || "Klassiska Drinkar"
-  );
+  const defaultCategory = "Klassiska Drinkar";
+  const [activeCategory, setActiveCategory] = useState(defaultCategory);
+  const [drinks, setDrinks] = useState([]); // Holds all drinks fetched from the API
+  const [loading, setLoading] = useState(false); // Loading state while fetching data
 
-  const [drinks, setDrinks] = useState([]); // Stores all fetched recipes
-  const [loading, setLoading] = useState(false); // Loading state
+  // Read category from URL param on mount / when URL changes
+  useEffect(() => {
+    const urlCat = params.category ? decodeURIComponent(params.category) : "";
+    if (!urlCat) {
+      setActiveCategory(""); // empty means "Alla"
+      return;
+    }
+    // try to match known category keys (case-insensitive)
+    const matched = categories.find(
+      (c) => c.key && c.key.toLowerCase() === urlCat.toLowerCase()
+    );
+    setActiveCategory(matched ? matched.key : urlCat);
+  }, [params.category, location.pathname]);
 
-  // Fetch all drinks on mount
+  // fetch drinks once
   useEffect(() => {
     fetchDrinks();
   }, []);
 
-  // Update activeCategory if sidebar selection or URL param changes
-  useEffect(() => {
-    setActiveCategory(categoryFromSidebar || categoryFromURL || "Klassiska Drinkar");
-  }, [categoryFromSidebar, categoryFromURL]);
-
-  // Fetch recipes from API
+  // Function to fetch drinks from the API
   async function fetchDrinks() {
     setLoading(true);
     try {
@@ -53,13 +56,24 @@ function CategoryPage() {
     }
   }
 
-  // Filter recipes based on selected category
+  // Filter drinks by category (empty activeCategory => show all)
   const filteredDrinks = drinks.filter((recipe) => {
-    if (!activeCategory || activeCategory === "Alla") return true;
+    if (!activeCategory) return true; // Alla
     return recipe.categories?.some(
       (cat) => cat.toLowerCase() === activeCategory.toLowerCase()
     );
   });
+
+  // Navigate and update URL when selecting a category
+  const selectCategory = (categoryKey) => {
+    setActiveCategory(categoryKey);
+    if (!categoryKey) {
+      navigate("/recipes", { replace: false });
+      return;
+    }
+    const encoded = encodeURIComponent(categoryKey);
+    navigate(`/categories/${encoded}`, { replace: false });
+  };
 
   return (
     <>
@@ -80,10 +94,10 @@ function CategoryPage() {
       <div className="category-page">
         {categories.map((category) => (
           <button
-            key={category.key}
-            onClick={() => setActiveCategory(category.key)} // Update active category when clicked
+            key={category.key || "alla"}
+            onClick={() => selectCategory(category.key)}
             className={`category-button ${
-              activeCategory === category.key ? "active" : ""
+              (activeCategory || "") === (category.key || "") ? "active" : ""
             }`}
           >
             {category.label}
