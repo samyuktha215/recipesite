@@ -48,7 +48,7 @@ jobs:
 
       # 7️⃣ Run Playwright Tests
       - name: Run Playwright Tests
-        working-directory: ./client
+        working-directory: .
         run: |
           npx playwright test --config=playwright.config.js --reporter=list,html
         continue-on-error: false
