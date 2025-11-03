@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import nav from "./nav.jsx";
 import bannerImage from "../assets/Background.png";
 import "./CategoryPage.css";
 import { RecipeCard } from "./recipes/RecipeCard.jsx";
 import "../styles/global.css";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
 // Define all category options that users can click
 const categories = [
+  { key: "", label: "ALLA" }, // show all when key is empty
   { key: "Varma Drinkar", label: "VARMA" },
   { key: "Alkoholfria Drinkar", label: "ALKOHOLFRIA" },
   { key: "Veganska Drinkar", label: "VEGANSKA" },
@@ -14,18 +15,36 @@ const categories = [
 ];
 
 function CategoryPage() {
-  const [activeCategory, setActiveCategory] = useState("Klassiska Drinkar");    // State variable for the currently selected category (default = "Klassiska Drinkar")
+  const navigate = useNavigate();
+  const params = useParams();
+  const location = useLocation();
+
+  const defaultCategory = "Klassiska Drinkar";
+  const [activeCategory, setActiveCategory] = useState(defaultCategory);
   const [drinks, setDrinks] = useState([]); // Holds all drinks fetched from the API
   const [loading, setLoading] = useState(false); // Loading state while fetching data
 
-  // useEffect runs once when the component mounts
-  // It fetches all drinks from the API
+  // Read category from URL param on mount / when URL changes
+  useEffect(() => {
+    const urlCat = params.category ? decodeURIComponent(params.category) : "";
+    if (!urlCat) {
+      setActiveCategory(""); // empty means "Alla"
+      return;
+    }
+    // try to match known category keys (case-insensitive)
+    const matched = categories.find(
+      (c) => c.key && c.key.toLowerCase() === urlCat.toLowerCase()
+    );
+    setActiveCategory(matched ? matched.key : urlCat);
+  }, [params.category, location.pathname]);
+
+  // fetch drinks once
   useEffect(() => {
     fetchDrinks();
   }, []);
 
-    // Function to fetch drinks from the API
-    async function fetchDrinks() {
+  // Function to fetch drinks from the API
+  async function fetchDrinks() {
     setLoading(true);
     try {
       const response = await fetch("https://grupp1-mqzle.reky.se/recipes");
@@ -38,14 +57,24 @@ function CategoryPage() {
     }
   }
 
-  // Filter drinks by category
+  // Filter drinks by category (empty activeCategory => show all)
   const filteredDrinks = drinks.filter((recipe) => {
-    if (!activeCategory) return true;
-    // normalize category text for comparison
+    if (!activeCategory) return true; // Alla
     return recipe.categories?.some(
       (cat) => cat.toLowerCase() === activeCategory.toLowerCase()
     );
   });
+
+  // Navigate and update URL when selecting a category
+  const selectCategory = (categoryKey) => {
+    setActiveCategory(categoryKey);
+    if (!categoryKey) {
+      navigate("/recipes", { replace: false });
+      return;
+    }
+    const encoded = encodeURIComponent(categoryKey);
+    navigate(`/categories/${encoded}`, { replace: false });
+  };
 
   return (
     <>
@@ -66,10 +95,10 @@ function CategoryPage() {
         {/* Category buttons */}
         {categories.map((category) => (
           <button
-            key={category.key}
-            onClick={() => setActiveCategory(category.key)} 
+            key={category.key || "alla"}
+            onClick={() => selectCategory(category.key)}
             className={`category-button ${
-              activeCategory === category.key ? "active" : ""
+              (activeCategory || "") === (category.key || "") ? "active" : ""
             }`}
           >
             {category.label}
@@ -99,7 +128,7 @@ function CategoryPage() {
                     ? recipe.ingredients.length
                     : 0,
                 };
-                return <RecipeCard key={recipe._id} drink={adaptedDrink}/>;
+                return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
               })
             ) : (
               <p className="no-results">Inga recept hittades.</p>
