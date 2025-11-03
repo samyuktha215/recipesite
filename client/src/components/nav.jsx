@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FiLogIn, FiLogOut, FiMenu, FiX } from "react-icons/fi";
-import './nav.css';
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
-import "../styles/global.css";
+import "../components/nav.css";
  
 const Nav = () => {
   const { loginWithRedirect, logout, isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -56,7 +55,7 @@ const Nav = () => {
           {/* Navigation Links */}
           <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
             <li><Link to="/" className="link" onClick={closeMenu}>Hem</Link></li>
-            <li><Link to="/categories" className="link" onClick={closeMenu}>Kategori</Link></li>
+            <li><Link to="/category/Alla" className="link" onClick={closeMenu}>Kategori</Link></li>
             <li><Link to="/about" className="link" onClick={closeMenu}>Om</Link></li>
             <li><Link to="/contact" className="link" onClick={closeMenu}>Kontakt</Link></li>
 

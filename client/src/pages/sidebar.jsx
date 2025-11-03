@@ -9,13 +9,7 @@ const Sidebar = ({ onSelectCategory, categoryCounts = {} }) => {
   const location = useLocation(); // Current URL path
   const navigate = useNavigate(); // Hook to navigate programmatically
 
-  // Reset category to "Alla" when visiting the home page
-  useEffect(() => {
-    if (location.pathname === "/") {
-      setSelectedCategory("Alla");
-      onSelectCategory(""); // Call parent callback to reset
-    }
-  }, [location, onSelectCategory]);
+
 
   // Fixed list of categories
   const categories = [
@@ -26,14 +20,15 @@ const Sidebar = ({ onSelectCategory, categoryCounts = {} }) => {
     "Alla",
   ];
 
-  // Handle click on a category
-  const handleCategoryClick = (cat) => {
-    setSelectedCategory(cat); // Update local state
-    onSelectCategory(cat === "Alla" ? "" : cat); // Call parent callback
+const handleCategoryClick = (cat) => {
+  setSelectedCategory(cat);
+  onSelectCategory(cat === "Alla" ? "" : cat);
 
-    // Navigate to CategoryPage with selected category in URL
-    navigate(`/category/${cat === "Alla" ? "" : cat}`);
-  };
+  const urlParam = cat === "Alla" ? "Alla" : encodeURIComponent(cat);
+  navigate(`/category/${urlParam}`);
+};
+
+
 
   return (
     <aside>
