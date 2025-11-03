@@ -74,3 +74,5 @@ export const RecipeCard = ({ drink }) => {
     </div>
   );
 };
+
+export default RecipeCard;
