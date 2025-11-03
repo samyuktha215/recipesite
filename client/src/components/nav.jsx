@@ -40,7 +40,7 @@ const Nav = () => {
   }, [isAuthenticated]);
  
   return (
-    <>
+   
       <div className='header'>
         <div className="nav-bar">
           {/* Logo */}
@@ -49,9 +49,9 @@ const Nav = () => {
           </div>
  
           {/* Hamburger Icon */}
-          <div className="menu-icon" onClick={toggleMenu}>
+          <button className="menu-icon" onClick={toggleMenu}>
             {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </div>
+          </button>
  
           {/* Navigation Links */}
           <ul className={`nav-links ${isOpen ? 'active' : ''}`}>
@@ -68,7 +68,7 @@ const Nav = () => {
               <>
                 <button
                   onClick={() => {
-                    logout({ logoutParams: { returnTo: window.location.origin } });
+                    logout({ logoutParams: { returnTo: globalThis.location.origin } });
                     closeMenu();
                   }}
                 >
@@ -84,7 +84,7 @@ const Nav = () => {
           </div>
         </div>
       </div>
-    </>
+   
   );
 };
  
