@@ -15,6 +15,8 @@ The React Compiler is not enabled on this template. To add it, see [this documen
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
 
+---
+
 Incidentplan
 
 Om en säkerhetsincident upptäcks:
@@ -30,57 +32,36 @@ Kontaktpersoner:
 👩‍💻 [namn, e-post]
 👨‍💻 [namn, e-post]
 
+---
 
 ✅ Definition of Done (SSDLC-minimum)
 För att ett arbete ska vara “klart” måste följande punkter vara uppfyllda:
-Kontroll
-	
-Beskrivning
-	
-Status
+
+Kontroll | Beskrivning | Status
 
 
-🔒 Hotanalys utförd
-	
-OWASP Top 10 + STRIDE tillämpade på frontend ✅
+Hotanalys utförd | OWASP Top 10 + STRIDE tillämpade på frontend | ✅
+
+SonarCloud-analys | Projekt kopplat till SonarCloud, inga “High” varningar | ✅
 
 
-🧱 SonarCloud-analys
-	
-Projekt kopplat till SonarCloud, inga “High” varningar ✅
+Kodgranskning | En annan utvecklare har godkänt koden | ✅
 
 
-🧹 Kodgranskning (Code Review)
-	
-En annan utvecklare har godkänt koden ✅
+Enhetstester | ViTest körs utan fel | ✅
 
 
-🧪 Enhetstester (Unit tests)
-	
-ViTest körs utan fel ✅
+Integrationstester | React Testing Library testar komponenter | ✅
 
 
-🔗 Integrationstester
-	
-React Testing Library testar komponenter ✅
+E2E-test | Playwright testar huvudflöden | ✅
 
 
-🌐 E2E-test (End to End)
-	
-Playwright testar huvudflöden ✅
+npm audit / lint | Inga “high” eller “critical” sårbarheter | ✅
 
 
-🚨 npm audit / lint
-	
-Inga “high” eller “critical” sårbarheter ✅
+ZAP baseline scan | Inga “high severity”-fynd | ✅
 
 
-🧰 ZAP baseline scan
-	
-Inga “high severity”-fynd ✅
-
-
-💬 Manuell testning
-	
-Projektledare har testat UI & API-flöden ✅
+Manuell testning | Projektledare har testat UI & API-flöden | ✅
  
