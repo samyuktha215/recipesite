@@ -113,7 +113,6 @@ function CategoryPage() {
                   isFavorite: false,
                   commentsCount: 0,
                   ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0,
-                  ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0,
                 };
                 return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
               })
