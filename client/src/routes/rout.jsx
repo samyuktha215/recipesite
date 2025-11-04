@@ -18,7 +18,7 @@ const Rout = () => {
 
         <Route path="/category" element={<CategoryCard />}/>
 
-        <Route path="/category/:categoryName" element={<CategoryCard />}/>
+        <Route path="/category/:categoryName" element={<CategoryPage />}/>
         <Route path="/about" element={<ProtectedRoute><About/></ProtectedRoute>}/>
 
         <Route path="/contact" element={<ProtectedRoute><Contact/></ProtectedRoute>}/>

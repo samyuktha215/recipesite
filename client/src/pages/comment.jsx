@@ -88,6 +88,7 @@ const RecipeComments = ({ recipeId }) => {
         const token = await getAccessTokenSilently();
         headers.Authorization = `Bearer ${token}`;
       }
+
   const safeComment = comment
   .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "[skyddad text]")
   .replace(/</g, "&lt;")

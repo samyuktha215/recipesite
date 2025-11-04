@@ -30,8 +30,8 @@
 
 /* Hover effect */
 .category-button:hover {
-  background-color: var(--color-accent); /* Ljusgrön hover */
-  color: var(--color-text);
+  background-color: var(--color-primary); /* Ljusgrön hover */
+  color: var(--color-neutral);
   transform: translateY(-2px);
 }
 
@@ -124,8 +124,8 @@
 .category-button:focus {
   outline: 3px solid var(--color-primary);
   outline-offset: 3px;
-  background-color: var(--color-accent);
-  color: var(--color-text);
+  background-color: var(--color-primary);
+  color: var(--color-neutral);
   transform: translateY(-1px);
 }
 
