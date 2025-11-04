@@ -24,14 +24,14 @@ test.describe('Home Page - Drink IT', () => {
     await expect(headingH3.first()).toBeVisible();
   });
 
-  // Check navigation links
+  // ✅ Fixed navigation links
   test('should display navigation links', async ({ page }) => {
     await page.goto('https://project216.netlify.app/');
     await page.waitForLoadState('networkidle');
 
     const navLinks = [
       { text: 'Hem', url: '/' },
-      { text: 'Kategori', url: '/categories' },
+      { text: 'Kategori', url: '/category/Alla' }, // <-- Fixed here
       { text: 'Om', url: '/about' },
       { text: 'Kontakt', url: '/contact' }
     ];
