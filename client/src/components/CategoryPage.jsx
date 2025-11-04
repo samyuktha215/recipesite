@@ -5,7 +5,6 @@ import { RecipeCard } from "./recipes/RecipeCard.jsx";
 import "../styles/global.css";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-// Define all category options that users can click
 const categories = [
   { key: "", label: "ALLA" }, // show all when key is empty
   { key: "Varma Drinkar", label: "VARMA" },
@@ -19,28 +18,33 @@ function CategoryPage() {
   const params = useParams();
   const location = useLocation();
 
-  const defaultCategory = "Klassiska Drinkar";
-  const [activeCategory, setActiveCategory] = useState(defaultCategory);
+  const [activeCategory, setActiveCategory] = useState(""); // empty = Alla
   const [drinks, setDrinks] = useState([]); // Holds all drinks fetched from the API
   const [loading, setLoading] = useState(false); // Loading state while fetching data
+
+  // Normalize helper: lowercase, remove diacritics and non-alphanumerics
+  const normalize = (str) =>
+    String(str || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .replace(/[^a-z0-9]/g, "");
 
   // Read category from URL param on mount / when URL changes
   useEffect(() => {
     const urlCat = params.category ? decodeURIComponent(params.category) : "";
     if (!urlCat) {
-      setActiveCategory(""); // empty means "Alla"
+      setActiveCategory("");
       return;
     }
-    // try to match known category keys (case-insensitive)
-    const matched = categories.find(
-      (c) => c.key && c.key.toLowerCase() === urlCat.toLowerCase()
-    );
-    setActiveCategory(matched ? matched.key : urlCat);
+    const matched = categories.find((c) => c.key && normalize(c.key) === normalize(urlCat));
+    setActiveCategory(matched ? matched.key : decodeURIComponent(urlCat));
   }, [params.category, location.pathname]);
 
   // fetch drinks once
   useEffect(() => {
     fetchDrinks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Function to fetch drinks from the API
@@ -52,6 +56,7 @@ function CategoryPage() {
       setDrinks(data);
     } catch (error) {
       console.error("Error fetching drinks:", error);
+      setDrinks([]);
     } finally {
       setLoading(false);
     }
@@ -60,16 +65,15 @@ function CategoryPage() {
   // Filter drinks by category (empty activeCategory => show all)
   const filteredDrinks = drinks.filter((recipe) => {
     if (!activeCategory) return true; // Alla
-    return recipe.categories?.some(
-      (cat) => cat.toLowerCase() === activeCategory.toLowerCase()
-    );
+    return recipe.categories?.some((cat) => normalize(cat) === normalize(activeCategory));
   });
 
   // Navigate and update URL when selecting a category
   const selectCategory = (categoryKey) => {
     setActiveCategory(categoryKey);
     if (!categoryKey) {
-      navigate("/recipes", { replace: false });
+      // ALLA -> go to the base /categories route (no param)
+      navigate("/categories", { replace: false });
       return;
     }
     const encoded = encodeURIComponent(categoryKey);
@@ -79,7 +83,6 @@ function CategoryPage() {
   return (
     <>
       <div className="home">
-        {/* Header and banner */}
         <div className="top_banner">
           <div className="content">
             <h3>Drink IT</h3>
@@ -92,14 +95,11 @@ function CategoryPage() {
       </div>
 
       <div className="category-page">
-        {/* Category buttons */}
         {categories.map((category) => (
           <button
             key={category.key || "alla"}
             onClick={() => selectCategory(category.key)}
-            className={`category-button ${
-              (activeCategory || "") === (category.key || "") ? "active" : ""
-            }`}
+            className={`category-button ${ (activeCategory || "") === (category.key || "") ? "active" : "" }`}
           >
             {category.label}
           </button>
@@ -107,7 +107,6 @@ function CategoryPage() {
       </div>
 
       <div className="drinks_list">
-        {/* Drinks Results */}
         {loading ? (
           <p className="no_results">Laddar recept...</p>
         ) : (
@@ -124,9 +123,7 @@ function CategoryPage() {
                   timeInMins: recipe.timeInMins || 0,
                   isFavorite: false,
                   commentsCount: 0,
-                  ingredientCount: recipe.ingredients
-                    ? recipe.ingredients.length
-                    : 0,
+                  ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0,
                 };
                 return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
               })
