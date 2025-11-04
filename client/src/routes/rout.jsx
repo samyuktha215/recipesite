@@ -18,14 +18,13 @@ const Rout = () => {
 
         <Route path="/category" element={<CategoryCard />}/>
 
-        <Route path="/category/:categoryName" element={<CategoryCard />}/>
+        <Route path="/category/:categoryName" element={<CategoryPage />}/>
         <Route path="/about" element={<ProtectedRoute><About/></ProtectedRoute>}/>
 
         <Route path="/contact" element={<ProtectedRoute><Contact/></ProtectedRoute>}/>
 
-        <Route path="/categories" element={<CategoryPage />}/>
-        <Route path="/categories/:category" element={<CategoryPage />} />
-
+        <Route path="/categories/:category?" element={<CategoryPage />} />  
+        
         <Route path="/recipes/:id" element={<RecipeDetails />} />
 
 

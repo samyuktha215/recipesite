@@ -87,6 +87,8 @@
 	display: none;
 	cursor: pointer;
 	color: var(--color-neutral);
+	padding: 10px;
+	background-color: var(--color-primary-dark);
 }
 
 /* ===============================

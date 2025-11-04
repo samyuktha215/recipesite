@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import bannerImage from "../assets/Background.png";
-import "./CategoryPage.css";
 import { RecipeCard } from "./recipes/RecipeCard.jsx";
-import "../styles/global.css";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-// Define all category options that users can click
+import "../components/CategoryPage.css";
+import { useNavigate, useParams } from "react-router-dom";
+
+// Category buttons with label
 const categories = [
-  { key: "", label: "ALLA" }, // show all when key is empty
+  { key: "Alla", label: "ALLA" }, // Virtual category for all recipes
   { key: "Varma Drinkar", label: "VARMA" },
   { key: "Alkoholfria Drinkar", label: "ALKOHOLFRIA" },
   { key: "Veganska Drinkar", label: "VEGANSKA" },
@@ -17,33 +17,17 @@ const categories = [
 function CategoryPage() {
   const navigate = useNavigate();
   const params = useParams();
-  const location = useLocation();
 
-  const defaultCategory = "Klassiska Drinkar";
-  const [activeCategory, setActiveCategory] = useState(defaultCategory);
-  const [drinks, setDrinks] = useState([]); // Holds all drinks fetched from the API
-  const [loading, setLoading] = useState(false); // Loading state while fetching data
+  const [activeCategory, setActiveCategory] = useState(""); // "" = Alla
+  const [drinks, setDrinks] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // Read category from URL param on mount / when URL changes
-  useEffect(() => {
-    const urlCat = params.category ? decodeURIComponent(params.category) : "";
-    if (!urlCat) {
-      setActiveCategory(""); // empty means "Alla"
-      return;
-    }
-    // try to match known category keys (case-insensitive)
-    const matched = categories.find(
-      (c) => c.key && c.key.toLowerCase() === urlCat.toLowerCase()
-    );
-    setActiveCategory(matched ? matched.key : urlCat);
-  }, [params.category, location.pathname]);
-
-  // fetch drinks once
+  // Fetch drinks once
   useEffect(() => {
     fetchDrinks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Function to fetch drinks from the API
   async function fetchDrinks() {
     setLoading(true);
     try {
@@ -52,34 +36,40 @@ function CategoryPage() {
       setDrinks(data);
     } catch (error) {
       console.error("Error fetching drinks:", error);
+      setDrinks([]);
     } finally {
       setLoading(false);
     }
   }
 
-  // Filter drinks by category (empty activeCategory => show all)
-  const filteredDrinks = drinks.filter((recipe) => {
-    if (!activeCategory) return true; // Alla
-    return recipe.categories?.some(
-      (cat) => cat.toLowerCase() === activeCategory.toLowerCase()
-    );
-  });
+  // Update activeCategory based on URL param
+    useEffect(() => {
+      const urlCat = params.categoryName ? decodeURIComponent(params.categoryName) : "Alla";
+      setActiveCategory(urlCat); // Alla = default
+    }, [params.categoryName]);
 
-  // Navigate and update URL when selecting a category
-  const selectCategory = (categoryKey) => {
-    setActiveCategory(categoryKey);
-    if (!categoryKey) {
-      navigate("/recipes", { replace: false });
-      return;
-    }
-    const encoded = encodeURIComponent(categoryKey);
-    navigate(`/categories/${encoded}`, { replace: false });
-  };
+
+
+    // Filter drinks by category
+    const filteredDrinks = drinks.filter((recipe) => {
+      if (activeCategory === "Alla") return true; // Alla = show all
+      return recipe.categories?.some(
+        (cat) => cat.toLowerCase() === activeCategory.toLowerCase()
+      );
+    });
+
+
+  // Handle category button click
+    const selectCategory = (categoryKey) => {
+      setActiveCategory(categoryKey);
+      navigate(`/category/${encodeURIComponent(categoryKey)}`);
+    };
+
 
   return (
     <>
+      {/* Banner */}
       <div className="home">
-        {/* Header and banner */}
         <div className="top_banner">
           <div className="content">
             <h3>Drink IT</h3>
@@ -91,23 +81,21 @@ function CategoryPage() {
         </div>
       </div>
 
+      {/* Category buttons */}
       <div className="category-page">
-        {/* Category buttons */}
         {categories.map((category) => (
           <button
-            key={category.key || "alla"}
+            key={category.key}
             onClick={() => selectCategory(category.key)}
-            className={`category-button ${
-              (activeCategory || "") === (category.key || "") ? "active" : ""
-            }`}
+            className={`category-button ${activeCategory === category.key ? "active" : ""}`}
           >
             {category.label}
           </button>
         ))}
       </div>
 
+      {/* Recipes grid */}
       <div className="drinks_list">
-        {/* Drinks Results */}
         {loading ? (
           <p className="no_results">Laddar recept...</p>
         ) : (
@@ -124,9 +112,7 @@ function CategoryPage() {
                   timeInMins: recipe.timeInMins || 0,
                   isFavorite: false,
                   commentsCount: 0,
-                  ingredientCount: recipe.ingredients
-                    ? recipe.ingredients.length
-                    : 0,
+                  ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0,
                 };
                 return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
               })
