@@ -88,12 +88,11 @@ const RecipeComments = ({ recipeId }) => {
         const token = await getAccessTokenSilently();
         headers.Authorization = `Bearer ${token}`;
       }
-
-      const safeComment = comment
-  .replace(/<script.*?>.*?<\/script>/gi, "[skyddad text]")
+  const safeComment = comment
+  .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "[skyddad text]")
   .replace(/</g, "&lt;")
   .replace(/>/g, "&gt;");
-
+     
 
       await axios.post(url, { name, comment: safeComment }, { headers });
 
