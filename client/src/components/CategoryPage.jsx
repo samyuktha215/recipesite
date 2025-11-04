@@ -25,6 +25,7 @@ function CategoryPage() {
   // Fetch drinks once
   useEffect(() => {
     fetchDrinks();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function fetchDrinks() {
@@ -35,6 +36,7 @@ function CategoryPage() {
       setDrinks(data);
     } catch (error) {
       console.error("Error fetching drinks:", error);
+      setDrinks([]);
     } finally {
       setLoading(false);
     }
@@ -110,6 +112,7 @@ function CategoryPage() {
                   timeInMins: recipe.timeInMins || 0,
                   isFavorite: false,
                   commentsCount: 0,
+                  ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0,
                   ingredientCount: recipe.ingredients ? recipe.ingredients.length : 0,
                 };
                 return <RecipeCard key={recipe._id} drink={adaptedDrink} />;
